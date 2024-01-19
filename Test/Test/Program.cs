@@ -27,6 +27,7 @@ namespace Test
         public static bool IsPalindrome(string word)
         {
             int count = word.Length - 1;
+            word = word.ToLower();
             for (int x = 0; x < word.Length; x++) 
             {
                 if (word[x] != word[count])
