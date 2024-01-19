@@ -1,4 +1,8 @@
-﻿namespace Test
+﻿//blank lines and comments
+
+//Charlie
+
+namespace Test
 {
     internal class Program
     {
