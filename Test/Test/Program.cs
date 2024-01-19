@@ -19,6 +19,11 @@ namespace Test
             Console.WriteLine("Hello, World!");
         }
 
+        /// <summary>
+        /// determines if a word is a palindrome
+        /// </summary>
+        /// <param name="word">incoming word to be checked</param>
+        /// <returns>true if palindrome, false otherwise</returns>
         public static bool IsPalindrome(string word)
         {
             int count = word.Length - 1;
@@ -28,6 +33,7 @@ namespace Test
                 {
                     return false;
                 }
+                count--;
             }
             return true;
         }
