@@ -1,4 +1,14 @@
-﻿//this is robin typing
+//blank lines and comments
+
+//Charlie
+
+
+//this is robin typing
+
+// this is jake typing
+
+//this is Colby typing
+
 //this is william typing
 namespace Test
 {
@@ -9,5 +19,7 @@ namespace Test
         {
             Console.WriteLine("Hello, World!");
         }
+
     }
+
 }
