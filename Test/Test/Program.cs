@@ -7,10 +7,13 @@ namespace Test
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+           
+           
         }
-        public int LongestSortedSequence(int[] Arr)
+        public static int LongestSortedSequence(int[] Arr)
         {
             int a = 0;
+            int max = 0;
             for (int i = 1; i < Arr.Length; i++)
             {
                 if (Arr[i] >= Arr[i - 1])
@@ -19,11 +22,15 @@ namespace Test
                 }
                 else
                 {
+                    if (a > max)
+                    {
+                        max = a;
+                    }
                     a = 0;
                     
                 }
             }
-            return a;
+            return max;
         }
     }
 }
