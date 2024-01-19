@@ -19,6 +19,19 @@ namespace Test
             Console.WriteLine("Hello, World!");
         }
 
+        public static bool IsPalindrome(string word)
+        {
+            int count = word.Length - 1;
+            for (int x = 0; x < word.Length; x++) 
+            {
+                if (word[x] != word[count])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
+
 
 }
