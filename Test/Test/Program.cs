@@ -16,8 +16,8 @@ namespace Test
         
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
             DiceSum();
+            Console.WriteLine("\nLastFirst: " + LastFirst("Wedge Antilles"));
         }
 
         /// <summary>
@@ -83,14 +83,18 @@ namespace Test
             return max;
         }
 
-
-        public string LastFirst(string name)
+        /// <summary>
+        /// reformats a given name to firstname, last initial
+        /// </summary>
+        /// <param name="name">name to be formatted</param>
+        /// <returns>properly formatted name</returns>
+        public static string LastFirst(string name)
         {
             //split the name
             string[] nameSplit = name.Split(" ");
             //collect the parts
-            string firstName = nameSplit[0];
-            string lastName = nameSplit[1];
+            string lastName = nameSplit[0];
+            string firstName = nameSplit[1];
             //fix the formatting
             lastName = ", " + lastName.Substring(0, 1) + ".";
             //return the result
