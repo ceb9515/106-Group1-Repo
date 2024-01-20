@@ -21,6 +21,11 @@ namespace Test
            
            
         }
+        /// <summary>
+        /// problem 4,find out length of increasing number in an Array.
+        /// </summary>
+        /// <param name="Arr"></param>
+        /// <returns></returns>
         public static int LongestSortedSequence(int[] Arr)
         {
             int a = 0;
