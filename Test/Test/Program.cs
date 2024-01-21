@@ -9,6 +9,8 @@
 //this is Colby typing
 
 //this is william typing
+using System;
+
 namespace Test
 {
     internal class Program
@@ -18,6 +20,11 @@ namespace Test
         {
             DiceSum();
             Console.WriteLine("\nLastFirst: " + LastFirst("Wedge Antilles"));
+            
+            int[] arr1 = { 3, 8, 10, 1, 9, 14, -3, 0, 14, 207, 56, 98 };
+            Console.WriteLine("\nThe array"+LongestSortedSequence(arr1));
+            int[] arr2 = { 17, 42, 3, 5, 5, 5, 8, 2, 4, 6, 1, 19 };
+            Console.WriteLine("\nThe array" + LongestSortedSequence(arr2));
         }
 
         /// <summary>
