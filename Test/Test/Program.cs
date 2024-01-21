@@ -120,5 +120,43 @@ namespace Test
             }
             return true;
         }
+
+        /// <summary>
+        /// find the longest duplicate number in an array
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns>the number which is longest duplicated array</returns>
+        public static int GetLongestDuplicate(int[] numbers)
+        {
+            int num;
+            int record = 0;
+            int count = 1;
+            int maxCount = 1;
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                num = numbers[i];
+                if (num == numbers[i - 1])
+                {
+                    count++;
+                    if (count > maxCount)
+                    {
+                        maxCount = count;
+                        record = num;
+                    }
+                }
+                else
+                {
+                    count = -1;
+                }
+            }
+            if (record != 0)
+            {
+                return record;
+            }
+            else
+            {
+                return numbers[numbers.Length - 1];
+            }
+        }
     }
 }
