@@ -43,11 +43,14 @@ namespace Test
             }
 
             int[] arr1 = { 3, 8, 10, 1, 9, 14, -3, 0, 14, 207, 56, 98 };
-            Console.WriteLine("\nThe array"+arr1+ "has longest sorted sequence of "+LongestSortedSequence(arr1));
+            Console.WriteLine("\nThe array { 3, 8, 10, 1, 9, 14, -3, 0, 14, 207, 56, 98 } has longest sorted sequence of " + LongestSortedSequence(arr1));
             int[] arr2 = { 17, 42, 3, 5, 5, 5, 8, 2, 4, 6, 1, 19 };
-            Console.WriteLine("\nThe array" +arr2+ "has longest sorted sequence of " +LongestSortedSequence(arr2));
+            Console.WriteLine("\nThe array { 17, 42, 3, 5, 5, 5, 8, 2, 4, 6, 1, 19 } has longest sorted sequence of " + LongestSortedSequence(arr2));
+            int[] numbers1 = { 2, 2, 4, 10, 10, 10, 10, 4, 2, 2, 2, 4 };
+            Console.WriteLine("\nThe array { 2, 2, 4, 10, 10, 10, 10, 4, 2, 2, 2, 4 } get longest duplicate " + GetLongestDuplicate(numbers1));
+            int[] numbers2 = { 5, 2, 4, 4, 6, 6, 6, 7, 7, 7, 1, 2 };
+            Console.WriteLine("\nThe array { 5, 2, 4, 4, 6, 6, 6, 7, 7, 7, 1, 2 } get longest duplicate " + GetLongestDuplicate(numbers2));
 
-            
         }
 
         /// <summary>
@@ -158,35 +161,28 @@ namespace Test
         /// <returns>the number which is longest duplicated array</returns>
         public static int GetLongestDuplicate(int[] numbers)
         {
-            int num;
-            int record = 0;
-            int count = 1;
             int maxCount = 1;
+            int currentCount = 1;
+            int result = numbers[0];
+
             for (int i = 1; i < numbers.Length; i++)
             {
-                num = numbers[i];
-                if (num == numbers[i - 1])
+                if (numbers[i] == numbers[i - 1])
                 {
-                    count++;
-                    if (count > maxCount)
+                    currentCount++;
+                    if (currentCount >= maxCount)
                     {
-                        maxCount = count;
-                        record = num;
+                        maxCount = currentCount;
+                        result = numbers[i];
                     }
                 }
                 else
                 {
-                    count = -1;
+                    currentCount = 1;
                 }
             }
-            if (record != 0)
-            {
-                return record;
-            }
-            else
-            {
-                return numbers[numbers.Length - 1];
-            }
+
+            return result;
         }
     }
 }
