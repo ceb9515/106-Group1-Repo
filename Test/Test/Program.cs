@@ -43,9 +43,9 @@ namespace Test
             }
 
             int[] arr1 = { 3, 8, 10, 1, 9, 14, -3, 0, 14, 207, 56, 98 };
-            Console.WriteLine("\nThe array"+LongestSortedSequence(arr1));
+            Console.WriteLine("\nThe array"+arr1+ "has longest sorted sequence of "+LongestSortedSequence(arr1));
             int[] arr2 = { 17, 42, 3, 5, 5, 5, 8, 2, 4, 6, 1, 19 };
-            Console.WriteLine("\nThe array" + LongestSortedSequence(arr2));
+            Console.WriteLine("\nThe array" +arr2+ "has longest sorted sequence of " +LongestSortedSequence(arr2));
 
             
         }
@@ -92,7 +92,7 @@ namespace Test
         /// <returns></returns>
         public static int LongestSortedSequence(int[] Arr)
         {
-            int a = 0;
+            int a = 1;
             int max = 0;
             for (int i = 1; i < Arr.Length; i++)
             {
@@ -106,7 +106,7 @@ namespace Test
                     {
                         max = a;
                     }
-                    a = 0;
+                    a = 1;
                     
                 }
             }
