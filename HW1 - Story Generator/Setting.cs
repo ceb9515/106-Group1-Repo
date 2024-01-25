@@ -19,7 +19,7 @@ namespace HW1___Story_Generator
         /// </summary>
         public Setting()
         {
-            settings = Load("../../../Setting.txt");
+            settings = Load("../../../setting.txt");
             rand = new Random();
         }
 
