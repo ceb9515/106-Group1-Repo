@@ -26,7 +26,7 @@ namespace HW1___Story_Generator
             while ((line = input.ReadLine()) != null)
             {
                 //split the line into strings
-                string[] splitLine = line.Split(",");
+                string[] splitLine = line.Split("|");
                 dataList.Add(splitLine);
             }
             //return the finalized list
