@@ -1,2 +1,2 @@
-Test Data Line One,info point one,info point two
-Test Data Line Two,info point three,info point four
+Test Data Line One|info point one|info point two
+Test Data Line Two|info point three|info point four
