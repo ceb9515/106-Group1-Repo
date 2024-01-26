@@ -12,8 +12,14 @@ namespace HW1___Story_Generator
         private Random rand;
         private List<string[]> Actors;
         private string pronone;
+        /// <summary>
+        /// propertie
+        /// </summary>
 
         public string Pronone { get { return pronone; }set { pronone = value; } }
+        /// <summary>
+        /// constructor
+        /// </summary>
         public Actor()
         {
             Actors = Load("Actor.txt");
