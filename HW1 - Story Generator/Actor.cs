@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Sanxing wang
+//1/25/2024
+//actorclass in HW1
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
