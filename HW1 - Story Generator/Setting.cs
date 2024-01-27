@@ -32,7 +32,7 @@ namespace HW1___Story_Generator
         public string GetASetting()
         {
             int randomSetting = rand.Next(0, 5);
-            return settings[randomSetting][0];
+            return settings[randomSetting][0] + " at " + settings[randomSetting][1];
         }
     }
 }

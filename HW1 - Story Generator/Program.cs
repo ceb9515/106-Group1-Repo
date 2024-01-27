@@ -30,7 +30,7 @@
             while(input.ToLower() != "no")
             {
                 //introduce user to choice options 
-                Console.WriteLine("\nChoose a type of ending:\n\'happy\'\t\t\'tragic\'\t\'romantic\'\n\'destructive\'\t\'twist\'\t\t\'any ending\'");
+                Console.WriteLine("\nChoose a type of ending:\n\'happy\'\t\t\'tragic\'\t\'comedic\'\n\'cliffhanger\'\t\'realistic\'\t\'any ending\'");
                 Console.Write("\nYour choice >> ");
                 string storyType = Console.ReadLine();
 
