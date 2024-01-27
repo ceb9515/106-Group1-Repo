@@ -15,6 +15,8 @@ namespace HW1___Story_Generator
         private Random rand;
         private List<string[]> Actors;
         private string pronone;
+        private string pronones;
+        private string pronone3;
         /// <summary>
         /// propertie
         /// </summary>
@@ -38,17 +40,21 @@ namespace HW1___Story_Generator
             if (Actors[n][1] == "male")
             {
                 Pronone = "he";
+                pronones = "his";
+                pronone3 = "him";
             }
             else
             {
                 Pronone = "she";
+                pronones = "her";
+                pronone3 = "her";
             }
 
             //create outputInfo string array to return pronouns + actor's story
             string[] outputInfo = new string[3];
             outputInfo[0] = pronone;
             outputInfo[1] = Actors[n][0];
-            outputInfo[2] = Actors[n][0] + " is " + Actors[n][4]+ " and " +pronone+ " is " + Actors[n][2]+ " around " + Actors[n][3]+ " " + pronone + " " + Actors[n][5];
+            outputInfo[2] = Actors[n][0] + " is " + Actors[n][4]+ " and " + Actors[n][2]+". "+ pronones + " age is around " + Actors[n][3]+ " " + pronone + " " + Actors[n][5]+". " + Actors[n][6]+" "+pronone3+" to";
             
             return outputInfo;
         }
