@@ -25,14 +25,14 @@ namespace HW1___Story_Generator
         /// </summary>
         public Actor()
         {
-            Actors = Load("Actor.txt");
+            Actors = Load("../../../Actor.txt");
             rand = new Random();
         }
         /// <summary>
         /// return a random character intro sentence
         /// </summary>
         /// <returns></returns>
-        public string output()
+        public string[] Output()
         {
             int n=rand.Next(Actors.Count);
             if (Actors[n][1] == "male")
@@ -41,10 +41,16 @@ namespace HW1___Story_Generator
             }
             else
             {
-                Pronone = "her";
+                Pronone = "she";
             }
-            return Actors[n][0]+pronone+" is " + Actors[n][4]+" and "+pronone+" is  " + Actors[n][2]+ " around " + Actors[n][3]+" " + pronone + Actors[n][5];
+
+            //create outputInfo string array to return pronouns + actor's story
+            string[] outputInfo = new string[3];
+            outputInfo[0] = pronone;
+            outputInfo[1] = Actors[n][0];
+            outputInfo[2] = Actors[n][0] + " is " + Actors[n][4]+ " and " +pronone+ " is " + Actors[n][2]+ " around " + Actors[n][3]+ " " + pronone + " " + Actors[n][5];
             
+            return outputInfo;
         }
     }
 }

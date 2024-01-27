@@ -29,10 +29,10 @@ namespace HW1___Story_Generator
         /// gets a random setting from the list of settings
         /// </summary>
         /// <returns>returns a random setting that holds location and time of day</returns>
-        public string[] GetASetting()
+        public string GetASetting()
         {
             int randomSetting = rand.Next(0, 5);
-            return settings[randomSetting];
+            return settings[randomSetting][0];
         }
     }
 }

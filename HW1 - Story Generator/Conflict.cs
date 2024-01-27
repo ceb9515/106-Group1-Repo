@@ -17,10 +17,10 @@ namespace HW1___Story_Generator
             conflicts = Load("../../../conflictClass.txt");
         }
 
-        public string[] GetConflict(List<string[]> conflicts)
+        public string GetConflict()
         {
             int number = conflicts.Count;
-            return conflicts[rng.Next(number)];
+            return conflicts[rng.Next(number)][0];
         }
 
 
