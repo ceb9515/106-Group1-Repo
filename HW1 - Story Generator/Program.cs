@@ -15,56 +15,7 @@ namespace HW1___Story_Generator
             bool choosing = true;
             while (choosing == true)
             {
-                switch (userChoice)
-                {
-                    case "tragic":
-                        {
-                            story = conclusion.Sort(userChoice);
-                            choosing = false;
-                            break;
-                        }
 
-                    case "happy":
-                        {
-                            story = conclusion.Sort(userChoice);
-                            choosing = false;
-                            break;
-                        }
-
-                    case "comedic":
-                        {
-                            story = conclusion.Sort(userChoice);
-                            choosing = false;
-                            break;
-                        }
-
-                    case "cliffhanger":
-                        {
-                            story = conclusion.Sort(userChoice);
-                            choosing = false;
-                            break;
-                        }
-
-                    case "realistic":
-                        {
-                            story = conclusion.Sort(userChoice);
-                            choosing = false;
-                            break;
-                        }
-
-                    case "any":
-                        {
-                            story = conclusion.AnyEnding();
-                            choosing = false;
-                            break;
-                        }
-
-                    default:
-                        {
-                            Console.WriteLine("Invalid genre.");
-                            break;
-                        }
-                }
 
                 Console.WriteLine(story);
             }
@@ -95,10 +46,6 @@ namespace HW1___Story_Generator
             string input = "";
             while(input.ToLower() != "no")
             {
-                //introduce user to choice options 
-                Console.WriteLine("\nChoose a type of ending:\n\'happy\'\t\t\'tragic\'\t\'comedic\'\n\'cliffhanger\'\t\'realistic\'\t\'any ending\'");
-                Console.Write("\nYour choice >> ");
-                string storyType = Console.ReadLine();
 
                 //get actor story and pronouns
                 Actor actor = new Actor();
@@ -114,19 +61,87 @@ namespace HW1___Story_Generator
                 Conflict conflict = new Conflict();
 
                 //generate ending based on user input
-                //--ENDING GENERATION WILL GO HERE
+                string storyEnding = "";
+                Conclusion conclusion = new Conclusion();
+                //establish loop for user input selection
+                bool choosing = true;
+                while (choosing)
+                {
+                    //introduce user to choice options 
+                    Console.WriteLine("\nChoose a type of ending:\n\'happy\'\t\t\'tragic\'\t\'comedic\'\n\'cliffhanger\'\t\'realistic\'\t\'any ending\'");
+                    Console.Write("\nYour choice >> ");
+                    string storyType = Console.ReadLine()!.Trim().ToLower();
+
+                    //switch to ensure valid user case selection
+                    switch (storyType)
+                    {
+                        case "tragic":
+                            {
+                                storyEnding = conclusion.Sort(storyType);
+                                choosing = false;
+                                break;
+                            }
+
+                        case "happy":
+                            {
+                                storyEnding = conclusion.Sort(storyType);
+                                choosing = false;
+                                break;
+                            }
+
+                        case "comedic":
+                            {
+                                storyEnding = conclusion.Sort(storyType);
+                                choosing = false;
+                                break;
+                            }
+
+                        case "cliffhanger":
+                            {
+                                storyEnding = conclusion.Sort(storyType);
+                                choosing = false;
+                                break;
+                            }
+
+                        case "realistic":
+                            {
+                                storyEnding = conclusion.Sort(storyType);
+                                choosing = false;
+                                break;
+                            }
+
+                        case "any":
+                            {
+                                storyEnding = conclusion.AnyEnding();
+                                choosing = false;
+                                break;
+                            }
+
+                        default:
+                            {
+                                Console.WriteLine("Invalid genre. Please Try Again.");
+                                break;
+                            }
+                    }
+                }
 
                 //begin writing the story
                 Console.WriteLine("\nStory Idea:");
                 Console.Write(actorStory);
-                Console.Write(" in " + setting.GetASetting() + ".");
+                Console.Write(" " + setting.GetASetting() + ".");
                 Console.Write(" However, " + pronouns + " " + conflict.GetConflict() + ".");
+                Console.Write(" " + storyEnding);
                 //--ENDING INFORMATION WILL GO HERE
 
 
                 //prompt the user on whether they would like another story or not, restarting the while loop
                 Console.Write("\n\nWould you like another story? (\'yes\' or \'no\') >> ");
                 input = Console.ReadLine();
+                while(input != "yes" && input != "no")
+                {
+                    Console.Write("\nInput Invalid. Would you like another story? (\'yes\' or \'no\') >> ");
+                    input = Console.ReadLine();
+                }
             }
 
             //print exit statement

@@ -54,7 +54,7 @@ namespace HW1___Story_Generator
             string[] outputInfo = new string[3];
             outputInfo[0] = pronone;
             outputInfo[1] = Actors[n][0];
-            outputInfo[2] = Actors[n][0] + " is " + Actors[n][4]+ " and " + Actors[n][2]+". "+ pronones + " age is around " + Actors[n][3]+ " " + pronone + " " + Actors[n][5]+". " + Actors[n][6]+" "+pronone3+" to";
+            outputInfo[2] = Actors[n][0] + " is " + Actors[n][4]+ " and " + Actors[n][2]+". "+ pronones.Substring(0, 1).ToUpper() + pronones.Substring(1) + " age is around " + Actors[n][3]+ ", and " + pronone + " " + Actors[n][5]+". " + Actors[n][6]+" "+pronone3+" to";
             
             return outputInfo;
         }
