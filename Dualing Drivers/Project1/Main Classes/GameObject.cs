@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Project1
     {
         Rectangle rectangle;
 
-        public void Draw()
+        public virtual void Draw(SpriteBatch sb)
         {
 
         }
@@ -28,7 +29,13 @@ namespace Project1
 
         public bool IsColliding(Rectangle rectangle)
         {
-
+            if(this.rectangle.IntersectsWith(rectangle))
+            {
+                return true;
+            }
+            else { return false; }
         }
+
+        
     }
 }
