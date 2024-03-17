@@ -25,11 +25,11 @@ namespace Project1
         /// constructor
         /// </summary>
         /// <param name="angle"></param>
-        public Bullet(int angle,Texture2D BulletTex,Vector2 position)
+        public Bullet(Texture2D BulletTex, int inputX, int inputY, int width, int height, int angle) : base(BulletTex, inputX, inputY, width, height)
         {
             Angle = angle;
             BulletTexture = BulletTex;
-            this.activePosition = position;
+            this.activePosition = new Vector2(inputX, inputY);
             int x = (int)Math.Floor(this.activePosition.X);
             int y = (int)Math.Floor(this.activePosition.Y);
             BulletRec = new Rectangle(x,y,BulletTexture.Width,BulletTexture.Height);

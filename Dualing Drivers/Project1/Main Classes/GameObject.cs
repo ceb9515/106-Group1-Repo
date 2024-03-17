@@ -12,10 +12,23 @@ namespace Project1
     {
         Rectangle rectangle;
 
-        public virtual void Draw(SpriteBatch sb)
+        /// <summary>
+        /// Basic GameObject Constructor w/ hovering texture
+        /// </summary>
+        /// <param name="texture">texture of game object</param>
+        /// <param name="x">x value of position rectangle</param>
+        /// <param name="y">y value of position rectangle</param>
+        /// <param name="width">width of position rectangle</param>
+        /// <param name="height">height of position rectangle</param>
+        public GameObject(Texture2D texture, int x, int y, int width, int height) : base(texture, x, y, width, height)
         {
 
         }
+
+        /*public virtual void Draw(SpriteBatch sb)
+        {
+
+        }*/
 
         public void Move()
         {
