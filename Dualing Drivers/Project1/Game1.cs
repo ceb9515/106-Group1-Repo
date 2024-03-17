@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project1.Managers;
 
 namespace Project1
 {
@@ -22,6 +23,15 @@ namespace Project1
         private Texture2D testButtonTexture;
         private Texture2D testButtonHTexture;
         private Button testButton;
+
+        //Create TileSet Textures
+        private Texture2D groundText;
+        private Texture2D wallText;
+        private Texture2D halfText;
+        private Texture2D breakableText;
+
+        //Create LevelEditor object
+        private LevelEditor levelEditor;
 
         public Game1()
         {
@@ -52,6 +62,12 @@ namespace Project1
             testButtonTexture = Content.Load<Texture2D>("Button");
             testButtonHTexture = Content.Load<Texture2D>("ButtonHovered");
             testButton = new Button(testButtonTexture, testButtonHTexture, 550, 300, 128, 64);
+
+            //load tile textures
+            groundText = Content.Load<Texture2D>("TESTgroundTexture");
+            wallText = Content.Load<Texture2D>("TESTwallTexture");
+
+            levelEditor = new LevelEditor(groundText, groundText, wallText, groundText);
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,6 +89,18 @@ namespace Project1
                     break;
 
                 case GameState.Editor:
+
+                    //loop through the editor to check collisions
+                    for(int i = 0; i < 25; i++)
+                    {
+                        for(int k = 0; k < 15; k++)
+                        {
+                            if (levelEditor.mapTiles[i, k].Clicked(mouseState))
+                            {
+                                levelEditor.SwitchTile(i, k, LevelEditor.TileType.Wall);
+                            }
+                        }
+                    }
                     break;
             }
 
@@ -98,6 +126,7 @@ namespace Project1
                 case GameState.Editor:
                     _spriteBatch.Begin();
                     testButton.Draw(_spriteBatch, testButton.IsHovering(mouseState));
+                    levelEditor.Draw(_spriteBatch);
                     _spriteBatch.End();
                     break;
             }

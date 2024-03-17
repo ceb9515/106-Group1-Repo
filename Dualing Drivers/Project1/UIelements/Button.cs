@@ -24,6 +24,23 @@ namespace Project1
         }
 
         /// <summary>
+        /// Checks if mouse is over current button + is currently clicked
+        /// </summary>
+        /// <param name="m">MouseState to check</param>
+        /// <returns></returns>
+        public bool Clicked(MouseState m)
+        {
+            if (this.IsHovering(m))
+            {
+                if (m.LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Draws the Object to SpriteBatch
         /// </summary>
         /// <param name="sb">SpriteBatch to draw to</param>
