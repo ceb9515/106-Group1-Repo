@@ -11,7 +11,7 @@ namespace Project1
         private SpriteBatch _spriteBatch;
 
         //Setup the GameState enum
-        public enum GameState { Title, Menu, Game, Editor, LevelSelect}
+        public enum GameState { Title, Menu, Game, Editor, LevelSelect }
         public GameState gameState = GameState.Title;
 
         //Setup keyboard + mouse states
@@ -29,6 +29,8 @@ namespace Project1
         private Texture2D wallText;
         private Texture2D halfText;
         private Texture2D breakableText;
+        private Texture2D selectedText;
+        private LevelEditor.TileType currentTile = 0;
 
         //Create LevelEditor object
         private LevelEditor levelEditor;
@@ -66,8 +68,12 @@ namespace Project1
             //load tile textures
             groundText = Content.Load<Texture2D>("TESTgroundTexture");
             wallText = Content.Load<Texture2D>("TESTwallTexture");
+            halfText = Content.Load<Texture2D>("TESThalfTexture");
+            breakableText = Content.Load<Texture2D>("TESTbreakableTexture");
+            selectedText = Content.Load<Texture2D>("TESTselectedTile");
 
-            levelEditor = new LevelEditor(groundText, groundText, wallText, groundText);
+            //load the tile textures into the level editor
+            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText);
         }
 
         protected override void Update(GameTime gameTime)
@@ -91,14 +97,22 @@ namespace Project1
                 case GameState.Editor:
 
                     //loop through the editor to check collisions
-                    for(int i = 0; i < 25; i++)
+                    for (int i = 0; i < levelEditor.MapWidth; i++)
                     {
-                        for(int k = 0; k < 15; k++)
+                        for (int k = 0; k < levelEditor.MapHeight; k++)
                         {
                             if (levelEditor.mapTiles[i, k].Clicked(mouseState))
                             {
-                                levelEditor.SwitchTile(i, k, LevelEditor.TileType.Wall);
+                                levelEditor.SwitchTile(i, k, currentTile);
                             }
+                        }
+                    }
+                    //loop through the tile selection to check collisions
+                    for (int i = 0; i < levelEditor.selectTiles.Length; i++)
+                    {
+                        if (levelEditor.selectTiles[i].Clicked(mouseState))
+                        {
+                            currentTile = (LevelEditor.TileType)i;
                         }
                     }
                     break;
@@ -113,10 +127,6 @@ namespace Project1
 
             // TODO: Add your drawing code here
 
-            _spriteBatch.Begin();
-            testButton.Draw(_spriteBatch);
-            _spriteBatch.End();
-
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
             {
@@ -125,8 +135,9 @@ namespace Project1
 
                 case GameState.Editor:
                     _spriteBatch.Begin();
-                    testButton.Draw(_spriteBatch, testButton.IsHovering(mouseState));
-                    levelEditor.Draw(_spriteBatch);
+                    //testButton.Draw(_spriteBatch, testButton.IsHovering(mouseState));
+                    levelEditor.DrawMap(_spriteBatch);
+                    levelEditor.DrawTiles(_spriteBatch, (int)currentTile);
                     _spriteBatch.End();
                     break;
             }

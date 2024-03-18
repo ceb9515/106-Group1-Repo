@@ -49,7 +49,7 @@ namespace Project1
         public bool IsHovering(MouseState m)
         {
             //check if mouse cursor is within UI element's bounds + hoverTexture exists
-            if (canHover && m.X >= this.X && m.X <= this.X + this.width
+            if (m.X >= this.X && m.X <= this.X + this.width
                 && m.Y >= this.Y && m.Y <= this.Y + this.height)
             {
                 return true;

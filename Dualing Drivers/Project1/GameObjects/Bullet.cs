@@ -33,8 +33,6 @@ namespace Project1
             int x = (int)Math.Floor(this.activePosition.X);
             int y = (int)Math.Floor(this.activePosition.Y);
             BulletRec = new Rectangle(x,y,BulletTexture.Width,BulletTexture.Height);
-            
-
         }
 
         public void move()

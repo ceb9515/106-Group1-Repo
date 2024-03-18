@@ -12,7 +12,19 @@ namespace Project1
     internal class Button : UIelement
     {
         /// <summary>
-        /// Basic UIElement Constructor
+        /// Basic Button Constructor
+        /// </summary>
+        /// <param name="texture">texture of game object</param>
+        /// <param name="x">x value of position rectangle</param>
+        /// <param name="y">y value of position rectangle</param>
+        /// <param name="width">width of position rectangle</param>
+        /// <param name="height">height of position rectangle</param>
+        public Button(Texture2D texture, int x, int y, int width, int height) : base(texture, x, y, width, height)
+        {
+        }
+
+        /// <summary>
+        /// Basic Button Constructor w/ Hovering Texture
         /// </summary>
         /// <param name="texture">texture of game object</param>
         /// <param name="x">x value of position rectangle</param>
@@ -48,11 +60,11 @@ namespace Project1
         {
             if(hover == true)
             {
-                sb.Draw(this.hTexture, rect, Color.White);
+                sb.Draw(hTexture, rect, Color.White);
             }
             else
             {
-                sb.Draw(this.texture, rect, Color.White);
+                sb.Draw(texture, rect, Color.White);
             }
         }
     }
