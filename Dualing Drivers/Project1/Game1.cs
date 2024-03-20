@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ms = Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input;
 using Project1.Managers;
+using System.Windows.Forms;
 
 namespace Project1
 {
@@ -34,6 +36,9 @@ namespace Project1
 
         //Create LevelEditor object
         private LevelEditor levelEditor;
+
+
+        bool testing = true;
 
         public Game1()
         {
@@ -78,7 +83,7 @@ namespace Project1
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ms.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(ms.Keys.Escape))
                 Exit();
 
             mouseState = Mouse.GetState();
@@ -88,6 +93,17 @@ namespace Project1
             //TESTING GAMESTATE(S)
             gameState = GameState.Editor;
 
+            if (testing)
+            {
+                /*SaveFileDialog saving = new SaveFileDialog();
+                saving.Title = "Save a level file.";
+                saving.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
+                saving.FileName = "myLevel";
+                //saving.FileOk += SaveData;
+                saving.ShowDialog();*/
+
+                testing = false;
+            }
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
             {

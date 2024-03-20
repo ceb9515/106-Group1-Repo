@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -125,6 +127,30 @@ namespace Project1.Managers
                     selectTiles[i].Draw(sb);
                 }
            }
+        }
+
+        /// <summary>
+        /// Save level data to an external file
+        /// </summary>
+        /// <param name="filename">filepath to write to</param>
+        public void Save(string filename)
+        {
+            StreamWriter output = new StreamWriter(filename);
+            for (int i = 0; i < mapWidth; i++)
+            {
+                for(int k = 0; k < mapHeight; i++)
+                {
+                    if(k == 0)
+                    {
+                        output.Write("\n" + tileTypes[i, k].ToString());
+                    }
+                    else
+                    {
+                        output.Write(" " + tileTypes[i, 1].ToString());
+                    }
+                }
+            }
+            output.Close();
         }
     }
 }
