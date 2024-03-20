@@ -33,5 +33,19 @@ namespace Project1.Managers
                 }
             }
         }
+        public void override Draw()
+        {
+            for(int i = 0;i < BulletList.Count; i++)
+            {
+                BulletList[i].Draw(SpriteBatch sb);
+            }
+        }
+        public void cleanUp()
+        {
+            for( int i = 0;i<BulletList.Count;i++)
+            {
+                BulletList[i].Destroy();
+            }
+        }
     }
 }
