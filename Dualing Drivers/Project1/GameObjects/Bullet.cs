@@ -15,7 +15,7 @@ namespace Project1
         //fields
         private Texture2D BulletTexture;
         private Rectangle BulletRec;
-        private int Angle;
+        private float Angle;
         private int Speed = 4;
         private Vector2 activePosition;
         private Vector2 currentPosition;
@@ -53,7 +53,7 @@ namespace Project1
         {
             if(active)
             {
-                sb.Draw(BulletTexture, currentPosition,Color.White);
+                sb.Draw(BulletTexture,BulletRec, BulletRec, Color.White,Angle,currentPosition,SpriteEffects.None,0);
             }
         }
     }
