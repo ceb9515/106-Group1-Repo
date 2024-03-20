@@ -35,7 +35,7 @@ namespace Project1
             BulletRec = new Rectangle(x,y,BulletTexture.Width,BulletTexture.Height);
         }
 
-        public void move()
+        public override void move()
         {
             // Convert angle to radians
             double angleRadians = Math.PI * Angle / 180.0;
