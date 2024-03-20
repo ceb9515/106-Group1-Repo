@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,9 +59,50 @@ namespace Project1
             }
         }
 
-        public void BlockPlayer()
+        /// <summary>
+        /// blocks player from going through tiles
+        /// </summary>
+        /// <param name="playerRect">players current position</param>
+        /// <returns>players new position outside of rectangle</returns>
+        public Microsoft.Xna.Framework.Rectangle BlockPlayer(Microsoft.Xna.Framework.Rectangle playerRect)
         {
-            
+            if (this.rect.Intersects(playerRect) && tileType != TileType.background)
+            {
+                // finds where the objects overlap
+                Microsoft.Xna.Framework.Rectangle overlap =
+                    Microsoft.Xna.Framework.Rectangle.Intersect(this.rect, playerRect);
+
+                // moves player horizontally left or right
+                // from conflicting tile
+                if (overlap.Height >= overlap.Width)
+                {
+                    if (this.rect.X > playerRect.X)
+                    {
+                        playerRect.X -= overlap.Width;
+                    }
+                    else if (this.rect.X < playerRect.X)
+                    {
+                        playerRect.X += overlap.Width;
+                    }
+                }
+
+                // moves player vertically up or down
+                // from conflicting tile
+                if (overlap.Width >= overlap.Height)
+                {
+                    if (this.rect.Y > playerRect.Y)
+                    {
+                        playerRect.Y -= overlap.Height;
+                    }
+                    else if (this.rect.Y < playerRect.Y)
+                    {
+                        playerRect.Y += overlap.Height;
+                    }
+                }
+            }
+
+            // returns players new position
+            return playerRect;
         }
     }
 }
