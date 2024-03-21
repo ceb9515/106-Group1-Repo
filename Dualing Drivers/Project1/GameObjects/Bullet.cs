@@ -34,7 +34,7 @@ namespace Project1
             int y = (int)Math.Floor(this.activePosition.Y);
             BulletRec = new Rectangle(x,y,BulletTexture.Width,BulletTexture.Height);
         }
-
+        /*
         public override void move()
         {
             // Convert angle to radians
@@ -48,7 +48,7 @@ namespace Project1
             BulletRec = new Rectangle(BulletRec.X + deltaX, BulletRec.Y + deltaY, BulletRec.Width, BulletRec.Height);
             currentPosition = new Vector2(BulletRec.X, BulletRec.Y);
         }
-            
+        */
         public override void Draw(SpriteBatch sb)
         {
             if(active)

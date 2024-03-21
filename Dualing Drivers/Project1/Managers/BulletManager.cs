@@ -18,6 +18,8 @@ namespace Project1.Managers
         {
             BulletList.Add(newBullet);
         }
+       
+        /*
         public void override Update()
         {
             for(int i = 0; i < BulletList.Count; i++)
@@ -47,5 +49,6 @@ namespace Project1.Managers
                 BulletList[i].Destroy();
             }
         }
+        */
     }
 }

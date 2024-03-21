@@ -64,10 +64,12 @@ namespace Project1
 
         public void TakeDamage(Bullet bullet)
         {
+            /*
             if (IsColliding(bullet.rect))
             {
 
             }
+            */
             
         }
 
