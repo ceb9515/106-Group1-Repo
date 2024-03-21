@@ -4,6 +4,11 @@ using ms = Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input;
 using Project1.Managers;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics.Metrics;
+using System;
+using static System.Windows.Forms.DataFormats;
+using System.IO;
 
 namespace Project1
 {
@@ -105,11 +110,12 @@ namespace Project1
 
             if (testing)
             {
-                /*SaveFileDialog saving = new SaveFileDialog();
+                /*
+                SaveFileDialog saving = new SaveFileDialog();
                 saving.Title = "Save a level file.";
                 saving.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
                 saving.FileName = "myLevel";
-                //saving.FileOk += SaveData;
+                saving.FileOk += ;
                 saving.ShowDialog();*/
 
                 testing = false;
