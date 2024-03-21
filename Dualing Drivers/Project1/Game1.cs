@@ -20,6 +20,11 @@ namespace Project1
         KeyboardState kb = Keyboard.GetState();
         KeyboardState previousKbState = Keyboard.GetState();
         MouseState mouseState;
+        MouseState previousMS;
+
+        //Create Title Texture
+        private Texture2D titleTexture;
+
 
         //Create Button Textures + fields
         private Texture2D testButtonTexture;
@@ -34,9 +39,9 @@ namespace Project1
         private Texture2D selectedText;
         private LevelEditor.TileType currentTile = 0;
 
-        //Create LevelEditor object
+        //Create Gamestate manager objects
         private LevelEditor levelEditor;
-
+        private TitleScreen titleScreen;
 
         bool testing = true;
 
@@ -63,6 +68,8 @@ namespace Project1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            //Load Title Screen Textures
+            titleTexture = Content.Load<Texture2D>("altLogo");
 
 
             //Load the test button textures
@@ -79,6 +86,9 @@ namespace Project1
 
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText);
+
+            //load title screen textures
+            titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
         }
 
         protected override void Update(GameTime gameTime)
@@ -91,7 +101,7 @@ namespace Project1
             // TODO: Add your update logic here
 
             //TESTING GAMESTATE(S)
-            gameState = GameState.Editor;
+            //gameState = GameState.Title;
 
             if (testing)
             {
@@ -108,6 +118,14 @@ namespace Project1
             switch (gameState)
             {
                 case GameState.Title:
+                    if (titleScreen.levelEditorButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.Editor;
+                    }
+                    if (titleScreen.startGameButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.Game;
+                    }
                     break;
 
                 case GameState.Editor:
@@ -134,6 +152,7 @@ namespace Project1
                     break;
             }
 
+            previousMS = mouseState;
             base.Update(gameTime);
         }
 
@@ -147,6 +166,9 @@ namespace Project1
             switch (gameState)
             {
                 case GameState.Title:
+                    _spriteBatch.Begin();
+                    titleScreen.DrawTitle(_spriteBatch);
+                    _spriteBatch.End();
                     break;
 
                 case GameState.Editor:
