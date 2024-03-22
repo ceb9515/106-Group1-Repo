@@ -22,6 +22,18 @@ namespace Project1
         private int health;
         private TileType tileType;
 
+        // properties
+
+        /// <summary>
+        /// gets and sets a tiles type
+        /// </summary>
+        public TileType Type { get { return tileType; } set { tileType = value; } } 
+        
+        /// <summary>
+        /// gets the tiles rectangle position and size
+        /// </summary>
+        public Microsoft.Xna.Framework.Rectangle Rect { get { return this.rect; } }
+
         // constructor
 
         /// <summary>
@@ -54,7 +66,7 @@ namespace Project1
                 health -= 3;
                 if (health <= 0)
                 {
-                    Destroy();
+                    this.Destroy();
                 }
             }
         }
@@ -101,7 +113,7 @@ namespace Project1
                 }
             }
 
-            // returns players new position
+            // returns player's new position
             return playerRect;
         }
     }
