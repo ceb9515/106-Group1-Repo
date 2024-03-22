@@ -14,12 +14,17 @@ namespace Project1
     {
         //fields
         private Texture2D BulletTexture;
-        private Rectangle BulletRec;
+        private Microsoft.Xna.Framework.Rectangle BulletRec;
         private float Angle;
         private int Speed = 4;
         private Vector2 activePosition;
         private Vector2 currentPosition;
         private bool active;
+
+        public Microsoft.Xna.Framework.Rectangle Bulletrec 
+        {
+        get { return BulletRec; }
+        }
 
         /// <summary>
         /// constructor
@@ -32,10 +37,11 @@ namespace Project1
             this.activePosition = new Vector2(inputX, inputY);
             int x = (int)Math.Floor(this.activePosition.X);
             int y = (int)Math.Floor(this.activePosition.Y);
-            BulletRec = new Rectangle(x,y,BulletTexture.Width,BulletTexture.Height);
+            BulletRec = new Microsoft.Xna.Framework.Rectangle (x,y,BulletTexture.Width,BulletTexture.Height);
+            
         }
-        /*
-        public override void move()
+        
+        public void moveBullet()
         {
             // Convert angle to radians
             double angleRadians = Math.PI * Angle / 180.0;
@@ -48,7 +54,7 @@ namespace Project1
             BulletRec = new Rectangle(BulletRec.X + deltaX, BulletRec.Y + deltaY, BulletRec.Width, BulletRec.Height);
             currentPosition = new Vector2(BulletRec.X, BulletRec.Y);
         }
-        */
+        
         public override void Draw(SpriteBatch sb)
         {
             if(active)
