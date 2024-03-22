@@ -9,6 +9,7 @@ using System.Diagnostics.Metrics;
 using System;
 using static System.Windows.Forms.DataFormats;
 using System.IO;
+using System.Reflection;
 
 namespace Project1
 {
@@ -108,18 +109,6 @@ namespace Project1
             //TESTING GAMESTATE(S)
             //gameState = GameState.Title;
 
-            if (testing)
-            {
-                /*
-                SaveFileDialog saving = new SaveFileDialog();
-                saving.Title = "Save a level file.";
-                saving.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
-                saving.FileName = "myLevel";
-                saving.FileOk += ;
-                saving.ShowDialog();*/
-
-                testing = false;
-            }
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
             {
@@ -135,7 +124,7 @@ namespace Project1
                     break;
 
                 case GameState.Editor:
-
+                    
                     //loop through the editor to check collisions
                     for (int i = 0; i < levelEditor.MapWidth; i++)
                     {
@@ -155,14 +144,33 @@ namespace Project1
                             currentTile = (LevelEditor.TileType)i;
                         }
                     }
-
+                    //loop through buttons to check collisions
                     if(levelEditor.exitButton.Clicked(mouseState))
                     {
                         gameState = GameState.Title;
                     }
+                    if (levelEditor.saveButton.Clicked(mouseState))
+                    {
+                        //open save file window
+                        SaveFileDialog saving = new SaveFileDialog();
+                        saving.Title = "Save a level file.";
+                        saving.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
+                        saving.FileName = "myLevel";
+                        saving.FileOk += levelEditor.Save;
+                        saving.ShowDialog();
+                    }
+                    if (levelEditor.loadButton.Clicked(mouseState))
+                    {
+                        //open load file window
+                        OpenFileDialog loading = new OpenFileDialog();
+                        loading.Title = "Load a level file.";
+                        loading.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
+                        loading.FileOk += levelEditor.Load;
+                        loading.ShowDialog();
+                    }
                     break;
-                case GameState.Game:
-                    Managers.
+
+                case GameState.Game: 
                     break;
             }
 
@@ -187,10 +195,13 @@ namespace Project1
 
                 case GameState.Editor:
                     _spriteBatch.Begin();
-                    //testButton.Draw(_spriteBatch, testButton.IsHovering(mouseState));
+                    //draw map and tiles
                     levelEditor.DrawMap(_spriteBatch);
                     levelEditor.DrawTiles(_spriteBatch, (int)currentTile);
+                    //draw buttons
                     _spriteBatch.Draw(levelEditor.exitButton.texture, levelEditor.exitButton.rect, Color.White);
+                    _spriteBatch.Draw(levelEditor.saveButton.texture, levelEditor.saveButton.rect, Color.White);
+                    _spriteBatch.Draw(levelEditor.loadButton.texture, levelEditor.loadButton.rect, Color.White);
                     _spriteBatch.End();
                     break;
             }

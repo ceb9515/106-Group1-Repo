@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Project1.Managers
 {
@@ -33,7 +35,10 @@ namespace Project1.Managers
         public Button[,] mapTiles = new Button[25,17];
         public Button[] selectTiles = new Button[4];
         public Button exitButton;
+        public Button saveButton;
+        public Button loadButton;
         private Button selectedTile;
+
         /// <summary>
         /// Basic LevelEditor Constructor
         /// </summary>
@@ -58,14 +63,15 @@ namespace Project1.Managers
             }
 
             //create the selecting Tiles array 
-            selectTiles [0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
+            selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
             selectTiles[1] = new Button(halfTexture, halfTexture, 140, 20, 80, 80);
             selectTiles[2] = new Button(wallTexture, wallTexture, 30, 130, 80, 80);
             selectTiles[3] = new Button(breakableTexture, breakableTexture, 140, 130, 80, 80);
 
-            //Create quit button
+            //Create the buttons
             exitButton = new Button(exitTexture, 30, 700 - exitTexture.Height*2, exitTexture.Width*2, exitTexture.Height*2);
-            
+            saveButton = new Button(exitTexture, 30, 500 - exitTexture.Height * 2, exitTexture.Width * 2, exitTexture.Height * 2);
+            loadButton = new Button(exitTexture, 30, 300 - exitTexture.Height * 2, exitTexture.Width * 2, exitTexture.Height * 2);
         }
 
         /// <summary>
@@ -140,24 +146,63 @@ namespace Project1.Managers
         /// Save level data to an external file
         /// </summary>
         /// <param name="filename">filepath to write to</param>
-        public void Save(string filename)
+        public void Save(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            string filename = (sender as SaveFileDialog).FileName;
             StreamWriter output = new StreamWriter(filename);
-            for (int i = 0; i < mapWidth; i++)
+            for (int i = 0; i < mapHeight; i++)
             {
-                for(int k = 0; k < mapHeight; i++)
+                for(int k = 0; k < mapWidth; k++)
                 {
                     if(k == 0)
                     {
-                        output.Write("\n" + tileTypes[i, k].ToString());
+                        output.Write("\n" + tileTypes[k, i].ToString());
                     }
                     else
                     {
-                        output.Write(" " + tileTypes[i, 1].ToString());
+                        output.Write("|" + tileTypes[k, i].ToString());
                     }
                 }
             }
             output.Close();
+            MessageBox.Show("File Saved Successfully", "File Saved");
+        }
+
+        /// <summary>
+        /// Read level data from an external file
+        /// </summary>
+        /// <param name="filename">filepath to read from</param>
+        public void Load(object? sender, System.ComponentModel.CancelEventArgs e)
+        {/*
+            string filename = (sender as OpenFileDialog).FileName;
+            StreamReader input = new StreamReader(filename);
+            string[] filenameSplit = filename.Split("\n");
+            for (int i = 0; i < mapWidth; i++)
+            {
+                //get this row of data for tiles
+                string[] rowData = filenameSplit[i].Split("|");
+                for (int k = 0; k < mapHeight; k++)
+                {
+                    TileType loadTileType = TileType.Ground;
+                    //read the type of tile to input
+                    if (rowData[k] == "Half")
+                    {
+                        loadTileType = TileType.Half;
+                    }
+                    else if (rowData[k] == "Wall")
+                    {
+                        loadTileType = TileType.Wall;
+                    }
+                    else if (rowData[k] == "Breakable")
+                    {
+                        loadTileType = TileType.Breakable;
+                    }
+
+                    this.SwitchTile(i, k, loadTileType);
+                }
+            }
+            MessageBox.Show("File Loaded Successfully", "File Loaded");
+            */
         }
     }
 }
