@@ -113,5 +113,17 @@ namespace Project1
             input.Close();
         }
 
+        /// <summary>
+        /// draws all the tiles to the screen
+        /// </summary>
+        /// <param name="sb">sprite batch object</param>
+        public void DrawTiles(SpriteBatch sb)
+        {
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                tiles[i].Draw(sb);
+            }
+        }
+
     }
 }
