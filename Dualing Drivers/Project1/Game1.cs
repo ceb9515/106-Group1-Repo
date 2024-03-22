@@ -156,6 +156,9 @@ namespace Project1
                         }
                     }
                     break;
+                case GameState.Game:
+                    Managers.
+                    break;
             }
 
             previousMS = mouseState;

@@ -66,7 +66,7 @@ namespace Project1
                 health -= 3;
                 if (health <= 0)
                 {
-                    this.Destroy();
+                    tileType = TileType.background;
                 }
             }
         }
