@@ -78,38 +78,35 @@ namespace Project1
         /// <returns>players new position outside of rectangle</returns>
         public Microsoft.Xna.Framework.Rectangle BlockPlayer(Microsoft.Xna.Framework.Rectangle playerRect)
         {
-            if (this.rect.Intersects(playerRect) && tileType != TileType.background)
+            // finds where the objects overlap
+            Microsoft.Xna.Framework.Rectangle overlap =
+                Microsoft.Xna.Framework.Rectangle.Intersect(this.rect, playerRect);
+
+            // moves player horizontally left or right
+            // from conflicting tile
+            if (overlap.Height >= overlap.Width)
             {
-                // finds where the objects overlap
-                Microsoft.Xna.Framework.Rectangle overlap =
-                    Microsoft.Xna.Framework.Rectangle.Intersect(this.rect, playerRect);
-
-                // moves player horizontally left or right
-                // from conflicting tile
-                if (overlap.Height >= overlap.Width)
+                if (this.rect.X > playerRect.X)
                 {
-                    if (this.rect.X > playerRect.X)
-                    {
-                        playerRect.X -= overlap.Width;
-                    }
-                    else if (this.rect.X < playerRect.X)
-                    {
-                        playerRect.X += overlap.Width;
-                    }
+                    playerRect.X -= overlap.Width;
                 }
-
-                // moves player vertically up or down
-                // from conflicting tile
-                if (overlap.Width >= overlap.Height)
+                else if (this.rect.X < playerRect.X)
                 {
-                    if (this.rect.Y > playerRect.Y)
-                    {
-                        playerRect.Y -= overlap.Height;
-                    }
-                    else if (this.rect.Y < playerRect.Y)
-                    {
-                        playerRect.Y += overlap.Height;
-                    }
+                    playerRect.X += overlap.Width;
+                }
+            }
+
+            // moves player vertically up or down
+            // from conflicting tile
+            if (overlap.Width >= overlap.Height)
+            {
+                if (this.rect.Y > playerRect.Y)
+                {
+                    playerRect.Y -= overlap.Height;
+                }
+                else if (this.rect.Y < playerRect.Y)
+                {
+                    playerRect.Y += overlap.Height;
                 }
             }
 

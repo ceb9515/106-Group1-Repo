@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,6 +61,7 @@ namespace Project1
             // variables needed to load a file
             StreamReader input = new StreamReader(fileName);
             string line = null;
+            string[] tiles = new string[21];
             int x = 0;
             int y = 0;
             TileType tileType = TileType.background;
@@ -68,42 +70,77 @@ namespace Project1
             // reads every line in the file
             while((line = input.ReadLine()) != null)
             {
-                // checks the tile type that is saved in the file
-                if (line == "solid")
-                {
-                    tileType = TileType.solid;
-                    texture = solid;
-                }
-                else if (line == "semiSolid")
-                {
-                    tileType = TileType.semiSolid;
-                    texture = semiSolid;
-                }
-                else if (line == "breakable")
-                {
-                    tileType = TileType.breakable;
-                    texture = breakable;
-                }
-                else if (line == "background")
-                {
-                    tileType = TileType.background;
-                    texture = background;
-                }
+                // splits line up into individual tile types
+                tiles = line.Split("||");
 
-                // adds tile to list
-                AddTile(new Tile(texture, x, y, 20, 20, tileType));
-
-                // changes tile position
-                x += 20;
-                if (x == 420)
+                // checks every tile type in a line
+                for (int i = 0; i < tiles.Length; i++)
                 {
-                    x = 0;
-                    y += 20;
+                    // checks the tile type that is saved in the file
+                    if (tiles[i] == "solid")
+                    {
+                        tileType = TileType.solid;
+                        texture = solid;
+                    }
+                    else if (tiles[i] == "semiSolid")
+                    {
+                        tileType = TileType.semiSolid;
+                        texture = semiSolid;
+                    }
+                    else if (tiles[i] == "breakable")
+                    {
+                        tileType = TileType.breakable;
+                        texture = breakable;
+                    }
+                    else if (tiles[i] == "background")
+                    {
+                        tileType = TileType.background;
+                        texture = background;
+                    }
+
+                    // adds tile to list
+                    AddTile(new Tile(texture, x, y, 40, 40, tileType));
+
+                    // changes tile position
+                    x += 40;
+                    if (x == 840)
+                    {
+                        x = 0;
+                        y += 40;
+                    }
                 }
             }
 
             input.Close();
         }
 
+        /// <summary>
+        /// draws all the tiles to the screen
+        /// </summary>
+        /// <param name="sb">sprite batch object</param>
+        public void DrawTiles(SpriteBatch sb)
+        {
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                tiles[i].Draw(sb);
+            }
+        }
+
+        /// <summary>
+        /// checks if player is colliding with a tile
+        /// </summary>
+        /// <param name="playerRect">players position and size</param>
+        /// <returns>players new position</returns>
+        public Rectangle HandlePlayerCollision(Microsoft.Xna.Framework.Rectangle playerRect)
+        {
+            for (int i = 0; i < tiles.Count; i++) 
+            {
+                if (tiles[i].IsColliding(playerRect) && tiles[i].Type != TileType.background)
+                {
+                    playerRect = tiles[i].BlockPlayer(playerRect);
+                }
+            }
+            return playerRect;
+        }
     }
 }

@@ -48,6 +48,7 @@ namespace Project1
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
         private TitleScreen titleScreen;
+        private TileManager tileManager;
 
         bool testing = true;
 
@@ -67,6 +68,13 @@ namespace Project1
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
+            /*
+            BulletManager manager = new BulletManager();
+            Player player1=new Player();
+            Player player2 = new Player();
+            player1.OnShoot +=manager.AddBullet()*/
+
+
         }
 
         protected override void LoadContent()
@@ -95,6 +103,10 @@ namespace Project1
 
             //load title screen textures
             titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
+
+            // loads tile manager
+            tileManager = new TileManager();
+            //tileManager.LoadTiles(fileName, breakableText, wallText, groundText, halfText);
         }
 
         protected override void Update(GameTime gameTime)
@@ -184,13 +196,13 @@ namespace Project1
 
             // TODO: Add your drawing code here
 
+            _spriteBatch.Begin();
+
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
             {
                 case GameState.Title:
-                    _spriteBatch.Begin();
                     titleScreen.DrawTitle(_spriteBatch);
-                    _spriteBatch.End();
                     break;
 
                 case GameState.Editor:
@@ -204,7 +216,13 @@ namespace Project1
                     _spriteBatch.Draw(levelEditor.loadButton.texture, levelEditor.loadButton.rect, Color.White);
                     _spriteBatch.End();
                     break;
+                case GameState.Game:
+                    // draws all the tiles to the screen
+                    tileManager.DrawTiles(_spriteBatch);
+                    break;
             }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
