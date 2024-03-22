@@ -27,7 +27,7 @@ namespace Project1.Managers
                 BulletList[i].Move();
                 for (int j = 0; j < TileList.Count; j++)
                 {
-                    if (BulletList[i].IsColliding(TileList[j].rect) && TileList[j].Tiletype == breakable)
+                    if (BulletList[i].IsColliding(TileList[j].Rect) && TileList[j].Type == TileType.breakable)
                     {
                         TileList[j].TakeDamage();
                         BulletList[i].Destroy();
