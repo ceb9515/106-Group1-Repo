@@ -13,14 +13,18 @@ namespace Project1
     {
         private int health;
         private int speed;
+        private int damage;
         private Vector2 playerPosition;
         private int playerNumber;
         private float playerAngle;
         private Rectangle playerRect;
         private Texture2D playerTexture;
+        
 
         public int Health { get { return health; } set { health = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
+        public int Damage { get { return damage; } set { damage = value; } }
+
 
         /// <summary>
         /// Basic Player Constructor
@@ -30,10 +34,12 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int playerNumber, int playerAngle, Vector2 playerPosition) : base(texture, x, y, width, height)
+        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerNumber, int playerAngle, Vector2 playerPosition) : base(texture, x, y, width, height)
         {
             Health = health;
             Speed = speed;
+            this.damage = damage;
+            this.playerPosition = playerPosition;
             this.playerNumber = playerNumber;
             this.playerAngle = playerAngle;
             playerTexture = texture;
@@ -99,27 +105,33 @@ namespace Project1
             }
         }
 
-        public void TakeDamage(Bullet bullet)
+        public void TakeDamage(Player player)
         {
-            
-            
+            player.Health -= damage;
         }
 
         public void Shoot(Player player)
         {
-            Bullet bullet = new Bullet(texture, player.playerRect.X, player.playerRect.Y, 10, 10, 0);
+            Bullet bullet = new Bullet(texture, (int)player.playerPosition.X, (int)player.playerPosition.Y, 10, 10, 0);
         }
 
-        public void Crash()
+        public bool IsPlayerCrash(Player player)
         {
-
+            if (player.Health <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Update()
         {
             playerAngle = playerAngle % 360;
-            this.playerPosition.X = playerRect.X + playerRect.Width / 2;
-            this.playerPosition.Y = playerRect.Y + playerRect.Height / 2;
+            this.playerRect.X = (int)(playerPosition.X - playerRect.Width / 2);
+            this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
         }
 
         public override void Draw(SpriteBatch sb)
@@ -129,4 +141,3 @@ namespace Project1
 
     }
 }
-//leave a mark when player's dead 
