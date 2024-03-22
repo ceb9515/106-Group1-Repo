@@ -12,7 +12,8 @@ namespace Project1
     internal class GameObject : Object
     {
         Rectangle rectangle;
-
+        private bool active;
+        public bool Active { get { return active; } set { active = value; } }   
         /// <summary>
         /// Basic GameObject Constructor w/ hovering texture
         /// </summary>
@@ -38,7 +39,9 @@ namespace Project1
 
         public void Destroy()
         {
-
+            this.active = false;
+            this.texture=null;
+            
         }
 
         public bool IsColliding(Rectangle rectangle)
