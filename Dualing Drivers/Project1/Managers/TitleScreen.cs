@@ -16,6 +16,7 @@ namespace Project1.Managers
     {
         public Button startGameButton;
         public Button levelEditorButton;
+        public Button settingsButton;
 
         public Texture2D startTexture;
         public Texture2D levelEditorTexture;
@@ -33,8 +34,9 @@ namespace Project1.Managers
             this.levelEditorTexture = levelEditorTexture;
             this.titleLogo = titleLogo;
 
-            startGameButton = new Button(startTexture, 100, 100, startTexture.Width, startTexture.Height);
-            levelEditorButton = new Button(levelEditorTexture, 300, 300, levelEditorTexture.Width, levelEditorTexture.Height);
+            startGameButton = new Button(startTexture, 400, 300, startTexture.Width*2, startTexture.Height*2);
+            levelEditorButton = new Button(levelEditorTexture, 716, 300, levelEditorTexture.Width*2, levelEditorTexture.Height*2);
+
 
             
         }
@@ -43,7 +45,7 @@ namespace Project1.Managers
         {
             startGameButton.Draw(sb);
             levelEditorButton.Draw(sb);
-            sb.Draw(titleLogo, new Vector2(25, 25), Microsoft.Xna.Framework.Color.White);
+            sb.Draw(titleLogo, new Microsoft.Xna.Framework.Rectangle(640 - titleLogo.Width/3, 50, 2*titleLogo.Width/3, 2*titleLogo.Height/3), Microsoft.Xna.Framework.Color.White);
         }
     }
 }
