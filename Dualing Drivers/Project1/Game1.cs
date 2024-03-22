@@ -180,28 +180,28 @@ namespace Project1
 
             // TODO: Add your drawing code here
 
+            _spriteBatch.Begin();
+
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
             {
                 case GameState.Title:
-                    _spriteBatch.Begin();
                     titleScreen.DrawTitle(_spriteBatch);
-                    _spriteBatch.End();
                     break;
 
                 case GameState.Editor:
-                    _spriteBatch.Begin();
                     //testButton.Draw(_spriteBatch, testButton.IsHovering(mouseState));
                     levelEditor.DrawMap(_spriteBatch);
                     levelEditor.DrawTiles(_spriteBatch, (int)currentTile);
                     _spriteBatch.Draw(levelEditor.exitButton.texture, levelEditor.exitButton.rect, Color.White);
-                    _spriteBatch.End();
                     break;
                 case GameState.Game:
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
                     break;
             }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
