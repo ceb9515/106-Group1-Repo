@@ -90,7 +90,7 @@ namespace Project1
             selectedText = Content.Load<Texture2D>("TESTselectedTile");
 
             //load the tile textures into the level editor
-            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText);
+            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, testButtonTexture);
 
             //load title screen textures
             titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
@@ -155,6 +155,11 @@ namespace Project1
                             currentTile = (LevelEditor.TileType)i;
                         }
                     }
+
+                    if(levelEditor.exitButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.Title;
+                    }
                     break;
             }
 
@@ -182,6 +187,7 @@ namespace Project1
                     //testButton.Draw(_spriteBatch, testButton.IsHovering(mouseState));
                     levelEditor.DrawMap(_spriteBatch);
                     levelEditor.DrawTiles(_spriteBatch, (int)currentTile);
+                    _spriteBatch.Draw(levelEditor.exitButton.texture, levelEditor.exitButton.rect, Color.White);
                     _spriteBatch.End();
                     break;
             }

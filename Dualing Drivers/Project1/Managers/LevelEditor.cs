@@ -26,16 +26,18 @@ namespace Project1.Managers
         private Texture2D wallTexture;
         private Texture2D breakableTexture;
         private Texture2D selectedTexture;
+        private Texture2D exitTexture;
 
         //create internal array fields
         public TileType[,] tileTypes = new TileType[25, 17];
         public Button[,] mapTiles = new Button[25,17];
         public Button[] selectTiles = new Button[4];
+        public Button exitButton;
         private Button selectedTile;
         /// <summary>
         /// Basic LevelEditor Constructor
         /// </summary>
-        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D selectedTexture)
+        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D selectedTexture, Texture2D exitTexture)
         {
             //set internal fields to the constructor input
             this.wallTexture = wallTexture;
@@ -43,6 +45,7 @@ namespace Project1.Managers
             this.halfTexture = halfTexture;
             this.breakableTexture = breakableTexture;
             this.selectedTexture = selectedTexture;
+            this.exitTexture = exitTexture;
 
             //create a basic array
             for(int i = 0; i < mapWidth; i++)
@@ -59,6 +62,10 @@ namespace Project1.Managers
             selectTiles[1] = new Button(halfTexture, halfTexture, 140, 20, 80, 80);
             selectTiles[2] = new Button(wallTexture, wallTexture, 30, 130, 80, 80);
             selectTiles[3] = new Button(breakableTexture, breakableTexture, 140, 130, 80, 80);
+
+            //Create quit button
+            exitButton = new Button(exitTexture, 30, 700 - exitTexture.Height*2, exitTexture.Width*2, exitTexture.Height*2);
+            
         }
 
         /// <summary>
