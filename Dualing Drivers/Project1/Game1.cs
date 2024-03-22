@@ -98,7 +98,7 @@ namespace Project1
 
             // loads tile manager
             tileManager = new TileManager();
-            //tileManager.LoadTiles(fileName);
+            //tileManager.LoadTiles(fileName, breakableText, wallText, groundText, halfText);
         }
 
         protected override void Update(GameTime gameTime)

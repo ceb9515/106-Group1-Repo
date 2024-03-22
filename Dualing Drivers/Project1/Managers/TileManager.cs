@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -123,6 +124,23 @@ namespace Project1
             {
                 tiles[i].Draw(sb);
             }
+        }
+
+        /// <summary>
+        /// checks if player is colliding with a tile
+        /// </summary>
+        /// <param name="playerRect">players position and size</param>
+        /// <returns>players new position</returns>
+        public Rectangle HandlePLayerCollision(Microsoft.Xna.Framework.Rectangle playerRect)
+        {
+            for (int i = 0; i < tiles.Count;i++)
+            {
+                if (tiles[i].IsColliding(playerRect) && tiles[i].Type != TileType.background)
+                {
+                    playerRect = tiles[i].BlockPlayer(playerRect);
+                }
+            }
+            return playerRect;
         }
 
     }
