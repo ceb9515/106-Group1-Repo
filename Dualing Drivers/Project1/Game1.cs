@@ -156,9 +156,10 @@ namespace Project1
                         }
                     }
                     break;
-                case GameState.Game:
-                    Managers.
-                    break;
+                //case GameState.Game:
+                //    TileManager tileManager = new TileManager();
+                //    tileManager.LoadTiles()
+                //    break;
             }
 
             previousMS = mouseState;

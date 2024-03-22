@@ -60,6 +60,7 @@ namespace Project1
             // variables needed to load a file
             StreamReader input = new StreamReader(fileName);
             string line = null;
+            string[] tiles = new string[21];
             int x = 0;
             int y = 0;
             TileType tileType = TileType.background;
@@ -68,37 +69,44 @@ namespace Project1
             // reads every line in the file
             while((line = input.ReadLine()) != null)
             {
-                // checks the tile type that is saved in the file
-                if (line == "solid")
-                {
-                    tileType = TileType.solid;
-                    texture = solid;
-                }
-                else if (line == "semiSolid")
-                {
-                    tileType = TileType.semiSolid;
-                    texture = semiSolid;
-                }
-                else if (line == "breakable")
-                {
-                    tileType = TileType.breakable;
-                    texture = breakable;
-                }
-                else if (line == "background")
-                {
-                    tileType = TileType.background;
-                    texture = background;
-                }
+                // splits line up into individual tile types
+                tiles = line.Split("||");
 
-                // adds tile to list
-                AddTile(new Tile(texture, x, y, 20, 20, tileType));
-
-                // changes tile position
-                x += 20;
-                if (x == 420)
+                // checks every tile type in a line
+                for (int i = 0; i < tiles.Length; i++)
                 {
-                    x = 0;
-                    y += 20;
+                    // checks the tile type that is saved in the file
+                    if (tiles[i] == "solid")
+                    {
+                        tileType = TileType.solid;
+                        texture = solid;
+                    }
+                    else if (tiles[i] == "semiSolid")
+                    {
+                        tileType = TileType.semiSolid;
+                        texture = semiSolid;
+                    }
+                    else if (tiles[i] == "breakable")
+                    {
+                        tileType = TileType.breakable;
+                        texture = breakable;
+                    }
+                    else if (tiles[i] == "background")
+                    {
+                        tileType = TileType.background;
+                        texture = background;
+                    }
+
+                    // adds tile to list
+                    AddTile(new Tile(texture, x, y, 40, 40, tileType));
+
+                    // changes tile position
+                    x += 40;
+                    if (x == 840)
+                    {
+                        x = 0;
+                        y += 40;
+                    }
                 }
             }
 
