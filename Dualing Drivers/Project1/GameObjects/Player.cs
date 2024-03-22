@@ -11,6 +11,8 @@ namespace Project1
 {
     internal class Player : GameObject
     {
+        public event Action<Bullet> OnShoot;
+
         private int health;
         private int speed;
         private int damage;
@@ -113,6 +115,7 @@ namespace Project1
         public void Shoot(Player player)
         {
             Bullet bullet = new Bullet(texture, (int)player.playerPosition.X, (int)player.playerPosition.Y, 10, 10, 0);
+            OnShoot?.Invoke(bullet);
         }
 
         public bool IsPlayerCrash(Player player)
