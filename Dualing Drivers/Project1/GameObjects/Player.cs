@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +13,7 @@ namespace Project1
     {
         private int health;
         private int speed;
-        private Vector2 velocity;
+        private Vector2 playerPosition;
         private int playerNumber;
         private float playerAngle;
         private Rectangle playerRect;
@@ -31,7 +30,7 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int playerNumber, int playerAngle) : base(texture, x, y, width, height)
+        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int playerNumber, int playerAngle, Vector2 playerPosition) : base(texture, x, y, width, height)
         {
             Health = health;
             Speed = speed;
@@ -46,11 +45,49 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(Keys.W) && playerNumber == 1)
             {
-                
+                if (playerAngle < 0 && playerAngle> 90)
+                {
+                    playerPosition.X += speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y += speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
+                }
+                if (playerAngle > 90 && playerAngle < 180)
+                {
+                    playerPosition.X -= speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y += speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
+                }
+                if (playerAngle > 180 && playerAngle < 270)
+                {
+                    playerPosition.X -= speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y -= speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
+                }
+                if (playerAngle > 270 && playerAngle < 360)
+                {
+                    playerPosition.X += speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y -= speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
+                }
             }
             if (state.IsKeyDown(Keys.S) && playerNumber == 1)
             {
-                
+                if (playerAngle < 0 && playerAngle > 90)
+                {
+                    playerPosition.X -= speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y -= speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
+                }
+                if (playerAngle > 90 && playerAngle < 180)
+                {
+                    playerPosition.X += speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y -= speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
+                }
+                if (playerAngle > 180 && playerAngle < 270)
+                {
+                    playerPosition.X += speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y += speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
+                }
+                if (playerAngle > 270 && playerAngle < 360)
+                {
+                    playerPosition.X -= speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
+                    playerPosition.Y += speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
+                }
             }
             if (state.IsKeyDown(Keys.A) && playerNumber == 1)
             {
@@ -64,16 +101,18 @@ namespace Project1
 
         public void TakeDamage(Bullet bullet)
         {
+            /*
             if (IsColliding(bullet.rect))
             {
 
             }
+            */
             
         }
 
-        public void Shoot()
+        public void Shoot(Player player)
         {
-            Bullet bullet = new Bullet(texture, rect.X, rect.Y, 10, 10, 0);
+            Bullet bullet = new Bullet(texture, player.playerRect.X, player.playerRect.Y, 10, 10, 0);
         }
 
         public void Crash()
@@ -83,12 +122,14 @@ namespace Project1
 
         public void Update()
         {
-
+            playerAngle = playerAngle % 360;
+            this.playerPosition.X = playerRect.X + playerRect.Width / 2;
+            this.playerPosition.Y = playerRect.Y + playerRect.Height / 2;
         }
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, rect, Microsoft.Xna.Framework.Color.White);
+            sb.Draw(texture, playerRect, playerRect, Color.White, playerAngle * (float)Math.PI / 180, playerPosition, SpriteEffects.None, 0);
         }
 
     }

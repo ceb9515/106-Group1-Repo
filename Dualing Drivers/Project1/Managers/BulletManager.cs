@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,26 +18,29 @@ namespace Project1.Managers
         {
             BulletList.Add(newBullet);
         }
-        public void override Update()
+       
+        
+        public void  ProcessCollition(List<Tile> TileList)
         {
-            for(int i = 0; i < BulletList.Count; i++)
+            for (int i = 0; i < BulletList.Count; i++)
             {
                 BulletList[i].Move();
-                for(int j = 0;j<TileList.Count;j++)
+                for (int j = 0; j < TileList.Count; j++)
                 {
-                    if (BulletList[i].IsColliding(TileList[j]) && TileList[j].Tiletype== breakable)
+                    if (BulletList[i].IsColliding(TileList[j].Rect) && TileList[j].Type == TileType.breakable)
                     {
                         TileList[j].TakeDamage();
                         BulletList[i].Destroy();
                     }
                 }
+                
             }
         }
-        public void override Draw()
+        public void  DrawBullet(SpriteBatch sb)
         {
             for(int i = 0;i < BulletList.Count; i++)
             {
-                BulletList[i].Draw(SpriteBatch sb);
+                BulletList[i].Draw(sb);
             }
         }
         public void cleanUp()
@@ -47,5 +50,6 @@ namespace Project1.Managers
                 BulletList[i].Destroy();
             }
         }
+        
     }
 }

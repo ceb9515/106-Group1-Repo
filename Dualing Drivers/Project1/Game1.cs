@@ -161,6 +161,9 @@ namespace Project1
                         gameState = GameState.Title;
                     }
                     break;
+                case GameState.Game:
+                    Managers.
+                    break;
             }
 
             previousMS = mouseState;

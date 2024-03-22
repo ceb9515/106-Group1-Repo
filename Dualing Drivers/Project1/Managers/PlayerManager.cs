@@ -18,6 +18,7 @@ namespace Project1.Managers
             this.player2 = player2;
         }
 
+        /*
         public void Update()
         {
             player1.Move(player1);
@@ -25,6 +26,7 @@ namespace Project1.Managers
             player1.Update();
             player2.Update();
         }
+        */
 
     }
 }
