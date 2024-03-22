@@ -47,6 +47,7 @@ namespace Project1
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
         private TitleScreen titleScreen;
+        private TileManager tileManager;
 
         bool testing = true;
 
@@ -94,6 +95,10 @@ namespace Project1
 
             //load title screen textures
             titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
+
+            // loads tile manager
+            tileManager = new TileManager();
+            //tileManager.LoadTiles(fileName);
         }
 
         protected override void Update(GameTime gameTime)
@@ -161,10 +166,8 @@ namespace Project1
                         gameState = GameState.Title;
                     }
                     break;
-                //case GameState.Game:
-                //    TileManager tileManager = new TileManager();
-                //    tileManager.LoadTiles()
-                //    break;
+                case GameState.Game:
+                    break;
             }
 
             previousMS = mouseState;
@@ -177,24 +180,28 @@ namespace Project1
 
             // TODO: Add your drawing code here
 
+            _spriteBatch.Begin();
+
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
             {
                 case GameState.Title:
-                    _spriteBatch.Begin();
                     titleScreen.DrawTitle(_spriteBatch);
-                    _spriteBatch.End();
                     break;
 
                 case GameState.Editor:
-                    _spriteBatch.Begin();
                     //testButton.Draw(_spriteBatch, testButton.IsHovering(mouseState));
                     levelEditor.DrawMap(_spriteBatch);
                     levelEditor.DrawTiles(_spriteBatch, (int)currentTile);
                     _spriteBatch.Draw(levelEditor.exitButton.texture, levelEditor.exitButton.rect, Color.White);
-                    _spriteBatch.End();
+                    break;
+                case GameState.Game:
+                    // draws all the tiles to the screen
+                    tileManager.DrawTiles(_spriteBatch);
                     break;
             }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
