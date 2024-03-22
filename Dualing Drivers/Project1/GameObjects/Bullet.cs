@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project1.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,11 @@ namespace Project1
         private Vector2 activePosition;
         private Vector2 currentPosition;
         private bool active;
+        
 
+        /// <summary>
+        /// property
+        /// </summary>
         public Microsoft.Xna.Framework.Rectangle Bulletrec 
         {
         get { return BulletRec; }
@@ -38,7 +43,7 @@ namespace Project1
             int x = (int)Math.Floor(this.activePosition.X);
             int y = (int)Math.Floor(this.activePosition.Y);
             BulletRec = new Microsoft.Xna.Framework.Rectangle (x,y,BulletTexture.Width,BulletTexture.Height);
-            
+           
         }
         
         public void moveBullet()
@@ -54,7 +59,10 @@ namespace Project1
             BulletRec = new Rectangle(BulletRec.X + deltaX, BulletRec.Y + deltaY, BulletRec.Width, BulletRec.Height);
             currentPosition = new Vector2(BulletRec.X, BulletRec.Y);
         }
-        
+        /// <summary>
+        /// draw the bullet itself
+        /// </summary>
+        /// <param name="sb"></param>
         public override void Draw(SpriteBatch sb)
         {
             if(active)
