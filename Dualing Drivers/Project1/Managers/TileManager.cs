@@ -131,7 +131,7 @@ namespace Project1
         /// </summary>
         /// <param name="playerRect">players position and size</param>
         /// <returns>players new position</returns>
-        public Rectangle HandlePLayerCollision(Microsoft.Xna.Framework.Rectangle playerRect)
+        public Rectangle HandlePlayerCollision(Microsoft.Xna.Framework.Rectangle playerRect)
         {
             for (int i = 0; i < tiles.Count; i++) 
             {
@@ -142,17 +142,5 @@ namespace Project1
             }
             return playerRect;
         }
-
-        /// <summary>
-        /// damages breakable tiles when needed
-        /// </summary>
-        public void DamageTile()
-        {
-            for (int i = 0; i < tiles.Count; i++) 
-            {
-                tiles[i].TakeDamage();
-            }
-        }
-
     }
 }
