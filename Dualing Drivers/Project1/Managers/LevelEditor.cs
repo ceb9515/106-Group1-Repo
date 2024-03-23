@@ -173,16 +173,28 @@ namespace Project1.Managers
         /// </summary>
         /// <param name="filename">filepath to read from</param>
         public void Load(object? sender, System.ComponentModel.CancelEventArgs e)
-        {/*
+        {
+            //get the streamreader from file
             string filename = (sender as OpenFileDialog).FileName;
             StreamReader input = new StreamReader(filename);
-            string[] filenameSplit = filename.Split("\n");
-            for (int i = 0; i < mapWidth; i++)
+
+            //get the data into a list of the correct rows
+            List<string> rows = new List<string>();
+            string line = null;
+            while ((line = input.ReadLine()) != null)
             {
-                //get this row of data for tiles
-                string[] rowData = filenameSplit[i].Split("|");
-                for (int k = 0; k < mapHeight; k++)
+                rows.Add(line);
+            }
+            rows.RemoveAt(0);
+
+            //loop through the rows and add tiles to the map
+            for (int i = 0; i < mapHeight; i++)
+            {
+                for (int k = 0; k < mapWidth; k++)
                 {
+                    //get this row of data for tiles
+                    string[] rowData = rows[i].Split("|");
+                    //default tile type = ground
                     TileType loadTileType = TileType.Ground;
                     //read the type of tile to input
                     if (rowData[k] == "Half")
@@ -197,12 +209,12 @@ namespace Project1.Managers
                     {
                         loadTileType = TileType.Breakable;
                     }
-
-                    this.SwitchTile(i, k, loadTileType);
+                    //switch to the correct type of tiles
+                    this.SwitchTile(k, i, loadTileType);
                 }
             }
+            //show message box that loading was successful
             MessageBox.Show("File Loaded Successfully", "File Loaded");
-            */
         }
     }
 }

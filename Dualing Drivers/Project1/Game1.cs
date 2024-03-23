@@ -206,7 +206,6 @@ namespace Project1
                     break;
 
                 case GameState.Editor:
-                    _spriteBatch.Begin();
                     //draw map and tiles
                     levelEditor.DrawMap(_spriteBatch);
                     levelEditor.DrawTiles(_spriteBatch, (int)currentTile);
@@ -214,7 +213,6 @@ namespace Project1
                     _spriteBatch.Draw(levelEditor.exitButton.texture, levelEditor.exitButton.rect, Color.White);
                     _spriteBatch.Draw(levelEditor.saveButton.texture, levelEditor.saveButton.rect, Color.White);
                     _spriteBatch.Draw(levelEditor.loadButton.texture, levelEditor.loadButton.rect, Color.White);
-                    _spriteBatch.End();
                     break;
                 case GameState.Game:
                     // draws all the tiles to the screen
