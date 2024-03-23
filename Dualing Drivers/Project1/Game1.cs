@@ -70,9 +70,11 @@ namespace Project1
             _graphics.ApplyChanges();
             /*
             BulletManager manager = new BulletManager();
-            Player player1=new Player();
+            Player player1 = new Player();
             Player player2 = new Player();
-            player1.OnShoot +=manager.AddBullet()*/
+            player1.OnShoot +=manager.AddBullet()
+            player2.OnShoot +=manager.AddBullet()
+            */
 
 
         }

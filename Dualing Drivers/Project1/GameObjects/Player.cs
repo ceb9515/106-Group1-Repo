@@ -17,10 +17,10 @@ namespace Project1
         private int speed;
         private int damage;
         private Vector2 playerPosition;
-        private int playerNumber;
         private float playerAngle;
         private Rectangle playerRect;
         private Texture2D playerTexture;
+        private Dictionary<string, Keys> playerControl;
         
 
         public int Health { get { return health; } set { health = value; } }
@@ -36,22 +36,22 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerNumber, int playerAngle, Vector2 playerPosition) : base(texture, x, y, width, height)
+        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl) : base(texture, x, y, width, height)
         {
             Health = health;
             Speed = speed;
             this.damage = damage;
             this.playerPosition = playerPosition;
-            this.playerNumber = playerNumber;
             this.playerAngle = playerAngle;
             playerTexture = texture;
             playerRect = new Rectangle(x, y, texture.Width, texture.Height);
+            this.playerControl = playerControl;
         }
 
-        public void Move(int playerNumber)
+        public void Move(Keys keyPressed)
         {
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.W) && playerNumber == 1)
+            if (state.IsKeyDown(playerControl.))
             {
                 if (playerAngle < 0 && playerAngle> 90)
                 {
@@ -74,7 +74,7 @@ namespace Project1
                     playerPosition.Y -= speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
                 }
             }
-            if (state.IsKeyDown(Keys.S) && playerNumber == 1)
+            if (keyPressed == playerControl["Down"])
             {
                 if (playerAngle < 0 && playerAngle > 90)
                 {
@@ -97,11 +97,11 @@ namespace Project1
                     playerPosition.Y += speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
                 }
             }
-            if (state.IsKeyDown(Keys.A) && playerNumber == 1)
+            if (keyPressed == playerControl["Left"])
             {
                 playerAngle -= 0.5f;
             }
-            if (state.IsKeyDown(Keys.D) && playerNumber == 1)
+            if (keyPressed == playerControl["Right"])
             {
                 playerAngle += 0.5f;
             }
@@ -139,7 +139,7 @@ namespace Project1
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, playerRect, playerRect, Color.White, playerAngle * (float)Math.PI / 180, playerPosition, SpriteEffects.None, 0);
+            sb.Draw(playerTexture, playerRect, playerRect, Color.White, playerAngle * (float)Math.PI / 180, playerPosition, SpriteEffects.None, 0);
         }
 
     }
