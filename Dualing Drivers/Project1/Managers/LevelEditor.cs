@@ -29,6 +29,8 @@ namespace Project1.Managers
         private Texture2D breakableTexture;
         private Texture2D selectedTexture;
         private Texture2D exitTexture;
+        private Texture2D saveTexture;
+        private Texture2D loadTexture;
 
         //create internal array fields
         public TileType[,] tileTypes = new TileType[25, 17];
@@ -42,7 +44,7 @@ namespace Project1.Managers
         /// <summary>
         /// Basic LevelEditor Constructor
         /// </summary>
-        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D selectedTexture, Texture2D exitTexture)
+        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D selectedTexture, Texture2D exitTexture, Texture2D saveTexture, Texture2D loadTexture)
         {
             //set internal fields to the constructor input
             this.wallTexture = wallTexture;
@@ -51,6 +53,8 @@ namespace Project1.Managers
             this.breakableTexture = breakableTexture;
             this.selectedTexture = selectedTexture;
             this.exitTexture = exitTexture;
+            this.saveTexture = saveTexture;
+            this.loadTexture = loadTexture;
 
             //create a basic array
             for(int i = 0; i < mapWidth; i++)
@@ -69,9 +73,9 @@ namespace Project1.Managers
             selectTiles[3] = new Button(breakableTexture, breakableTexture, 140, 130, 80, 80);
 
             //Create the buttons
-            exitButton = new Button(exitTexture, 30, 700 - exitTexture.Height*2, exitTexture.Width*2, exitTexture.Height*2);
-            saveButton = new Button(exitTexture, 30, 500 - exitTexture.Height * 2, exitTexture.Width * 2, exitTexture.Height * 2);
-            loadButton = new Button(exitTexture, 30, 300 - exitTexture.Height * 2, exitTexture.Width * 2, exitTexture.Height * 2);
+            exitButton = new Button(exitTexture, 30, 700 - exitTexture.Height, exitTexture.Width, exitTexture.Height);
+            saveButton = new Button(saveTexture, 30, 500 - saveTexture.Height, saveTexture.Width, saveTexture.Height);
+            loadButton = new Button(loadTexture, 30, 400 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
         }
 
         /// <summary>

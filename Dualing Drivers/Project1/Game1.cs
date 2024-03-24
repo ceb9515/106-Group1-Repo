@@ -28,14 +28,19 @@ namespace Project1
         MouseState mouseState;
         MouseState previousMS;
 
-        //Create Title Texture
+        //Create Titlescreen Textures
         private Texture2D titleTexture;
+        private Texture2D playButtonTexture;
+        private Texture2D LEButtonTexture;
 
 
         //Create Button Textures + fields
         private Texture2D testButtonTexture;
         private Texture2D testButtonHTexture;
         private Button testButton;
+        private Texture2D exitButtonTexture;
+        private Texture2D saveButtonTexture;
+        private Texture2D loadButtonTexture;
 
         //Create TileSet Textures
         private Texture2D groundText;
@@ -91,12 +96,18 @@ namespace Project1
             // TODO: use this.Content to load your game content here
             //Load Title Screen Textures
             titleTexture = Content.Load<Texture2D>("altLogo");
+            playButtonTexture = Content.Load<Texture2D>("playButton");
+            LEButtonTexture = Content.Load<Texture2D>("LEButton");
 
 
             //Load the test button textures
             testButtonTexture = Content.Load<Texture2D>("Button");
             testButtonHTexture = Content.Load<Texture2D>("ButtonHovered");
             testButton = new Button(testButtonTexture, testButtonHTexture, 550, 300, 128, 64);
+            exitButtonTexture = Content.Load<Texture2D>("exitButton");
+            saveButtonTexture = Content.Load<Texture2D>("SaveButton");
+            loadButtonTexture = Content.Load<Texture2D>("loadButton");
+
 
             //load tile textures
             groundText = Content.Load<Texture2D>("TESTgroundTexture");
@@ -106,14 +117,15 @@ namespace Project1
             selectedText = Content.Load<Texture2D>("TESTselectedTile");
 
             //load game object texture
-            Bullettext = Content.Load<Texture2D>("LEButton");
+            Bullettext = Content.Load<Texture2D>("Bullet");
             Playertext = Content.Load<Texture2D>("tank");
 
             //load the tile textures into the level editor
-            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, testButtonTexture);
+            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
 
-            //load title screen textures
-            titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
+            //load title screen
+            titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
+
 
             // loads tile manager
             tileManager = new TileManager(wallText,breakableText,halfText,groundText);

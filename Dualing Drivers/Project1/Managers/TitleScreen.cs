@@ -34,13 +34,14 @@ namespace Project1.Managers
             this.levelEditorTexture = levelEditorTexture;
             this.titleLogo = titleLogo;
 
-            startGameButton = new Button(startTexture, 400, 300, startTexture.Width*2, startTexture.Height*2);
-            levelEditorButton = new Button(levelEditorTexture, 716, 300, levelEditorTexture.Width*2, levelEditorTexture.Height*2);
+            startGameButton = new Button(startTexture, 400, 300, startTexture.Width, startTexture.Height);
+            levelEditorButton = new Button(levelEditorTexture, 716, 300, levelEditorTexture.Width, levelEditorTexture.Height);
 
 
             
         }
 
+        //Draws the title screen's elements and buttons
         public void DrawTitle(SpriteBatch sb)
         {
             startGameButton.Draw(sb);
