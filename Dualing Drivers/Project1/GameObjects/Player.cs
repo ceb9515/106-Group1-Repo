@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Project1
 {
+
     internal class Player : GameObject
     {
-        public event Action<Bullet> OnShoot;
+        public event Action<Bullet, Player> OnShoot;
 
         private int health;
         private int speed;

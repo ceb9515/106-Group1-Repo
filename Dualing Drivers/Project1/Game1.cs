@@ -240,6 +240,8 @@ namespace Project1
             Player player2 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player2Position, playerManager.player2Controls);
             bulletManager = new BulletManager();
             playerManager = new PlayerManager(player1, player2);
+            player1.OnShoot += bulletManager.AddBullet;
+            player2.OnShoot += bulletManager.AddBullet;
         }
 
     }
