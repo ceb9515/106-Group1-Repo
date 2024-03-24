@@ -166,5 +166,14 @@ namespace Project1
                 }
             }
         }
+
+        /// <summary>
+        /// gets the lists of tiles
+        /// </summary>
+        /// <returns>lists of tiles</returns>
+        public List<List<Tile>> GetTiles()
+        {
+            return tiles;
+        }
     }
 }

@@ -78,7 +78,7 @@ namespace Project1
             
 
             bulletManager = new BulletManager();
-            playerManager= new PlayerManager()
+            playerManager = new PlayerManager()
             
             
 
