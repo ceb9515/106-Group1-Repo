@@ -38,7 +38,7 @@ namespace Project1
         /// constructor
         /// </summary>
         /// <param name="angle"></param>
-        public Bullet(Texture2D BulletTex, int inputX, int inputY, int width, int height, int angle) : base(BulletTex, inputX, inputY, width, height)
+        public Bullet(Texture2D BulletTex, int inputX, int inputY, int width, int height, float angle) : base(BulletTex, inputX, inputY, width, height)
         {
            
             Angle = angle;
