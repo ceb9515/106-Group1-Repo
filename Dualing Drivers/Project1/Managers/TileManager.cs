@@ -6,20 +6,29 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Project1
 {
     internal class TileManager
     {
         // fields
-        private List<Tile> tiles;
+        private List<List<Tile>> tiles;
+        private Texture2D solid;
+        private Texture2D semiSolid;
+        private Texture2D breakable;
+        private Texture2D background;
 
         /// <summary>
         /// creates a new tile manager
         /// </summary>
-        public TileManager()
+        public TileManager(Texture2D solid, Texture2D breakable, Texture2D semiSolid, Texture2D background)
         {
-            tiles = new List<Tile>();
+            tiles = new List<List<Tile>>();
+            this.solid = solid;
+            this.breakable = breakable;
+            this.semiSolid = semiSolid;
+            this.background = background;
         }
 
         // methods
@@ -28,9 +37,9 @@ namespace Project1
         /// adds tile to list of tiles
         /// </summary>
         /// <param name="tile">tile to be added</param>
-        public void AddTile(Tile tile)
+        public void AddTile(Tile tile, int row)
         {
-            tiles.Add(tile);
+            tiles[row].Add(tile);
         }
 
         /// <summary>
@@ -41,74 +50,84 @@ namespace Project1
         {
             for (int i = 0; i < tiles.Count; i++)
             {
-                if (tiles[i] == tile)
+                for(int k = 0; k < tiles[i].Count; k++)
                 {
-                    tiles[i].Type = TileType.background;
+                    if (tiles[i][k] == tile)
+                    {
+                        tiles[i][k].Type = TileType.background;
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// loads tiles from file and adds to list
+        /// Read level data from an external file
         /// </summary>
-        /// <param name="fileName">name of file to load from</param>
-        /// <param name="breakable">breakable tile texture</param>
-        /// <param name="solid">solid tile texture</param>
-        /// <param name="background">background tile texture</param>
-        /// <param name="semiSolid">semisolid tile texture</param>
-        public void LoadTiles(string fileName, Texture2D breakable, Texture2D solid, Texture2D background, Texture2D semiSolid)
+        public void LoadTiles(object? sender, System.ComponentModel.CancelEventArgs e)
         {
-            // variables needed to load a file
-            StreamReader input = new StreamReader(fileName);
-            string line = null;
-            string[] tiles = new string[21];
-            int x = 0;
-            int y = 0;
+            //reset the current tiles list
+            tiles.Clear();
+            //get the streamreader from file
+            string filename = (sender as OpenFileDialog).FileName;
+            //load variables from a file
+            StreamReader input = new StreamReader(filename);
+            string[] textTiles = new string[25];
+            int x = 260;
+            int y = 20;
             TileType tileType = TileType.background;
-            Texture2D texture = null;
+            Texture2D texture = background;
+            int row = 0;
+            int mapHeight = 17;
+            int mapWidth = 25;
 
-            // reads every line in the file
-            while((line = input.ReadLine()) != null)
+            for(int i = 0; i < mapHeight; i++)
             {
-                // splits line up into individual tile types
-                tiles = line.Split("||");
+                tiles.Add(new List<Tile>());
+            }
 
-                // checks every tile type in a line
-                for (int i = 0; i < tiles.Length; i++)
+            //get the data into a list of the correct rows
+            List<string> rows = new List<string>();
+            string readLine = null;
+            while ((readLine = input.ReadLine()) != null)
+            {
+                rows.Add(readLine);
+            }
+            rows.RemoveAt(0);
+
+            //loop through the rows and add tiles to the map
+            for (int i = 0; i < mapHeight; i++)
+            {
+                for (int k = 0; k < mapWidth; k++)
                 {
-                    // checks the tile type that is saved in the file
-                    if (tiles[i] == "solid")
+                    //get this row of data for tiles
+                    string[] rowData = rows[i].Split("|");
+                    //default tile type = ground
+                    TileType loadTileType = TileType.background;
+                    texture = background;
+                    //read the type of tile to input
+                    if (rowData[k] == "Half")
                     {
-                        tileType = TileType.solid;
-                        texture = solid;
-                    }
-                    else if (tiles[i] == "semiSolid")
-                    {
-                        tileType = TileType.semiSolid;
+                        loadTileType = TileType.semiSolid;
                         texture = semiSolid;
                     }
-                    else if (tiles[i] == "breakable")
+                    else if (rowData[k] == "Wall")
                     {
-                        tileType = TileType.breakable;
-                        texture = breakable;
+                        loadTileType = TileType.solid;
+                        texture = solid;
                     }
-                    else if (tiles[i] == "background")
+                    else if (rowData[k] == "Breakable")
                     {
-                        tileType = TileType.background;
-                        texture = background;
+                        loadTileType = TileType.breakable;
+                        texture = breakable;
                     }
 
                     // adds tile to list
-                    AddTile(new Tile(texture, x, y, 40, 40, tileType));
+                    AddTile(new Tile(texture, x, y, 40, 40, tileType), i);
 
-                    // changes tile position
                     x += 40;
-                    if (x == 1000)
-                    {
-                        x = 0;
-                        y += 40;
-                    }
                 }
+                x = 260;
+                y += 40;
             }
 
             input.Close();
@@ -122,7 +141,10 @@ namespace Project1
         {
             for (int i = 0; i < tiles.Count; i++)
             {
-                tiles[i].Draw(sb);
+                for(int k = 0; k < tiles[i].Count; k++)
+                {
+                    tiles[i][k].Draw(sb);
+                }
             }
         }
 
@@ -131,16 +153,18 @@ namespace Project1
         /// </summary>
         /// <param name="playerRect">players position and size</param>
         /// <returns>players new position</returns>
-        public Rectangle HandlePlayerCollision(Player player)
+        public void HandlePlayerCollision(Player player)
         {
             for (int i = 0; i < tiles.Count; i++) 
             {
-                if (tiles[i].IsColliding(player.PlayerRect) && tiles[i].Type != TileType.background)
+                for(int k = 0; k < tiles[i].Count; k++)
                 {
-                    playerRect = tiles[i].BlockPlayer(player);
+                    if (tiles[i][k].IsColliding(player.PlayerRect) && tiles[i][k].Type != TileType.background)
+                    {
+                         tiles[i][k].BlockPlayer(player);
+                    }
                 }
             }
-            return playerRect;
         }
     }
 }

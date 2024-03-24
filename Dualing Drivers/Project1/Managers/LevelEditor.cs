@@ -171,7 +171,6 @@ namespace Project1.Managers
         /// <summary>
         /// Read level data from an external file
         /// </summary>
-        /// <param name="filename">filepath to read from</param>
         public void Load(object? sender, System.ComponentModel.CancelEventArgs e)
         {
             //get the streamreader from file
