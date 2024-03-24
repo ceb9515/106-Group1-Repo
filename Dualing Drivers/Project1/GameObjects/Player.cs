@@ -46,7 +46,7 @@ namespace Project1
             this.playerPosition = playerPosition;
             this.playerAngle = playerAngle;
             playerTexture = texture;
-            PlayerRect = new Rectangle(x, y, texture.Width, texture.Height);
+            PlayerRect = new Rectangle((int)(playerPosition.X - texture.Width / 2), (int)(playerPosition.Y - texture.Height / 2), texture.Width, texture.Height);
             this.playerControl = playerControl;
         }
 
@@ -55,7 +55,7 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Up"]))
             {
-                if (playerAngle < 0 && playerAngle> 90)
+                if (playerAngle > 0 && playerAngle < 90)
                 {
                     playerPosition.X += speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
                     playerPosition.Y += speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
@@ -78,7 +78,7 @@ namespace Project1
             }
             if (state.IsKeyDown(playerControl["Down"]))
             {
-                if (playerAngle < 0 && playerAngle > 90)
+                if (playerAngle > 0 && playerAngle < 90)
                 {
                     playerPosition.X -= speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
                     playerPosition.Y -= speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
@@ -152,7 +152,7 @@ namespace Project1
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(playerTexture, playerRect, playerRect, Color.White, playerAngle * (float)Math.PI / 180, playerPosition, SpriteEffects.None, 0);
+            sb.Draw(playerTexture, playerRect, playerRect, Color.White, playerAngle * (float)Math.PI / 180, playerPosition, SpriteEffects.None, 1);
         }
 
     }
