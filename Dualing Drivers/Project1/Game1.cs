@@ -107,8 +107,7 @@ namespace Project1
             titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
 
             // loads tile manager
-            tileManager = new TileManager();
-            //tileManager.LoadTiles(fileName, breakableText, wallText, groundText, halfText);
+            tileManager = new TileManager(wallText, breakableText, halfText, groundText);
         }
 
         protected override void Update(GameTime gameTime)
@@ -133,7 +132,7 @@ namespace Project1
                     }
                     if (titleScreen.startGameButton.Clicked(mouseState))
                     {
-                        gameState = GameState.Game;
+                        gameState = GameState.LevelSelect;
                     }
                     break;
 
@@ -184,7 +183,18 @@ namespace Project1
                     }
                     break;
 
+                case GameState.LevelSelect:
+                    //open load file window
+                    OpenFileDialog loadingM = new OpenFileDialog();
+                    loadingM.Title = "Load a level file.";
+                    loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
+                    loadingM.FileOk += tileManager.LoadTiles;
+                    loadingM.ShowDialog();
+                    gameState = GameState.Game;
+                    break;
+
                 case GameState.Game: 
+
                     break;
             }
 
@@ -216,6 +226,7 @@ namespace Project1
                     _spriteBatch.Draw(levelEditor.saveButton.texture, levelEditor.saveButton.rect, Color.White);
                     _spriteBatch.Draw(levelEditor.loadButton.texture, levelEditor.loadButton.rect, Color.White);
                     break;
+
                 case GameState.Game:
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
