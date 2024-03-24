@@ -76,23 +76,27 @@ namespace Project1
         /// </summary>
         /// <param name="playerRect">players current position</param>
         /// <returns>players new position outside of rectangle</returns>
-        public Microsoft.Xna.Framework.Rectangle BlockPlayer(Microsoft.Xna.Framework.Rectangle playerRect)
+        public Vector2 BlockPlayer(Player player)
         {
             // finds where the objects overlap
             Microsoft.Xna.Framework.Rectangle overlap =
-                Microsoft.Xna.Framework.Rectangle.Intersect(this.rect, playerRect);
+                Microsoft.Xna.Framework.Rectangle.Intersect(this.rect, player.PlayerRect);
 
             // moves player horizontally left or right
             // from conflicting tile
             if (overlap.Height >= overlap.Width)
             {
-                if (this.rect.X > playerRect.X)
+                if (this.rect.X > player.PlayerRect.X)
                 {
-                    playerRect.X -= overlap.Width;
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.X -= overlap.Width;
+                    player.PlayerPosition = vector2;
                 }
-                else if (this.rect.X < playerRect.X)
+                else if (this.rect.X < player.PlayerRect.X)
                 {
-                    playerRect.X += overlap.Width;
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.X += overlap.Width;
+                    player.PlayerPosition = vector2;
                 }
             }
 
@@ -100,18 +104,22 @@ namespace Project1
             // from conflicting tile
             if (overlap.Width >= overlap.Height)
             {
-                if (this.rect.Y > playerRect.Y)
+                if (this.rect.Y > player.PlayerRect.Y)
                 {
-                    playerRect.Y -= overlap.Height;
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.Y -= overlap.Height;
+                    player.PlayerPosition = vector2;
                 }
-                else if (this.rect.Y < playerRect.Y)
+                else if (this.rect.Y < player.PlayerRect.Y)
                 {
-                    playerRect.Y += overlap.Height;
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.Y += overlap.Height;
+                    player.PlayerPosition = vector2;
                 }
             }
 
             // returns player's new position
-            return playerRect;
+            return player.PlayerPosition;
         }
     }
 }

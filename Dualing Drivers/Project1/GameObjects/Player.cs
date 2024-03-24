@@ -26,7 +26,8 @@ namespace Project1
         public int Health { get { return health; } set { health = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
-
+        public Rectangle PlayerRect { get { return playerRect; } set { playerRect = value; } }
+        public Vector2 PlayerPosition { get { return playerPosition; } set { playerPosition = value; } }
 
         /// <summary>
         /// Basic Player Constructor
@@ -44,7 +45,7 @@ namespace Project1
             this.playerPosition = playerPosition;
             this.playerAngle = playerAngle;
             playerTexture = texture;
-            playerRect = new Rectangle(x, y, texture.Width, texture.Height);
+            PlayerRect = new Rectangle(x, y, texture.Width, texture.Height);
             this.playerControl = playerControl;
         }
 
