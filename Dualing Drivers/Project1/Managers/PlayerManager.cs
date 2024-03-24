@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +13,31 @@ namespace Project1.Managers
     {
         Player player1;
         Player player2;
-
+        Dictionary<string, Keys> player1Controls;
+        Dictionary<string, Keys> player2Controls;
 
         public PlayerManager(Player player1, Player player2)
         {
             this.player1 = player1;
             this.player2 = player2;
+
+            player1Controls = new Dictionary<string, Keys>
+            {
+                {"Up", Keys.W},
+                {"Down", Keys.S},
+                {"Left", Keys.A},
+                {"Right", Keys.D}
+            };
+
+            player2Controls = new Dictionary<string, Keys>
+            {
+                {"Up", Keys.Up},
+                {"Down", Keys.Down},
+                {"Left", Keys.Left},
+                {"Right", Keys.Right}
+            };
         }
+
 
         /*
         public void Update()
@@ -27,6 +48,11 @@ namespace Project1.Managers
             player2.Update();
         }
         */
+
+        
+
+
+
 
     }
 }

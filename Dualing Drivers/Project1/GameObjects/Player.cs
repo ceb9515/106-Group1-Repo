@@ -51,7 +51,7 @@ namespace Project1
         public void Move(Keys keyPressed)
         {
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(playerControl.))
+            if (state.IsKeyDown(playerControl["Up"]))
             {
                 if (playerAngle < 0 && playerAngle> 90)
                 {
@@ -74,7 +74,7 @@ namespace Project1
                     playerPosition.Y -= speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
                 }
             }
-            if (keyPressed == playerControl["Down"])
+            if (state.IsKeyDown(playerControl["Down"]))
             {
                 if (playerAngle < 0 && playerAngle > 90)
                 {
@@ -97,11 +97,11 @@ namespace Project1
                     playerPosition.Y += speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
                 }
             }
-            if (keyPressed == playerControl["Left"])
+            if (state.IsKeyDown(playerControl["Left"]))
             {
                 playerAngle -= 0.5f;
             }
-            if (keyPressed == playerControl["Right"])
+            if (state.IsKeyDown(playerControl["Right"]))
             {
                 playerAngle += 0.5f;
             }
