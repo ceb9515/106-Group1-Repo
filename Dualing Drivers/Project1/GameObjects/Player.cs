@@ -48,7 +48,7 @@ namespace Project1
             this.playerControl = playerControl;
         }
 
-        public void Move(Keys keyPressed)
+        public override void Move()
         {
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Up"]))
@@ -112,10 +112,14 @@ namespace Project1
             player.Health -= damage;
         }
 
-        public void Shoot(Player player)
+        public void Shoot()
         {
-            Bullet bullet = new Bullet(texture, (int)player.playerPosition.X, (int)player.playerPosition.Y, 10, 10, 0);
-            OnShoot?.Invoke(bullet);
+            KeyboardState state = Keyboard.GetState();
+            if (state.IsKeyDown(playerControl["Shoot"]))
+            {
+                Bullet bullet = new Bullet(texture, (int)this.playerPosition.X, (int)this.playerPosition.Y, 10, 10, 0);
+                OnShoot?.Invoke(bullet);
+            }
         }
 
         public bool IsPlayerCrash(Player player)
@@ -135,6 +139,9 @@ namespace Project1
             playerAngle = playerAngle % 360;
             this.playerRect.X = (int)(playerPosition.X - playerRect.Width / 2);
             this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
+            Move();
+            Shoot();
+
         }
 
         public override void Draw(SpriteBatch sb)
