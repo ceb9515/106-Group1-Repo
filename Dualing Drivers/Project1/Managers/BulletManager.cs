@@ -16,10 +16,12 @@ namespace Project1.Managers
         private Rectangle GameBound;
         public void AddBullet(Bullet newBullet,Player player)
         {
-            if (!newBullet.IsColliding(player.rect))
+            while (!newBullet.IsColliding(player.rect))
             {
-                BulletList.Add(newBullet);
+                newBullet.Move();
             }
+            BulletList.Add(newBullet);
+            
         }
        
         
