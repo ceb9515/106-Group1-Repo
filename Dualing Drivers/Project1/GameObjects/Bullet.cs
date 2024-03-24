@@ -19,7 +19,7 @@ namespace Project1
         private Texture2D BulletTexture;
         private Microsoft.Xna.Framework.Rectangle BulletRec;
         private float Angle;
-        private int Speed = 4;
+        private int Speed = 2;
         private Vector2 activePosition;
         private Vector2 currentPosition;
         private bool active;
@@ -47,6 +47,7 @@ namespace Project1
             int x = (int)Math.Floor(this.activePosition.X);
             int y = (int)Math.Floor(this.activePosition.Y);
             BulletRec = new Microsoft.Xna.Framework.Rectangle (x,y,BulletTexture.Width,BulletTexture.Height);
+            this.active = true;
            
         }
         

@@ -19,7 +19,7 @@ namespace Project1.Managers
         {
             while (newBullet.IsColliding(player.rect))
             {
-                newBullet.Move();
+                newBullet.moveBullet();
             }
             BulletList.Add(newBullet);
         }
@@ -29,7 +29,7 @@ namespace Project1.Managers
         {
             for (int i = 0; i < bulletList.Count; i++)
             {
-                bulletList[i].Move();
+                bulletList[i].moveBullet();
 
                 // Check collision with tiles
                 for (int j = 0; j < tileList.Count; j++)
