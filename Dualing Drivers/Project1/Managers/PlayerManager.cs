@@ -13,8 +13,22 @@ namespace Project1.Managers
     {
         Player player1;
         Player player2;
-        Dictionary<string, Keys> player1Controls;
-        Dictionary<string, Keys> player2Controls;
+        public Dictionary<string, Keys> player1Controls = new Dictionary<string, Keys>
+        {
+                {"Up", Keys.W},
+                {"Down", Keys.S},
+                {"Left", Keys.A},
+                {"Right", Keys.D},
+                {"Shoot", Keys.Space}
+        };
+        public Dictionary<string, Keys> player2Controls = new Dictionary<string, Keys>
+        {
+                {"Up", Keys.Up},
+                {"Down", Keys.Down},
+                {"Left", Keys.Left},
+                {"Right", Keys.Right},
+                {"Shoot", Keys.RightControl}
+        };
 
         private List<Player> playerList;
         public List<Player> PlayerList { get { return playerList; } }
@@ -27,24 +41,6 @@ namespace Project1.Managers
             {
                 player1,
                 player2
-            };
-
-            player1Controls = new Dictionary<string, Keys>
-            {
-                {"Up", Keys.W},
-                {"Down", Keys.S},
-                {"Left", Keys.A},
-                {"Right", Keys.D},
-                {"Shoot", Keys.Space}
-            };
-
-            player2Controls = new Dictionary<string, Keys>
-            {
-                {"Up", Keys.Up},
-                {"Down", Keys.Down},
-                {"Left", Keys.Left},
-                {"Right", Keys.Right},
-                {"Shoot", Keys.RightControl}
             };
         }
 
