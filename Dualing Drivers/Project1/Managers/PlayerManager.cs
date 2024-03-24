@@ -16,10 +16,15 @@ namespace Project1.Managers
         Dictionary<string, Keys> player1Controls;
         Dictionary<string, Keys> player2Controls;
 
+        private List<Player> playerList=new List<Player>();
+        public List<Player> PlayerList { get { return playerList; } }
+
         public PlayerManager(Player player1, Player player2)
         {
             this.player1 = player1;
             this.player2 = player2;
+            playerList.Add(player2);
+            playerList.Add(player1);
 
             player1Controls = new Dictionary<string, Keys>
             {
