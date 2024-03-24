@@ -73,7 +73,7 @@ namespace Project1
             if(active)
             {
                 Vector2 origin = new Vector2(BulletTexture.Width / 2f, BulletTexture.Height / 2f);
-                sb.Draw(BulletTexture,BulletRec, null, Color.White, (float)Math.Cos(MathHelper.ToRadians(Angle)), origin,SpriteEffects.None, 1);
+                sb.Draw(BulletTexture,BulletRec, null, Color.White, (float)(MathHelper.ToRadians(Angle)), origin,SpriteEffects.None, 1);
             }
         }
     }
