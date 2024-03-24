@@ -23,7 +23,7 @@ namespace Project1
         private Texture2D playerTexture;
         private Dictionary<string, Keys> playerControl;
         
-
+        public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
@@ -55,22 +55,22 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Up"]))
             {
-                if (playerAngle > 0 && playerAngle < 90)
+                if (playerAngle >= 0 && playerAngle < 90)
                 {
                     playerPosition.X += speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
                     playerPosition.Y += speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
                 }
-                if (playerAngle > 90 && playerAngle < 180)
+                if (playerAngle >= 90 && playerAngle < 180)
                 {
                     playerPosition.X -= speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
                     playerPosition.Y += speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
                 }
-                if (playerAngle > 180 && playerAngle < 270)
+                if (playerAngle >= 180 && playerAngle < 270)
                 {
                     playerPosition.X -= speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
                     playerPosition.Y -= speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
                 }
-                if (playerAngle > 270 && playerAngle < 360)
+                if (playerAngle >= 270 && playerAngle < 360)
                 {
                     playerPosition.X += speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
                     playerPosition.Y -= speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
@@ -78,22 +78,22 @@ namespace Project1
             }
             if (state.IsKeyDown(playerControl["Down"]))
             {
-                if (playerAngle > 0 && playerAngle < 90)
+                if (playerAngle >= 0 && playerAngle < 90)
                 {
                     playerPosition.X -= speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
                     playerPosition.Y -= speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
                 }
-                if (playerAngle > 90 && playerAngle < 180)
+                if (playerAngle >= 90 && playerAngle < 180)
                 {
                     playerPosition.X += speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
                     playerPosition.Y -= speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
                 }
-                if (playerAngle > 180 && playerAngle < 270)
+                if (playerAngle >= 180 && playerAngle < 270)
                 {
                     playerPosition.X += speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
                     playerPosition.Y += speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
                 }
-                if (playerAngle > 270 && playerAngle < 360)
+                if (playerAngle >= 270 && playerAngle < 360)
                 {
                     playerPosition.X -= speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
                     playerPosition.Y += speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
@@ -119,7 +119,7 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Shoot"]))
             {
-                Bullet bullet = new Bullet(texture, (int)this.playerPosition.X, (int)this.playerPosition.Y, 10, 10, 0);
+                Bullet bullet = new Bullet(texture, (int)this.playerPosition.X, (int)this.playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet,this);
             }
         }
@@ -152,7 +152,8 @@ namespace Project1
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(playerTexture, playerRect, playerRect, Color.White, playerAngle * (float)Math.PI / 180, playerPosition, SpriteEffects.None, 1);
+            Vector2 origin = new Vector2(playerTexture.Width / 2f, playerTexture.Height / 2f);
+            sb.Draw(playerTexture, PlayerRect, null, Color.White, playerAngle * (float)Math.PI / 180, origin, SpriteEffects.None, 1);
         }
 
     }
