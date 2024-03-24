@@ -137,6 +137,10 @@ namespace Project1
 
         public void Update()
         {
+            if (playerAngle < 0)
+            {
+                playerAngle += 360;
+            }
             playerAngle = playerAngle % 360;
             this.playerRect.X = (int)(playerPosition.X - playerRect.Width / 2);
             this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
