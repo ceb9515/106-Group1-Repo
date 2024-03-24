@@ -26,7 +26,8 @@ namespace Project1.Managers
                 {"Up", Keys.W},
                 {"Down", Keys.S},
                 {"Left", Keys.A},
-                {"Right", Keys.D}
+                {"Right", Keys.D},
+                {"Shoot", Keys.Space}
             };
 
             player2Controls = new Dictionary<string, Keys>
@@ -34,20 +35,17 @@ namespace Project1.Managers
                 {"Up", Keys.Up},
                 {"Down", Keys.Down},
                 {"Left", Keys.Left},
-                {"Right", Keys.Right}
+                {"Right", Keys.Right},
+                {"Shoot", Keys.RightControl}
             };
         }
 
 
-        /*
         public void Update()
         {
-            player1.Move(player1);
-            player2.Move(player2);
             player1.Update();
             player2.Update();
         }
-        */
 
         
 
