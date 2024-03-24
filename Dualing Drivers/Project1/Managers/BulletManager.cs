@@ -43,12 +43,12 @@ namespace Project1.Managers
                             {
                                 currentTile.TakeDamage();
                                 bulletList[i].Destroy();
-                                break; // Assuming a bullet can only collide with one tile at a time
+                                break; 
                             }
                             else if (currentTile.Type == TileType.solid)
                             {
                                 bulletList[i].Destroy();
-                                break; // Assuming a bullet can only collide with one tile at a time
+                                break; 
                             }
                         }
                     }
@@ -61,9 +61,9 @@ namespace Project1.Managers
                 {
                     if (bulletList[i].IsColliding(playerList[k].rect))
                     {
-                        playerList[k].TakeDamage(playerList[k]); // Assuming TakeDamage method does not need the player as a parameter
+                        playerList[k].TakeDamage(playerList[k]); 
                         bulletList[i].Destroy();
-                        break; // Assuming a bullet can only hit one player at a time
+                        break; 
                     }
                 }
             }
