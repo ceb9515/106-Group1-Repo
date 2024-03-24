@@ -246,7 +246,6 @@ namespace Project1
                     player2.Draw(_spriteBatch);
                     tileManager.DrawTiles(_spriteBatch);
                     bulletManager.DrawBullet(_spriteBatch);
-                    
                     break;
             }
 
@@ -261,8 +260,8 @@ namespace Project1
             Vector2 player1Position = new Vector2(320, 360);
             Vector2 player2Position = new Vector2(960, 360);
             playerManager = new PlayerManager();
-            player1 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player1Position, playerManager.player1Controls);
-            player2 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player2Position, playerManager.player2Controls);
+            player1 = new Player(Playertext, 320, 360, 40, 40, 5, 1, 1, 0, player1Position, playerManager.player1Controls, Bullettext);
+            player2 = new Player(Playertext, 960, 360, 40, 40, 5, 1, 1, 180, player2Position, playerManager.player2Controls, Bullettext);
             bulletManager = new BulletManager();
             playerManager.AddPlayer(player1);
             playerManager.AddPlayer(player2);

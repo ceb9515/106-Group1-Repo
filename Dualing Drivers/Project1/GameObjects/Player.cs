@@ -21,9 +21,11 @@ namespace Project1
         private float playerAngle;
         private Rectangle playerRect;
         private Texture2D playerTexture;
+        private Texture2D bulletTexture;
         private Dictionary<string, Keys> playerControl;
+        private KeyboardState previousKB;
         
-
+        public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
@@ -38,7 +40,7 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl) : base(texture, x, y, width, height)
+        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl, Texture2D bulletTexture) : base(texture, x, y, width, height)
         {
             Health = health;
             Speed = speed;
@@ -48,6 +50,7 @@ namespace Project1
             playerTexture = texture;
             PlayerRect = new Rectangle((int)(playerPosition.X - texture.Width / 2), (int)(playerPosition.Y - texture.Height / 2), texture.Width, texture.Height);
             this.playerControl = playerControl;
+            this.bulletTexture = bulletTexture;
         }
 
         public override void Move()
@@ -55,49 +58,13 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Up"]))
             {
-                if (playerAngle > 0 && playerAngle < 90)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle > 90 && playerAngle < 180)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle > 180 && playerAngle < 270)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle > 270 && playerAngle < 360)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
-                }
+                playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
             }
             if (state.IsKeyDown(playerControl["Down"]))
             {
-                if (playerAngle > 0 && playerAngle < 90)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle > 90 && playerAngle < 180)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle > 180 && playerAngle < 270)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle > 270 && playerAngle < 360)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
-                }
+                playerPosition.X -= speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                playerPosition.Y -= speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
             }
             if (state.IsKeyDown(playerControl["Left"]))
             {
@@ -117,9 +84,9 @@ namespace Project1
         public void Shoot()
         {
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(playerControl["Shoot"]))
+            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]))
             {
-                Bullet bullet = new Bullet(texture, (int)this.playerPosition.X, (int)this.playerPosition.Y, 10, 10, 0);
+                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet,this);
             }
         }
@@ -148,11 +115,13 @@ namespace Project1
             Move();
             Shoot();
             
+            previousKB = Keyboard.GetState();
         }
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(playerTexture, playerRect, playerRect, Color.White, playerAngle * (float)Math.PI / 180, playerPosition, SpriteEffects.None, 1);
+            Vector2 origin = new Vector2(playerTexture.Width / 2f, playerTexture.Height / 2f);
+            sb.Draw(playerTexture, PlayerRect, null, Color.White, playerAngle * (float)Math.PI / 180, origin, SpriteEffects.None, 1);
         }
 
     }
