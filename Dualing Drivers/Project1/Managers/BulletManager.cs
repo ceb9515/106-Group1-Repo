@@ -37,6 +37,10 @@ namespace Project1.Managers
                         TileList[j].TakeDamage();
                         BulletList[i].Destroy();
                     }
+                    if (BulletList[i].IsColliding(TileList[j].Rect) && TileList[j].Type == TileType.solid)
+                    {
+                        BulletList[i].Destroy();
+                    }
                 }
                 for(int k=0; k<PlayerList.Count;k++)
                 {
