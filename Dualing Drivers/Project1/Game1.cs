@@ -56,6 +56,10 @@ namespace Project1
         private BulletManager bulletManager;
         private PlayerManager playerManager;
 
+        //
+        private Player player1;
+        private Player player2;
+
         bool testing = true;
 
         public Game1()
@@ -74,6 +78,8 @@ namespace Project1
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
+
+            
 
             
         }
@@ -223,9 +229,11 @@ namespace Project1
                     break;
                 case GameState.Game:
                     // draws all the tiles to the screen
+                    player1.Draw(_spriteBatch);
+                    player2.Draw(_spriteBatch);
                     tileManager.DrawTiles(_spriteBatch);
                     bulletManager.DrawBullet(_spriteBatch);
-
+                    
                     break;
             }
 
@@ -239,10 +247,10 @@ namespace Project1
             //load the game
             Vector2 player1Position = new Vector2(320, 360);
             Vector2 player2Position = new Vector2(960, 360);
-            Player player1 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player1Position, playerManager.player1Controls);
-            Player player2 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player2Position, playerManager.player2Controls);
-            bulletManager = new BulletManager();
             playerManager = new PlayerManager();
+            player1 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player1Position, playerManager.player1Controls);
+            player2 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player2Position, playerManager.player2Controls);
+            bulletManager = new BulletManager();
             playerManager.AddPlayer(player1);
             playerManager.AddPlayer(player2);
             player1.OnShoot += bulletManager.AddBullet;

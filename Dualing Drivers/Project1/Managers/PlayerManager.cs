@@ -35,7 +35,7 @@ namespace Project1.Managers
 
         public PlayerManager()
         {
-            playerList = new List<Player>;
+            playerList = new List<Player>();
         }
 
         public void AddPlayer(Player player)
