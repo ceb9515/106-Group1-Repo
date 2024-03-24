@@ -100,7 +100,7 @@ namespace Project1
             selectedText = Content.Load<Texture2D>("TESTselectedTile");
 
             //load game object texture
-            Bullettext = Content.Load<Texture2D>("");
+            Bullettext = Content.Load<Texture2D>("LEButton");
             Playertext = Content.Load<Texture2D>("tank");
 
             //load the tile textures into the level editor
@@ -224,6 +224,8 @@ namespace Project1
                 case GameState.Game:
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
+                    bulletManager.DrawBullet(_spriteBatch);
+
                     break;
             }
 
