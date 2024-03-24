@@ -45,10 +45,16 @@ namespace Project1
         private Texture2D selectedText;
         private LevelEditor.TileType currentTile = 0;
 
+        //Create player and bullet textures
+        private Texture2D Playertext;
+        private Texture2D Bullettext;
+
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
         private TitleScreen titleScreen;
         private TileManager tileManager;
+        private BulletManager bulletManager;
+        private PlayerManager playerManager;
 
         bool testing = true;
 
@@ -68,13 +74,13 @@ namespace Project1
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
-            /*
-            BulletManager manager = new BulletManager();
-            Player player1 = new Player();
-            Player player2 = new Player();
-            player1.OnShoot +=manager.AddBullet()
-            player2.OnShoot +=manager.AddBullet()
-            */
+
+            
+
+            bulletManager = new BulletManager();
+            playerManager= new PlayerManager()
+            
+            
 
 
         }
@@ -100,6 +106,10 @@ namespace Project1
             breakableText = Content.Load<Texture2D>("TESTbreakableTexture");
             selectedText = Content.Load<Texture2D>("TESTselectedTile");
 
+            //load game object texture
+            Bullettext = Content.Load<Texture2D>("");
+            Playertext = Content.Load<Texture2D>("tank");
+
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, testButtonTexture);
 
@@ -107,7 +117,8 @@ namespace Project1
             titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
 
             // loads tile manager
-            tileManager = new TileManager(wallText, breakableText, halfText, groundText);
+            tileManager = new TileManager();
+            //tileManager.LoadTiles(fileName, breakableText, wallText, groundText, halfText);
         }
 
         protected override void Update(GameTime gameTime)
@@ -132,7 +143,7 @@ namespace Project1
                     }
                     if (titleScreen.startGameButton.Clicked(mouseState))
                     {
-                        gameState = GameState.LevelSelect;
+                        gameState = GameState.Game;
                     }
                     break;
 
@@ -183,18 +194,8 @@ namespace Project1
                     }
                     break;
 
-                case GameState.LevelSelect:
-                    //open load file window
-                    OpenFileDialog loadingM = new OpenFileDialog();
-                    loadingM.Title = "Load a level file.";
-                    loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
-                    loadingM.FileOk += tileManager.LoadTiles;
-                    loadingM.ShowDialog();
-                    gameState = GameState.Game;
-                    break;
-
-                case GameState.Game: 
-
+                case GameState.Game:
+                    bulletManager.ProcessCollition(tileManager.TileList,player);
                     break;
             }
 
@@ -226,7 +227,6 @@ namespace Project1
                     _spriteBatch.Draw(levelEditor.saveButton.texture, levelEditor.saveButton.rect, Color.White);
                     _spriteBatch.Draw(levelEditor.loadButton.texture, levelEditor.loadButton.rect, Color.White);
                     break;
-
                 case GameState.Game:
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
