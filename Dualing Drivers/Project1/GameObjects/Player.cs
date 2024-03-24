@@ -55,49 +55,13 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Up"]))
             {
-                if (playerAngle >= 0 && playerAngle < 90)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle >= 90 && playerAngle < 180)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle >= 180 && playerAngle < 270)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle >= 270 && playerAngle < 360)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
-                }
+                playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
             }
             if (state.IsKeyDown(playerControl["Down"]))
             {
-                if (playerAngle >= 0 && playerAngle < 90)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle >= 90 && playerAngle < 180)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(180 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y -= speed * (float)Math.Sin(180 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle >= 180 && playerAngle < 270)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(270 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(270 - playerAngle * (float)Math.PI / 180);
-                }
-                if (playerAngle >= 270 && playerAngle < 360)
-                {
-                    playerPosition.X -= speed * (float)Math.Cos(360 - playerAngle * (float)Math.PI / 180);
-                    playerPosition.Y += speed * (float)Math.Sin(360 - playerAngle * (float)Math.PI / 180);
-                }
+                playerPosition.X -= speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                playerPosition.Y -= speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
             }
             if (state.IsKeyDown(playerControl["Left"]))
             {
