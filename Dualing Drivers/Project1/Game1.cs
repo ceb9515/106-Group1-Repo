@@ -137,6 +137,7 @@ namespace Project1
                     if (titleScreen.startGameButton.Clicked(mouseState))
                     {
                         gameState = GameState.Game;
+                        LoadGame();
                     }
                     break;
 
