@@ -103,7 +103,7 @@ namespace Project1
 
                     // changes tile position
                     x += 40;
-                    if (x == 840)
+                    if (x == 1000)
                     {
                         x = 0;
                         y += 40;
