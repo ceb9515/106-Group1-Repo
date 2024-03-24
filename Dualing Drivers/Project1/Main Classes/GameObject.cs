@@ -40,7 +40,7 @@ namespace Project1
         public void Destroy()
         {
             this.active = false;
-            this.texture=null;
+           
             
         }
 

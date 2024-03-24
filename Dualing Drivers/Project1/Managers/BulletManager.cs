@@ -61,8 +61,9 @@ namespace Project1.Managers
                 {
                     if (bulletList[i].IsColliding(playerList[k].rect))
                     {
-                        playerList[k].TakeDamage(playerList[k]); 
                         bulletList[i].Destroy();
+                        playerList[k].TakeDamage(playerList[k]); 
+                       
                         break; 
                     }
                 }

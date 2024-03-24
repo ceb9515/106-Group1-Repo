@@ -22,7 +22,7 @@ namespace Project1
         private int Speed = 7;
         private Vector2 activePosition;
         private Vector2 currentPosition;
-        private bool active;
+        
         
         
 
@@ -45,9 +45,9 @@ namespace Project1
             BulletTexture = BulletTex;
             this.activePosition = new Vector2(inputX, inputY);
             int x = (int)Math.Floor(this.activePosition.X);
-            int y = (int)Math.Floor(this.activePosition.Y);
+            int y = (int)Math.Floor(this.activePosition.Y)-20;
             BulletRec = new Microsoft.Xna.Framework.Rectangle (x,y,BulletTexture.Width,BulletTexture.Height);
-            this.active = true;
+            this.Active = true;
            
         }
         
@@ -70,7 +70,7 @@ namespace Project1
         /// <param name="sb"></param>
         public override void Draw(SpriteBatch sb)
         {
-            if(active)
+            if(this.Active)
             {
                 Vector2 origin = new Vector2(BulletTexture.Width / 2f, BulletTexture.Height / 2f);
                 sb.Draw(BulletTexture,BulletRec, null, Color.White, (float)(MathHelper.ToRadians(Angle)), origin,SpriteEffects.None, 1);
