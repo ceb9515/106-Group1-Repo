@@ -17,11 +17,12 @@ namespace Project1.Managers
 
         public void AddBullet(Bullet newBullet,Player player)
         {
-            BulletList.Add(newBullet);
+            
             while (newBullet.IsColliding(player.rect))
             {
                 newBullet.Move();
             }
+            BulletList.Add(newBullet);
         }
 
 
