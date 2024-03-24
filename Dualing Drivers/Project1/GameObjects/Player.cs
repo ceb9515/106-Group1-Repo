@@ -120,7 +120,7 @@ namespace Project1
             if (state.IsKeyDown(playerControl["Shoot"]))
             {
                 Bullet bullet = new Bullet(texture, (int)this.playerPosition.X, (int)this.playerPosition.Y, 10, 10, 0);
-                OnShoot?.Invoke(bullet);
+                OnShoot?.Invoke(bullet,this);
             }
         }
 
