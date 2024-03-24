@@ -23,6 +23,7 @@ namespace Project1
         private Texture2D playerTexture;
         private Texture2D bulletTexture;
         private Dictionary<string, Keys> playerControl;
+        private KeyboardState previousKB;
         
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
@@ -83,7 +84,7 @@ namespace Project1
         public void Shoot()
         {
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(playerControl["Shoot"]))
+            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]))
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet,this);
@@ -114,6 +115,7 @@ namespace Project1
             Move();
             Shoot();
             
+            previousKB = Keyboard.GetState();
         }
 
         public override void Draw(SpriteBatch sb)
