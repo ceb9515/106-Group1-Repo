@@ -19,7 +19,7 @@ namespace Project1
         private Texture2D BulletTexture;
         private Microsoft.Xna.Framework.Rectangle BulletRec;
         private float Angle;
-        private int Speed = 2;
+        private int Speed = 4;
         private Vector2 activePosition;
         private Vector2 currentPosition;
         private bool active;
@@ -50,18 +50,28 @@ namespace Project1
             this.active = true;
            
         }
-        
+
         public void moveBullet()
         {
-            // Convert angle to radians
-            double angleRadians = Math.PI * Angle / 180.0;
+            // Assuming Angle is in degrees and normalized between 0 and 360.
+            // Normalize speed components based on direction without using trigonometry
+            float dx = 0, dy = 0;
 
-            // Calculate new position
-            int deltaX = (int)(Math.Cos(angleRadians) * Speed);
-            int deltaY = (int)(Math.Sin(angleRadians) * Speed);
+            // Simplified direction calculation (works accurately for right angles)
+            if (Angle == 0) { dx = Speed; } // Right
+            else if (Angle == 90) { dy = -Speed; } // Up
+            else if (Angle == 180) { dx = -Speed; } // Left
+            else if (Angle == 270) { dy = Speed; } // Down
+            else
+            {
+                // For non-cardinal directions, this is a very rough approximation and not recommended
+                // Consider reverting to using trigonometric functions for better accuracy
+                dx = Speed * (float)Math.Cos(Angle * Math.PI / 180);
+                dy = Speed * (float)Math.Sin(Angle * Math.PI / 180);
+            }
 
             // Update the BulletRec position
-            BulletRec = new Rectangle(BulletRec.X + deltaX, BulletRec.Y + deltaY, BulletRec.Width, BulletRec.Height);
+            BulletRec = new Rectangle(BulletRec.X + (int)dx, BulletRec.Y + (int)dy, BulletRec.Width, BulletRec.Height);
             currentPosition = new Vector2(BulletRec.X, BulletRec.Y);
         }
         /// <summary>
