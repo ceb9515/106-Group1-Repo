@@ -237,10 +237,10 @@ namespace Project1
             //load the game
             Vector2 player1Position = new Vector2(320, 360);
             Vector2 player2Position = new Vector2(960, 360);
+            playerManager = new PlayerManager();
             Player player1 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player1Position, playerManager.player1Controls);
             Player player2 = new Player(Playertext, 0, 0, 0, 0, 5, 1, 1, 0, player2Position, playerManager.player2Controls);
             bulletManager = new BulletManager();
-            playerManager = new PlayerManager();
             playerManager.AddPlayer(player1);
             playerManager.AddPlayer(player2);
             player1.OnShoot += bulletManager.AddBullet;
