@@ -142,7 +142,7 @@ namespace Project1
             this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
             Move();
             Shoot();
-
+            
         }
 
         public override void Draw(SpriteBatch sb)

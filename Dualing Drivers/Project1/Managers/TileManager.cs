@@ -131,13 +131,13 @@ namespace Project1
         /// </summary>
         /// <param name="playerRect">players position and size</param>
         /// <returns>players new position</returns>
-        public Rectangle HandlePlayerCollision(Microsoft.Xna.Framework.Rectangle playerRect)
+        public Rectangle HandlePlayerCollision(Player player)
         {
             for (int i = 0; i < tiles.Count; i++) 
             {
-                if (tiles[i].IsColliding(playerRect) && tiles[i].Type != TileType.background)
+                if (tiles[i].IsColliding(player.PlayerRect) && tiles[i].Type != TileType.background)
                 {
-                    playerRect = tiles[i].BlockPlayer(playerRect);
+                    playerRect = tiles[i].BlockPlayer(player);
                 }
             }
             return playerRect;

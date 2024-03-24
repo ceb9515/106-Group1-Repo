@@ -76,7 +76,7 @@ namespace Project1
         /// </summary>
         /// <param name="playerRect">players current position</param>
         /// <returns>players new position outside of rectangle</returns>
-        public Vector2 BlockPlayer(Player player)
+        public void BlockPlayer(Player player)
         {
             // finds where the objects overlap
             Microsoft.Xna.Framework.Rectangle overlap =
@@ -117,9 +117,6 @@ namespace Project1
                     player.PlayerPosition = vector2;
                 }
             }
-
-            // returns player's new position
-            return player.PlayerPosition;
         }
     }
 }
