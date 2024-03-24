@@ -196,6 +196,7 @@ namespace Project1
 
                 case GameState.Game:
                     bulletManager.ProcessCollision(tileManager.GetTiles(),playerManager.PlayerList,bulletManager.BulletList);
+                    playerManager.Update();
                     break;
             }
 

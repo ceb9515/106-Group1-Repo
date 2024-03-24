@@ -45,8 +45,10 @@ namespace Project1.Managers
 
         public void Update()
         {
-            player1.Update();
-            player2.Update();
+            foreach (Player player in playerList)
+            {
+                player.Update();
+            }
         }
 
         
