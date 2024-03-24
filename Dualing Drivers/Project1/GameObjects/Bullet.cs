@@ -50,28 +50,18 @@ namespace Project1
             this.active = true;
            
         }
-
+        
         public void moveBullet()
         {
-            // Assuming Angle is in degrees and normalized between 0 and 360.
-            // Normalize speed components based on direction without using trigonometry
-            float dx = 0, dy = 0;
+            // Convert angle to radians
+            double angleRadians = Math.PI * Angle / 180.0;
 
-            // Simplified direction calculation (works accurately for right angles)
-            if (Angle == 0) { dx = Speed; } // Right
-            else if (Angle == 90) { dy = -Speed; } // Up
-            else if (Angle == 180) { dx = -Speed; } // Left
-            else if (Angle == 270) { dy = Speed; } // Down
-            else
-            {
-                // For non-cardinal directions, this is a very rough approximation and not recommended
-                // Consider reverting to using trigonometric functions for better accuracy
-                dx = Speed * (float)Math.Cos(Angle * Math.PI / 180);
-                dy = Speed * (float)Math.Sin(Angle * Math.PI / 180);
-            }
+            // Calculate new position
+            int deltaX = (int)(Math.Cos(angleRadians) * Speed);
+            int deltaY = (int)(Math.Sin(angleRadians) * Speed);
 
             // Update the BulletRec position
-            BulletRec = new Rectangle(BulletRec.X + (int)dx, BulletRec.Y + (int)dy, BulletRec.Width, BulletRec.Height);
+            BulletRec = new Rectangle(BulletRec.X + deltaX, BulletRec.Y + deltaY, BulletRec.Width, BulletRec.Height);
             currentPosition = new Vector2(BulletRec.X, BulletRec.Y);
         }
         /// <summary>
@@ -82,7 +72,8 @@ namespace Project1
         {
             if(active)
             {
-                sb.Draw(BulletTexture,BulletRec, BulletRec, Color.White,Angle,currentPosition,SpriteEffects.None,0);
+                Vector2 origin = new Vector2(BulletTexture.Width / 2f, BulletTexture.Height / 2f);
+                sb.Draw(BulletTexture,BulletRec, null, Color.White,Angle,origin,SpriteEffects.None, 1);
             }
         }
     }
