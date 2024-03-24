@@ -110,7 +110,7 @@ namespace Project1
             titleScreen = new TitleScreen(testButtonTexture, testButtonTexture, titleTexture);
 
             // loads tile manager
-            tileManager = new TileManager();
+            tileManager = new TileManager(wallText,breakableText,halfText,groundText);
             //tileManager.LoadTiles(fileName, breakableText, wallText, groundText, halfText);
         }
 
