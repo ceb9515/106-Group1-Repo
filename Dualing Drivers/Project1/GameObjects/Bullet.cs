@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 
 namespace Project1
@@ -22,6 +24,7 @@ namespace Project1
         private Vector2 currentPosition;
         private bool active;
         
+        
 
         /// <summary>
         /// property
@@ -35,8 +38,9 @@ namespace Project1
         /// constructor
         /// </summary>
         /// <param name="angle"></param>
-        public Bullet(Texture2D BulletTex, int inputX, int inputY, int width, int height, int angle) : base(BulletTex, inputX, inputY, width, height)
+        public Bullet(Texture2D BulletTex, int inputX, int inputY, int width, int height, float angle) : base(BulletTex, inputX, inputY, width, height)
         {
+           
             Angle = angle;
             BulletTexture = BulletTex;
             this.activePosition = new Vector2(inputX, inputY);

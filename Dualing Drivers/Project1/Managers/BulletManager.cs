@@ -14,13 +14,18 @@ namespace Project1.Managers
         public List<Bullet> BulletList=new List<Bullet>();
         private Texture2D bulletTexture;
         private Rectangle GameBound;
-        public void AddBullet(Bullet newBullet)
+        public void AddBullet(Bullet newBullet,Player player)
         {
+            while (!newBullet.IsColliding(player.rect))
+            {
+                newBullet.Move();
+            }
             BulletList.Add(newBullet);
+            
         }
        
         
-        public void  ProcessCollition(List<Tile> TileList)
+        public void  ProcessCollition(List<Tile> TileList,List<Player>PlayerList)
         {
             for (int i = 0; i < BulletList.Count; i++)
             {
@@ -33,6 +38,14 @@ namespace Project1.Managers
                         BulletList[i].Destroy();
                     }
                 }
+                for(int k=0; k<PlayerList.Count;k++)
+                {
+                    if (BulletList[i].IsColliding(PlayerList[k].rect))
+                    {
+                        PlayerList[k].TakeDamage(PlayerList[k]);
+                    }
+                }
+
                 
             }
         }
