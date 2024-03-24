@@ -23,34 +23,49 @@ namespace Project1.Managers
             BulletList.Add(newBullet);
             
         }
-       
-        
-        public void  ProcessCollition(List<Tile> TileList,List<Player>PlayerList)
+
+
+        public void ProcessCollision(List<List<Tile>> tileList, List<Player> playerList, List<Bullet> bulletList)
         {
-            for (int i = 0; i < BulletList.Count; i++)
+            for (int i = 0; i < bulletList.Count; i++)
             {
-                BulletList[i].Move();
-                for (int j = 0; j < TileList.Count; j++)
+                bulletList[i].Move();
+
+                // Check collision with tiles
+                for (int j = 0; j < tileList.Count; j++)
                 {
-                    if (BulletList[i].IsColliding(TileList[j].Rect) && TileList[j].Type == TileType.breakable)
+                    for (int k = 0; k < tileList[j].Count; k++)
                     {
-                        TileList[j].TakeDamage();
-                        BulletList[i].Destroy();
-                    }
-                    if (BulletList[i].IsColliding(TileList[j].Rect) && TileList[j].Type == TileType.solid)
-                    {
-                        BulletList[i].Destroy();
-                    }
-                }
-                for(int k=0; k<PlayerList.Count;k++)
-                {
-                    if (BulletList[i].IsColliding(PlayerList[k].rect))
-                    {
-                        PlayerList[k].TakeDamage(PlayerList[k]);
+                        Tile currentTile = tileList[j][k];
+                        if (bulletList[i].IsColliding(currentTile.Rect))
+                        {
+                            if (currentTile.Type == TileType.breakable)
+                            {
+                                currentTile.TakeDamage();
+                                bulletList[i].Destroy();
+                                break; // Assuming a bullet can only collide with one tile at a time
+                            }
+                            else if (currentTile.Type == TileType.solid)
+                            {
+                                bulletList[i].Destroy();
+                                break; // Assuming a bullet can only collide with one tile at a time
+                            }
+                        }
                     }
                 }
 
                 
+
+                // Check collision with players
+                for (int k = 0; k < playerList.Count; k++)
+                {
+                    if (bulletList[i].IsColliding(playerList[k].rect))
+                    {
+                        playerList[k].TakeDamage(playerList[k]); // Assuming TakeDamage method does not need the player as a parameter
+                        bulletList[i].Destroy();
+                        break; // Assuming a bullet can only hit one player at a time
+                    }
+                }
             }
         }
         public void  DrawBullet(SpriteBatch sb)
