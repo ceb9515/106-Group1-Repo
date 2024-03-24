@@ -33,17 +33,15 @@ namespace Project1.Managers
         private List<Player> playerList;
         public List<Player> PlayerList { get { return playerList; } }
 
-        public PlayerManager(Player player1, Player player2)
+        public PlayerManager()
         {
-            this.player1 = player1;
-            this.player2 = player2;
-            playerList = new List<Player>
-            {
-                player1,
-                player2
-            };
+            playerList = new List<Player>;
         }
 
+        public void AddPlayer(Player player)
+        {
+            playerList.Add(player);
+        }
 
         public void Update()
         {
