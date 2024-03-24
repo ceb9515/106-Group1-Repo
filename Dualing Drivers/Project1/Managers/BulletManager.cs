@@ -16,7 +16,7 @@ namespace Project1.Managers
         private Rectangle GameBound;
         public void AddBullet(Bullet newBullet,Player player)
         {
-            while (!newBullet.IsColliding(player.rect))
+            while (newBullet.IsColliding(player.rect))
             {
                 newBullet.Move();
             }
