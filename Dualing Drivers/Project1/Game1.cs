@@ -129,7 +129,9 @@ namespace Project1
 
             // loads tile manager
             tileManager = new TileManager(wallText,breakableText,halfText,groundText);
-            //tileManager.LoadTiles(fileName, breakableText, wallText, groundText, halfText);
+
+            // makes a test map with only background tiles
+            tileManager.TestMap();
         }
 
         protected override void Update(GameTime gameTime)
@@ -242,9 +244,10 @@ namespace Project1
                     break;
                 case GameState.Game:
                     // draws all the tiles to the screen
+                    tileManager.DrawTiles(_spriteBatch);
                     player1.Draw(_spriteBatch);
                     player2.Draw(_spriteBatch);
-                    tileManager.DrawTiles(_spriteBatch);
+                    
                     bulletManager.DrawBullet(_spriteBatch);
                     break;
             }

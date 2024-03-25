@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Project1.Managers.LevelEditor;
 
 namespace Project1
 {
@@ -174,6 +175,31 @@ namespace Project1
         public List<List<Tile>> GetTiles()
         {
             return tiles;
+        }
+
+        public void TestMap()
+        {
+            int mapHeight = 17;
+            int mapWidth = 25;
+            int x = 260;
+            int y = 20;
+
+            for (int i = 0; i < mapHeight; i++)
+            {
+                tiles.Add(new List<Tile>());
+            }
+
+            for (int i = 0; i < mapHeight; i++)
+            {
+                for (int k = 0; k < mapWidth; k++)
+                {
+                    // adds tile to list
+                    AddTile(new Tile(background, x, y, 40, 40, TileType.background), i);
+                    x += 40;
+                }
+                x = 260;
+                y += 40;
+            }
         }
     }
 }
