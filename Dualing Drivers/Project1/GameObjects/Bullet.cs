@@ -45,7 +45,7 @@ namespace Project1
             BulletTexture = BulletTex;
             this.activePosition = new Vector2(inputX, inputY);
             int x = (int)Math.Floor(this.activePosition.X);
-            int y = (int)Math.Floor(this.activePosition.Y)-20;
+            int y = (int)Math.Floor(this.activePosition.Y);
             BulletRec = new Microsoft.Xna.Framework.Rectangle (x,y,BulletTexture.Width,BulletTexture.Height);
             this.Active = true;
            
