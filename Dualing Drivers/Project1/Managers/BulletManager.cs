@@ -17,7 +17,7 @@ namespace Project1.Managers
 
         public void AddBullet(Bullet newBullet,Player player)
         {
-            while (newBullet.IsColliding(player.rect))
+            while (newBullet.IsColliding(player.PlayerRect))
             {
                 newBullet.moveBullet();
             }
@@ -59,7 +59,7 @@ namespace Project1.Managers
                 // Check collision with players
                 for (int k = 0; k < playerList.Count; k++)
                 {
-                    if (bulletList[i].IsColliding(playerList[k].rect))
+                    if (bulletList[i].IsColliding(playerList[k].PlayerRect))
                     {
                         bulletList[i].Destroy();
                         playerList[k].TakeDamage(playerList[k]); 

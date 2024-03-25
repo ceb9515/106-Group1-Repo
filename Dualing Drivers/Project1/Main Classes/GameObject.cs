@@ -44,7 +44,7 @@ namespace Project1
             
         }
 
-        public bool IsColliding(Rectangle rectangle)
+        public virtual bool IsColliding(Rectangle rectangle)
         {
             if(this.rectangle.Intersects(rectangle))
             {

@@ -24,6 +24,10 @@ namespace Project1
         private Texture2D bulletTexture;
         private Dictionary<string, Keys> playerControl;
         private KeyboardState previousKB;
+        private int reloadNum = 0;
+        private int bulletNum = 5;
+        private bool reload;
+
         
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
@@ -84,10 +88,16 @@ namespace Project1
         public void Shoot()
         {
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]))
+            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && bulletNum > 0)
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X - 20, (int)playerPosition.Y - 20, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet,this);
+                bulletNum--;
+            }
+            if (bulletNum <= 0 && reload == false)
+            {
+                reloadNum = 100;
+                reload = true;
             }
         }
 
@@ -114,8 +124,19 @@ namespace Project1
             this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
             Move();
             Shoot();
-            
             previousKB = Keyboard.GetState();
+            if (reload == true)
+            {
+                reloadNum--;
+            }
+            if (reloadNum <= 0)
+            {
+                reload = false;
+            }
+            if (bulletNum <= 0 && reload == false)
+            {
+                bulletNum += 5;
+            }
         }
 
         public override void Draw(SpriteBatch sb)

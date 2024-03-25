@@ -76,5 +76,14 @@ namespace Project1
                 sb.Draw(BulletTexture,BulletRec, null, Color.White, (float)(MathHelper.ToRadians(Angle)), origin,SpriteEffects.None, 1);
             }
         }
+
+        public override bool IsColliding(Rectangle rectangle)
+        {
+            if (this.BulletRec.Intersects(rectangle))
+            {
+                return true;
+            }
+            else { return false; }
+        }
     }
 }
