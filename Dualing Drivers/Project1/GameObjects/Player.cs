@@ -72,11 +72,11 @@ namespace Project1
             }
             if (state.IsKeyDown(playerControl["Left"]))
             {
-                playerAngle -= 0.5f;
+                playerAngle -= 1f;
             }
             if (state.IsKeyDown(playerControl["Right"]))
             {
-                playerAngle += 0.5f;
+                playerAngle += 1f;
             }
         }
 

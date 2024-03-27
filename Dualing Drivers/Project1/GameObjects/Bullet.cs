@@ -44,6 +44,7 @@ namespace Project1
             Angle = angle;
             BulletTexture = BulletTex;
             this.activePosition = new Vector2(inputX, inputY);
+            this.currentPosition = this.activePosition;
             int x = (int)Math.Floor(this.activePosition.X);
             int y = (int)Math.Floor(this.activePosition.Y);
             BulletRec = new Microsoft.Xna.Framework.Rectangle (x,y,BulletTexture.Width,BulletTexture.Height);
@@ -53,16 +54,15 @@ namespace Project1
         
         public void moveBullet()
         {
-            // Convert angle to radians
-            double angleRadians = Math.PI * Angle / 180.0;
-
             // Calculate new position
-            int deltaX = (int)(Math.Cos(angleRadians) * Speed);
-            int deltaY = (int)(Math.Sin(angleRadians) * Speed);
+            float deltaX = Speed * (float)Math.Cos(MathHelper.ToRadians(Angle));
+            float deltaY = Speed * (float)Math.Sin(MathHelper.ToRadians(Angle));
 
             // Update the BulletRec position
-            BulletRec = new Rectangle(BulletRec.X + deltaX, BulletRec.Y + deltaY, BulletRec.Width, BulletRec.Height);
-            currentPosition = new Vector2(BulletRec.X, BulletRec.Y);
+            currentPosition.X += deltaX;
+            currentPosition.Y += deltaY;
+            BulletRec.X = (int)(currentPosition.X - BulletRec.X / 2);
+            BulletRec.Y = (int)(currentPosition.Y - BulletRec.Y / 2);
         }
         /// <summary>
         /// draw the bullet itself
