@@ -45,9 +45,7 @@ namespace Project1
             BulletTexture = BulletTex;
             this.activePosition = new Vector2(inputX, inputY);
             this.currentPosition = this.activePosition;
-            int x = (int)Math.Floor(this.activePosition.X);
-            int y = (int)Math.Floor(this.activePosition.Y);
-            BulletRec = new Microsoft.Xna.Framework.Rectangle (x,y,BulletTexture.Width,BulletTexture.Height);
+            BulletRec = new Microsoft.Xna.Framework.Rectangle ((int)(currentPosition.X - BulletRec.Width / 2), (int)(currentPosition.Y - BulletRec.Height / 2), BulletTexture.Width,BulletTexture.Height);
             this.Active = true;
            
         }
@@ -61,8 +59,8 @@ namespace Project1
             // Update the BulletRec position
             currentPosition.X += deltaX;
             currentPosition.Y += deltaY;
-            BulletRec.X = (int)(currentPosition.X - BulletRec.X / 2);
-            BulletRec.Y = (int)(currentPosition.Y - BulletRec.Y / 2);
+            BulletRec.X = (int)(currentPosition.X - BulletRec.Width / 2);
+            BulletRec.Y = (int)(currentPosition.Y - BulletRec.Height / 2);
         }
         /// <summary>
         /// draw the bullet itself
