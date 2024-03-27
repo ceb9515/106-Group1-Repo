@@ -37,24 +37,25 @@ namespace Project1.Managers
                     for (int k = 0; k < tileList[j].Count; k++)
                     {
                         Tile currentTile = tileList[j][k];
+                        //if things goes wrong with colliding, is problem of this place
                         if (bulletList[i].IsColliding(currentTile.Rect))
                         {
                             if (currentTile.Type == TileType.breakable)
                             {
                                 currentTile.TakeDamage();
                                 bulletList[i].Destroy();
-                                break; 
+                                break;
                             }
                             else if (currentTile.Type == TileType.solid)
                             {
                                 bulletList[i].Destroy();
-                                break; 
+                                break;
                             }
                         }
                     }
                 }
 
-                
+
 
                 // Check collision with players
                 for (int k = 0; k < playerList.Count; k++)
@@ -62,11 +63,12 @@ namespace Project1.Managers
                     if (bulletList[i].IsColliding(playerList[k].PlayerRect))
                     {
                         bulletList[i].Destroy();
-                        playerList[k].TakeDamage(playerList[k]); 
-                       
-                        break; 
+                        playerList[k].TakeDamage(playerList[k]);
+
+                        break;
                     }
                 }
+                
             }
         }
         public void  DrawBullet(SpriteBatch sb)

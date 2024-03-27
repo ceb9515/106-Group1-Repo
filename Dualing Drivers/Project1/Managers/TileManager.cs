@@ -73,13 +73,13 @@ namespace Project1
             //load variables from a file
             StreamReader input = new StreamReader(filename);
             string[] textTiles = new string[25];
-            int x = 260;
-            int y = 20;
+            int x = 220 + 40;
+            int y = -20 + 40;
             TileType tileType = TileType.background;
             Texture2D texture = background;
             int row = 0;
-            int mapHeight = 17;
-            int mapWidth = 25;
+            int mapHeight = 18 - 1;
+            int mapWidth = 26 - 1;
 
             for(int i = 0; i < mapHeight; i++)
             {
@@ -127,7 +127,7 @@ namespace Project1
 
                     x += 40;
                 }
-                x = 260;
+                x = 220 + 40;
                 y += 40;
             }
 
