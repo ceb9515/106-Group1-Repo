@@ -123,7 +123,7 @@ namespace Project1
                     }
 
                     // adds tile to list
-                    AddTile(new Tile(texture, x, y, 40, 40, tileType), i);
+                    AddTile(new Tile(texture, x, y, 40, 40, loadTileType), i);
 
                     x += 40;
                 }

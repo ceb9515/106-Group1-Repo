@@ -11,7 +11,7 @@ namespace Project1
 {
     internal class GameObject : Object
     {
-        Rectangle rectangle;
+       
         private bool active;
         public bool Active { get { return active; } set { active = value; } }   
         /// <summary>
@@ -46,7 +46,7 @@ namespace Project1
 
         public virtual bool IsColliding(Rectangle rectangle)
         {
-            if(this.rectangle.Intersects(rectangle))
+            if(this.rect.Intersects(rectangle))
             {
                 return true;
             }

@@ -257,7 +257,8 @@ namespace Project1
                     tileManager.DrawTiles(_spriteBatch);
                     player1.Draw(_spriteBatch);
                     player2.Draw(_spriteBatch);
-                    
+                    tileManager.HandlePlayerCollision(player1);
+                    tileManager.HandlePlayerCollision(player2);
                     bulletManager.DrawBullet(_spriteBatch);
                     break;
             }

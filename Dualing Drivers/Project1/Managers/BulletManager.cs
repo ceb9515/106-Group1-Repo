@@ -37,7 +37,7 @@ namespace Project1.Managers
                     for (int k = 0; k < tileList[j].Count; k++)
                     {
                         Tile currentTile = tileList[j][k];
-                        //if things goes wrong with colliding, is problem of this place
+                        //if things goes wrong with colliding, is 
                         if (bulletList[i].IsColliding(currentTile.Rect))
                         {
                             if (currentTile.Type == TileType.breakable)
