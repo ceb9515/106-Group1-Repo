@@ -90,7 +90,7 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && bulletNum > 0)
             {
-                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X - 20, (int)playerPosition.Y - 20, 10, 10, playerAngle);
+                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X - 10 , (int)playerPosition.Y - 20, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet,this);
                 bulletNum--;
             }
