@@ -156,7 +156,7 @@ namespace Project1
                     }
                     if (titleScreen.startGameButton.Clicked(mouseState))
                     {
-                        gameState = GameState.Game;
+                        gameState = GameState.LevelSelect;
                         LoadGame();
                     }
                     break;
@@ -206,6 +206,16 @@ namespace Project1
                         loading.FileOk += levelEditor.Load;
                         loading.ShowDialog();
                     }
+                    break;
+
+                case GameState.LevelSelect:
+                    //open load file window
+                    OpenFileDialog loadingM = new OpenFileDialog();
+                    loadingM.Title = "Load a level file.";
+                    loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
+                    loadingM.FileOk += tileManager.LoadTiles;
+                    loadingM.ShowDialog();
+                    gameState = GameState.Game;
                     break;
 
                 case GameState.Game:
