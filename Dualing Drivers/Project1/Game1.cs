@@ -108,7 +108,7 @@ namespace Project1
             wallText = Content.Load<Texture2D>("Wall");
             halfText = Content.Load<Texture2D>("HalfWallter");
             breakableText = Content.Load<Texture2D>("BreakWall");
-            selectedText = Content.Load<Texture2D>("TESTselectedTile");
+            selectedText = Content.Load<Texture2D>("selectedTile");
 
             //load game object texture
             Bullettext = Content.Load<Texture2D>("Bullet");

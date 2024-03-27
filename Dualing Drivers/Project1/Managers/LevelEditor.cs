@@ -76,6 +76,7 @@ namespace Project1.Managers
 
             //create the selecting Tiles array 
             selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
+            selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
             selectTiles[1] = new Button(halfTexture, halfTexture, 140, 20, 80, 80);
             selectTiles[2] = new Button(wallTexture, wallTexture, 30, 130, 80, 80);
             selectTiles[3] = new Button(breakableTexture, breakableTexture, 140, 130, 80, 80);
