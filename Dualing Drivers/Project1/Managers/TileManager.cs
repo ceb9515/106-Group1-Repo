@@ -81,7 +81,7 @@ namespace Project1
             int mapHeight = 18 - 1;
             int mapWidth = 26 - 1;
 
-            for(int i = 0; i < mapHeight; i++)
+            for (int i = 0; i < mapHeight; i++)
             {
                 tiles.Add(new List<Tile>());
             }

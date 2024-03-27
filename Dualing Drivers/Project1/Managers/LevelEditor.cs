@@ -61,12 +61,21 @@ namespace Project1.Managers
             {
                 for (int k = 0; k < mapHeight; k++)
                 {
-                    tileTypes[i, k] = TileType.Ground;
-                    mapTiles[i, k] = new Button(groundTexture, 260 + 40*i, 20 + 40*k, 40, 40);
+                    if(i == 0 || i == mapWidth - 1 || k == 0 || k == mapHeight - 1)
+                    {
+                        tileTypes[i, k] = TileType.Wall;
+                        mapTiles[i, k] = new Button(wallTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
+                    }
+                    else
+                    {
+                        tileTypes[i, k] = TileType.Ground;
+                        mapTiles[i, k] = new Button(groundTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
+                    }
                 }
             }
 
             //create the selecting Tiles array 
+            selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
             selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
             selectTiles[1] = new Button(halfTexture, halfTexture, 140, 20, 80, 80);
             selectTiles[2] = new Button(wallTexture, wallTexture, 30, 130, 80, 80);
@@ -86,27 +95,30 @@ namespace Project1.Managers
         /// <param name="t">tiletype to swap in</param>
         public void SwitchTile(int x, int y, TileType t)
         {
-            //switch the tile to the coorect tileType
-            if (t == TileType.Breakable)
-            {
-                tileTypes[x, y] = TileType.Breakable;
-                this.mapTiles[x, y].texture = this.breakableTexture;
-            }
-            else if (t == TileType.Half)
-            {
-                tileTypes[x, y] = TileType.Half;
-                this.mapTiles[x, y].texture = this.halfTexture;
-            }
-            else if (t == TileType.Wall)
-            {
-                tileTypes[x, y] = TileType.Wall;
-                this.mapTiles[x, y].texture = this.wallTexture;
-            }
-            //set ground for "else" as a failsafe
-            else
-            {
-                tileTypes[x, y] = TileType.Ground;
-                this.mapTiles[x, y].texture = this.groundTexture;
+            if(x!= 0 && x != mapWidth - 1 && y != 0 && y != mapHeight - 1) 
+            { 
+                //switch the tile to the coorect tileType
+                if (t == TileType.Breakable)
+                {
+                    tileTypes[x, y] = TileType.Breakable;
+                    this.mapTiles[x, y].texture = this.breakableTexture;
+                }
+                else if (t == TileType.Half)
+                {
+                    tileTypes[x, y] = TileType.Half;
+                    this.mapTiles[x, y].texture = this.halfTexture;
+                }
+                else if (t == TileType.Wall)
+                {
+                    tileTypes[x, y] = TileType.Wall;
+                    this.mapTiles[x, y].texture = this.wallTexture;
+                }
+                //set ground for "else" as a failsafe
+                else
+                {
+                    tileTypes[x, y] = TileType.Ground;
+                    this.mapTiles[x, y].texture = this.groundTexture;
+                }
             }
         }
 
