@@ -67,6 +67,7 @@ namespace Project1
                 if (health <= 0)
                 {
                     tileType = TileType.background;
+                    // change the texture too
                 }
             }
         }
