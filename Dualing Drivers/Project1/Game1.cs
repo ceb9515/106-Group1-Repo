@@ -35,9 +35,6 @@ namespace Project1
 
 
         //Create Button Textures + fields
-        private Texture2D testButtonTexture;
-        private Texture2D testButtonHTexture;
-        private Button testButton;
         private Texture2D exitButtonTexture;
         private Texture2D saveButtonTexture;
         private Texture2D loadButtonTexture;
@@ -101,19 +98,16 @@ namespace Project1
 
 
             //Load the test button textures
-            testButtonTexture = Content.Load<Texture2D>("Button");
-            testButtonHTexture = Content.Load<Texture2D>("ButtonHovered");
-            testButton = new Button(testButtonTexture, testButtonHTexture, 550, 300, 128, 64);
             exitButtonTexture = Content.Load<Texture2D>("exitButton");
             saveButtonTexture = Content.Load<Texture2D>("SaveButton");
             loadButtonTexture = Content.Load<Texture2D>("loadButton");
 
 
             //load tile textures
-            groundText = Content.Load<Texture2D>("TESTgroundTexture");
-            wallText = Content.Load<Texture2D>("TESTwallTexture");
-            halfText = Content.Load<Texture2D>("TESThalfTexture");
-            breakableText = Content.Load<Texture2D>("TESTbreakableTexture");
+            groundText = Content.Load<Texture2D>("ground");
+            wallText = Content.Load<Texture2D>("Wall");
+            halfText = Content.Load<Texture2D>("HalfWallter");
+            breakableText = Content.Load<Texture2D>("BreakWall");
             selectedText = Content.Load<Texture2D>("TESTselectedTile");
 
             //load game object texture
