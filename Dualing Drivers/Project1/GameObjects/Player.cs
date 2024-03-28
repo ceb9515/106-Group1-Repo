@@ -12,8 +12,10 @@ namespace Project1
 
     internal class Player : GameObject
     {
+        // event
         public event Action<Bullet, Player> OnShoot;
 
+        // fields
         private int health;
         private int speed;
         private int damage;
@@ -28,7 +30,7 @@ namespace Project1
         private int bulletNum = 5;
         private bool reload;
 
-        
+        // properties
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
@@ -57,6 +59,9 @@ namespace Project1
             this.bulletTexture = bulletTexture;
         }
 
+        /// <summary>
+        /// method to move the player
+        /// </summary>
         public override void Move()
         {
             KeyboardState state = Keyboard.GetState();
@@ -80,11 +85,18 @@ namespace Project1
             }
         }
 
+        /// <summary>
+        /// method to take damage
+        /// </summary>
+        /// <param name="player"></param>
         public void TakeDamage(Player player)
         {
             player.Health -= damage;
         }
 
+        /// <summary>
+        /// method to shoot bullets
+        /// </summary>
         public void Shoot()
         {
             KeyboardState state = Keyboard.GetState();
@@ -101,6 +113,11 @@ namespace Project1
             }
         }
 
+        /// <summary>
+        /// method to check if player is dead
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         public bool IsPlayerCrash(Player player)
         {
             if (player.Health <= 0)
@@ -113,6 +130,9 @@ namespace Project1
             }
         }
 
+        /// <summary>
+        /// method to update player
+        /// </summary>
         public void Update()
         {
             if (playerAngle < 0)
@@ -139,6 +159,10 @@ namespace Project1
             }
         }
 
+        /// <summary>
+        /// method to draw player
+        /// </summary>
+        /// <param name="sb"></param>
         public override void Draw(SpriteBatch sb)
         {
             Vector2 origin = new Vector2(playerTexture.Width / 2f, playerTexture.Height / 2f);
