@@ -102,7 +102,7 @@ namespace Project1
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && bulletNum > 0)
             {
-                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X - 10 , (int)playerPosition.Y - 20, 10, 10, playerAngle);
+                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet,this);
                 bulletNum--;
             }
@@ -165,8 +165,8 @@ namespace Project1
         /// <param name="sb"></param>
         public override void Draw(SpriteBatch sb)
         {
-            Vector2 origin = new Vector2(playerTexture.Width / 2f, playerTexture.Height / 2f);
-            sb.Draw(playerTexture, PlayerRect, null, Color.White, playerAngle * (float)Math.PI / 180, origin, SpriteEffects.None, 1);
+            Vector2 origin = new Vector2(playerRect.Width / 2f, playerRect.Height / 2f);
+            sb.Draw(playerTexture, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1,1), SpriteEffects.None, 1);
         }
 
     }

@@ -71,7 +71,7 @@ namespace Project1
             if(this.Active)
             {
                 Vector2 origin = new Vector2(BulletTexture.Width / 2f, BulletTexture.Height / 2f);
-                sb.Draw(BulletTexture,BulletRec, null, Color.White, (float)(MathHelper.ToRadians(Angle)), origin,SpriteEffects.None, 1);
+                sb.Draw(BulletTexture, currentPosition, null, Color.White, (float)(MathHelper.ToRadians(Angle)), origin, new Vector2(1, 1), SpriteEffects.None, 1);
             }
         }
 
