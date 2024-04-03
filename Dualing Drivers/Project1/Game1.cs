@@ -48,7 +48,10 @@ namespace Project1
         private LevelEditor.TileType currentTile = 0;
 
         //Create player and bullet textures
-        private Texture2D Playertext;
+        private Texture2D PlayerText1;
+        private Texture2D PlayerText2;
+        private Texture2D PlayerCrash1;
+        private Texture2D PlayerCrash2;
         private Texture2D Bullettext;
 
         //Create Gamestate manager objects
@@ -112,7 +115,10 @@ namespace Project1
 
             //load game object texture
             Bullettext = Content.Load<Texture2D>("Bullet");
-            Playertext = Content.Load<Texture2D>("tank");
+            PlayerText1 = Content.Load<Texture2D>("tank");
+            PlayerText2 = Content.Load<Texture2D>("tankAlt");
+            PlayerCrash1 = Content.Load<Texture2D>("tankExplosion");
+            PlayerCrash2 = Content.Load<Texture2D>("tankAltExplosion");
 
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
@@ -267,9 +273,9 @@ namespace Project1
             //load the game
             Vector2 player1Position = new Vector2(320, 360);
             Vector2 player2Position = new Vector2(960, 360);
-            playerManager = new PlayerManager();
-            player1 = new Player(Playertext, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, playerManager.player1Controls, Bullettext);
-            player2 = new Player(Playertext, 960, 360, 40, 40, 5, 2, 1, 180, player2Position, playerManager.player2Controls, Bullettext);
+            playerManager = new PlayerManager(PlayerCrash1, PlayerCrash2);
+            player1 = new Player(PlayerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, playerManager.player1Controls, Bullettext);
+            player2 = new Player(PlayerText2, 960, 360, 40, 40, 5, 2, 1, 180, player2Position, playerManager.player2Controls, Bullettext);
             bulletManager = new BulletManager();
             playerManager.AddPlayer(player1);
             playerManager.AddPlayer(player2);

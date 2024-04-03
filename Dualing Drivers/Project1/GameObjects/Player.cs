@@ -113,22 +113,7 @@ namespace Project1
             }
         }
 
-        /// <summary>
-        /// method to check if player is dead
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public bool IsPlayerCrash(Player player)
-        {
-            if (player.Health <= 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        
 
         /// <summary>
         /// method to update player
