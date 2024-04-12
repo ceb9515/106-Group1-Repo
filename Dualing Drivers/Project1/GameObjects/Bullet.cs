@@ -31,7 +31,7 @@ namespace Project1
         /// </summary>
         public Microsoft.Xna.Framework.Rectangle Bulletrec 
         {
-        get { return BulletRec; }
+        get { return BulletRec; }set { BulletRec = value; }
         }
 
         /// <summary>
