@@ -20,10 +20,13 @@ namespace Project1
         private int speed;
         private int damage;
         private Vector2 playerPosition;
+        private Vector2 playerCrashedPosition;
         private float playerAngle;
+        private float playerCrashedAngle;
         private Rectangle playerRect;
         private Texture2D playerTexture;
         private Texture2D bulletTexture;
+        private Texture2D crashed;
         private Dictionary<string, Keys> playerControl;
         private KeyboardState previousKB;
         private int reloadNum = 0;
@@ -46,7 +49,7 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl, Texture2D bulletTexture) : base(texture, x, y, width, height)
+        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl, Texture2D bulletTexture, Texture2D crashed) : base(texture, x, y, width, height)
         {
             Health = health;
             Speed = speed;
@@ -54,6 +57,7 @@ namespace Project1
             this.playerPosition = playerPosition;
             this.playerAngle = playerAngle;
             playerTexture = texture;
+            this.crashed = crashed;
             PlayerRect = new Rectangle((int)(playerPosition.X - texture.Width / 2), (int)(playerPosition.Y - texture.Height / 2), texture.Width, texture.Height);
             this.playerControl = playerControl;
             this.bulletTexture = bulletTexture;
@@ -113,7 +117,19 @@ namespace Project1
             }
         }
 
-        
+
+        public bool IsPlayerCrash()
+        {
+            if (Health <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// method to update player
@@ -142,6 +158,12 @@ namespace Project1
             {
                 bulletNum += 5;
             }
+
+            if (!IsPlayerCrash())
+            {
+                playerCrashedPosition = playerPosition;
+                playerCrashedAngle = playerAngle;
+            }
         }
 
         /// <summary>
@@ -151,7 +173,15 @@ namespace Project1
         public override void Draw(SpriteBatch sb)
         {
             Vector2 origin = new Vector2(playerRect.Width / 2f, playerRect.Height / 2f);
-            sb.Draw(playerTexture, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1,1), SpriteEffects.None, 1);
+            if (IsPlayerCrash())
+            {
+                sb.Draw(crashed, playerCrashedPosition, null, Color.White, playerCrashedAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
+            }
+            else
+            {
+                sb.Draw(playerTexture, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
+            }
+            
         }
 
     }

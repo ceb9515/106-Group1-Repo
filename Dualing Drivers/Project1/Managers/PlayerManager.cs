@@ -76,23 +76,6 @@ namespace Project1.Managers
             playerList.Add(player);
         }
 
-        /// <summary>
-        /// method to check if player is dead
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        /*public bool IsPlayerCrash(Player player)
-        {
-            if (player.Health <= 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
 
 
         /// <summary>
@@ -103,29 +86,8 @@ namespace Project1.Managers
             foreach (Player player in playerList)
             {
                 player.Update();
-                
+
             }
-            /*
-            if (IsPlayerCrash(player1))
-            {
-                crash1 = new Player(playerCrash1, (int)player1.PlayerPosition.X, (int)player1.PlayerPosition.Y, 40, 40, 1000000000, 0, 0, (int)player1.PlayerAngle, player1.PlayerPosition, playerCrashControls, playerCrash2);
-            }
-            if (IsPlayerCrash(player2))
-            {
-                crash2 = new Player(playerCrash1, (int)player2.PlayerPosition.X, (int)player2.PlayerPosition.Y, 40, 40, 1000000000, 0, 0, (int)player2.PlayerAngle, player2.PlayerPosition, playerCrashControls, playerCrash2);
-            }
-            */
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(playerCrash1, crash1.PlayerPosition, Color.White);
-            spriteBatch.Draw(playerCrash2, crash2.PlayerPosition, Color.White);
-        }
-
-        
-
-
-
-
     }
 }

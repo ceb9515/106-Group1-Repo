@@ -42,13 +42,18 @@ namespace Project1.Managers
                         {
                             if (currentTile.Type == TileType.breakable)
                             {
-                                currentTile.TakeDamage();
-                                bulletList[i].Destroy();
+                                
+                                if (bulletList[i].Active)
+                                {
+                                    currentTile.TakeDamage();
+                                    bulletList[i].Destroy();
+                                }
                                 break;
                             }
                             else if (currentTile.Type == TileType.solid)
                             {
                                 bulletList[i].Destroy();
+                                
                                 break;
                             }
                         }
@@ -62,8 +67,11 @@ namespace Project1.Managers
                 {
                     if (bulletList[i].IsColliding(playerList[k].PlayerRect))
                     {
-                        bulletList[i].Destroy();
-                        playerList[k].TakeDamage(playerList[k]);
+                        if (bulletList[i].Active)
+                        {
+                            playerList[k].TakeDamage(playerList[k]);
+                            bulletList[i].Destroy();
+                        }
 
                         break;
                     }

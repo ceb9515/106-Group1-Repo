@@ -123,7 +123,7 @@ namespace Project1
                     }
 
                     // adds tile to list
-                    AddTile(new Tile(texture, x, y, 40, 40, loadTileType), i);
+                    AddTile(new Tile(texture, x, y, 40, 40, loadTileType, background), i);
 
                     x += 40;
                 }
@@ -194,7 +194,7 @@ namespace Project1
                 for (int k = 0; k < mapWidth; k++)
                 {
                     // adds tile to list
-                    AddTile(new Tile(background, x, y, 40, 40, TileType.background), i);
+                    AddTile(new Tile(background, x, y, 40, 40, TileType.background, background), i);
                     x += 40;
                 }
                 x = 260;

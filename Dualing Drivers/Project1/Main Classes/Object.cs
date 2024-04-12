@@ -19,6 +19,12 @@ namespace Project1
         //accessors and setters for rectangle X and Y
         public int X { get { return rect.X; } set { rect.X = value; } }
         public int Y { get { return rect.Y; } set { rect.Y = value; } }
+        
+
+        /// <summary>
+        /// gets and sets an objects texture
+        /// </summary>
+        public Texture2D Texture { get { return texture; } set { texture = value; } }
 
         /// <summary>
         /// Basic Object Constructor
