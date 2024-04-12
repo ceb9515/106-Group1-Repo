@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ namespace Project1
         // fields
         private int health;
         private TileType tileType;
+        private Texture2D backGroundText;
 
         // properties
 
@@ -44,14 +46,15 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Tile(Texture2D texture, int x, int y, int width, int height, TileType tileType) : base(texture, x, y, width, height)
+        public Tile(Texture2D texture, int x, int y, int width, int height, TileType tileType, Texture2D backGround) 
+            : base(texture, x, y, width, height)
         {
             if (tileType == TileType.breakable)
             {
                 health = 9;
             }
-
             this.tileType = tileType;
+            this.backGroundText = backGround;
         }
 
         // methods
@@ -67,7 +70,7 @@ namespace Project1
                 if (health <= 0)
                 {
                     tileType = TileType.background;
-                    // change the texture too
+                    this.Texture = backGroundText;
                 }
             }
         }

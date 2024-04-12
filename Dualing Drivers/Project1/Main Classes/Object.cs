@@ -21,6 +21,11 @@ namespace Project1
         public int Y { get { return rect.Y; } set { rect.Y = value; } }
 
         /// <summary>
+        /// gets and sets an objects texture
+        /// </summary>
+        public Texture2D Texture { get { return texture; } set { texture = value; } }
+
+        /// <summary>
         /// Basic Object Constructor
         /// </summary>
         /// <param name="texture">texture of game object</param>
