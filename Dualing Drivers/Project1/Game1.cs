@@ -19,7 +19,7 @@ namespace Project1
         private SpriteBatch _spriteBatch;
 
         //Setup the GameState enum
-        public enum GameState { Title, Menu, Game, Editor, LevelSelect }
+        public enum GameState { Title, Menu, Game, Editor, GameOver, LevelSelect }
         public GameState gameState = GameState.Title;
 
         //Setup keyboard + mouse states
@@ -57,15 +57,21 @@ namespace Project1
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
         private TitleScreen titleScreen;
+        private GameOver gameOver;
         private TileManager tileManager;
         private BulletManager bulletManager;
         private PlayerManager playerManager;
 
-        //
+        //Create players
         private Player player1;
         private Player player2;
 
+        //variable for menu selection delays
+        private int menuDelay = 0;
+
+        //test variables
         bool testing = true;
+        private int testCount = 0;
 
         public Game1()
         {
@@ -84,9 +90,6 @@ namespace Project1
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
 
-            
-
-            
         }
 
         protected override void LoadContent()
@@ -99,12 +102,10 @@ namespace Project1
             playButtonTexture = Content.Load<Texture2D>("playButton");
             LEButtonTexture = Content.Load<Texture2D>("LEButton");
 
-
             //Load the test button textures
             exitButtonTexture = Content.Load<Texture2D>("exitButton");
             saveButtonTexture = Content.Load<Texture2D>("SaveButton");
             loadButtonTexture = Content.Load<Texture2D>("loadButton");
-
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
@@ -126,6 +127,8 @@ namespace Project1
             //load title screen
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
 
+            //load game over screen
+            gameOver = new GameOver(playButtonTexture, LEButtonTexture, titleTexture);
 
             // loads tile manager
             tileManager = new TileManager(wallText,breakableText,halfText,groundText);
@@ -150,15 +153,19 @@ namespace Project1
             switch (gameState)
             {
                 case GameState.Title:
-                    if (titleScreen.levelEditorButton.Clicked(mouseState))
+                    if(menuDelay > 15)
                     {
-                        gameState = GameState.Editor;
+                        if (titleScreen.levelEditorButton.Clicked(mouseState))
+                        {
+                            gameState = GameState.Editor;
+                        }
+                        if (titleScreen.startGameButton.Clicked(mouseState))
+                        {
+                            gameState = GameState.LevelSelect;
+                            LoadGame();
+                        }
                     }
-                    if (titleScreen.startGameButton.Clicked(mouseState))
-                    {
-                        gameState = GameState.LevelSelect;
-                        LoadGame();
-                    }
+                    menuDelay++;
                     break;
 
                 case GameState.Editor:
@@ -221,6 +228,31 @@ namespace Project1
                 case GameState.Game:
                     bulletManager.ProcessCollision(tileManager.GetTiles(),playerManager.PlayerList,bulletManager.BulletList);
                     playerManager.Update();
+
+                    //ADD A GAME OVER CONDITION HERE
+                    testCount++;
+                    if(testCount >= 1000)
+                    {
+                        gameState = GameState.GameOver;
+                    }
+                    break;
+
+                case GameState.GameOver:
+                    //reset test variable (can remove in final version)
+                    testCount = 0;
+
+                    //check button to restart the game
+                    if (gameOver.restartGameButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.LevelSelect;
+                        LoadGame();
+                    }
+                    //check button to go back to the title screen
+                    if (gameOver.titleButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.Title;
+                    }
+
                     break;
             }
 
@@ -260,6 +292,13 @@ namespace Project1
                     tileManager.HandlePlayerCollision(player1);
                     tileManager.HandlePlayerCollision(player2);
                     bulletManager.DrawBullet(_spriteBatch);
+                    break;
+                case GameState.GameOver:
+                    //draw players and tiles but without adding new collisions
+                    tileManager.DrawTiles(_spriteBatch);
+                    player1.Draw(_spriteBatch);
+                    player2.Draw(_spriteBatch);
+                    gameOver.Draw(_spriteBatch);
                     break;
             }
 
