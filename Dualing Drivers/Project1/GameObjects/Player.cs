@@ -143,9 +143,6 @@ namespace Project1
             playerAngle = playerAngle % 360;
             this.playerRect.X = (int)(playerPosition.X - playerRect.Width / 2);
             this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
-            Move();
-            Shoot();
-            previousKB = Keyboard.GetState();
             if (reload == true)
             {
                 reloadNum--;
@@ -161,9 +158,10 @@ namespace Project1
 
             if (!IsPlayerCrash())
             {
-                playerCrashedPosition = playerPosition;
-                playerCrashedAngle = playerAngle;
+                Move();
+                Shoot();
             }
+            previousKB = Keyboard.GetState();
         }
 
         /// <summary>
@@ -173,13 +171,13 @@ namespace Project1
         public override void Draw(SpriteBatch sb)
         {
             Vector2 origin = new Vector2(playerRect.Width / 2f, playerRect.Height / 2f);
-            if (IsPlayerCrash())
+            if (!IsPlayerCrash())
             {
-                sb.Draw(crashed, playerCrashedPosition, null, Color.White, playerCrashedAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
+                sb.Draw(playerTexture, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
             }
             else
             {
-                sb.Draw(playerTexture, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
+                sb.Draw(crashed, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
             }
             
         }
