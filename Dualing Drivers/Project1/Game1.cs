@@ -39,6 +39,21 @@ namespace Project1
         private Texture2D saveButtonTexture;
         private Texture2D loadButtonTexture;
 
+        //UI textures
+        private Texture2D healthFullText;
+        private Texture2D healthFourText;
+        private Texture2D healthThreeText;
+        private Texture2D healthTwoText;
+        private Texture2D healthOneText;
+        private Texture2D healthZeroText;
+        private Texture2D magFullText;
+        private Texture2D magFourText;
+        private Texture2D magThreeText;
+        private Texture2D magTwoText;
+        private Texture2D magOneText;
+        private Texture2D magEmptyText;
+
+
         //Create TileSet Textures
         private Texture2D groundText;
         private Texture2D wallText;
@@ -106,6 +121,20 @@ namespace Project1
             exitButtonTexture = Content.Load<Texture2D>("exitButton");
             saveButtonTexture = Content.Load<Texture2D>("SaveButton");
             loadButtonTexture = Content.Load<Texture2D>("loadButton");
+
+            //Load UI Textures
+            healthFullText = Content.Load<Texture2D>("HealthFull");
+            healthFourText = Content.Load<Texture2D>("HealthFour");
+            healthThreeText = Content.Load<Texture2D>("HealthThree");
+            healthTwoText = Content.Load<Texture2D>("HealthTwo");
+            healthOneText = Content.Load<Texture2D>("HealthOne");
+            healthZeroText = Content.Load<Texture2D>("HealthEmpty");
+            magFullText = Content.Load<Texture2D>("MagFull");
+            magFourText = Content.Load<Texture2D>("MagFour");
+            magThreeText = Content.Load<Texture2D>("MagThree");
+            magTwoText = Content.Load<Texture2D>("MagTwo");
+            magOneText = Content.Load<Texture2D>("MagOne");
+            magEmptyText = Content.Load<Texture2D>("MagEmpty");
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
