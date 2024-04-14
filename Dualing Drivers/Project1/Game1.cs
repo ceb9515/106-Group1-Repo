@@ -38,6 +38,8 @@ namespace Project1
         private Texture2D exitButtonTexture;
         private Texture2D saveButtonTexture;
         private Texture2D loadButtonTexture;
+        private Texture2D titleButtonTexture;
+        private Texture2D restartButtonTexture;
 
         //UI textures
         private Texture2D healthFullText;
@@ -123,6 +125,8 @@ namespace Project1
             titleTexture = Content.Load<Texture2D>("altLogo");
             playButtonTexture = Content.Load<Texture2D>("playButton");
             LEButtonTexture = Content.Load<Texture2D>("LEButton");
+            restartButtonTexture = Content.Load<Texture2D>("PlayAgainButton");
+            titleButtonTexture = Content.Load<Texture2D>("MenuButton");
 
             //Load the test button textures
             exitButtonTexture = Content.Load<Texture2D>("exitButton");
@@ -167,7 +171,7 @@ namespace Project1
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
 
             //load game over screen
-            gameOver = new GameOver(playButtonTexture, LEButtonTexture, titleTexture);
+            gameOver = new GameOver(restartButtonTexture, titleButtonTexture);
 
             // loads tile manager
             tileManager = new TileManager(wallText,breakableText,halfText,groundText);

@@ -17,24 +17,23 @@ namespace Project1.Managers
         public Button restartGameButton;
         public Button titleButton;
 
-        public Texture2D startTexture;
-        public Texture2D levelEditorTexture;
-        public Texture2D titleLogo;
+        public Texture2D restartTexture;
+        public Texture2D titleTexture;
 
 
         /// <summary>
         /// Constructor for TitleScreen
         /// </summary>
-        /// <param name="startTexture"> texture for start button </param>
-        /// <param name="levelEditorTexture"> texture for level editor button</param>
-        public GameOver(Texture2D startTexture, Texture2D levelEditorTexture, Texture2D titleLogo)
+        /// <param name="restartTexture"> texture for restart button </param>
+        /// <param name="titleTexture"> texture for back to title button</param>
+        public GameOver(Texture2D restartTexture, Texture2D titleTexture)
         {
-            this.startTexture = startTexture;
-            this.levelEditorTexture = levelEditorTexture;
-            this.titleLogo = titleLogo;
+            this.restartTexture = restartTexture;
+            this.titleTexture = titleTexture;
 
-            restartGameButton = new Button(startTexture, 400, 300, startTexture.Width, startTexture.Height);
-            titleButton = new Button(levelEditorTexture, 716, 300, levelEditorTexture.Width, levelEditorTexture.Height);
+
+            restartGameButton = new Button(restartTexture, 400, 500, restartTexture.Width, restartTexture.Height);
+            titleButton = new Button(titleTexture, 700, 500, titleTexture.Width, titleTexture.Height);
         }
 
         //Draws the title screen's elements and buttons
@@ -42,7 +41,6 @@ namespace Project1.Managers
         {
             restartGameButton.Draw(sb);
             titleButton.Draw(sb);
-            sb.Draw(titleLogo, new Microsoft.Xna.Framework.Rectangle(640 - titleLogo.Width / 3, 50, 2 * titleLogo.Width / 3, 2 * titleLogo.Height / 3), Microsoft.Xna.Framework.Color.White);
         }
     }
 }
