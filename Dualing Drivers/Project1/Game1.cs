@@ -92,6 +92,9 @@ namespace Project1
         bool testing = true;
         private int testCount = 0;
 
+        // text fonts
+        private SpriteFont text;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -154,6 +157,9 @@ namespace Project1
             PlayerCrash1 = Content.Load<Texture2D>("tankExplosion");
             PlayerCrash2 = Content.Load<Texture2D>("tankAltExplosion");
 
+            // load text fonts
+            text = Content.Load<SpriteFont>("text");
+
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
 
@@ -199,6 +205,7 @@ namespace Project1
                         }
                     }
                     menuDelay++;
+                    testCount = 0;
                     break;
 
                 case GameState.Editor:
@@ -262,9 +269,8 @@ namespace Project1
                     bulletManager.ProcessCollision(tileManager.GetTiles(),playerManager.PlayerList,bulletManager.BulletList);
                     playerManager.Update();
 
-                    //ADD A GAME OVER CONDITION HERE
-                    testCount++;
-                    if(testCount >= 1000)
+                    // ends game if either player dies
+                    if (playerManager.Player1.Health == 0 || playerManager.Player2.Health == 0)
                     {
                         gameState = GameState.GameOver;
                     }
@@ -274,8 +280,6 @@ namespace Project1
                     break;
 
                 case GameState.GameOver:
-                    //reset test variable (can remove in final version)
-                    testCount = 0;
 
                     //check button to restart the game
                     if (gameOver.restartGameButton.Clicked(mouseState))
@@ -323,10 +327,10 @@ namespace Project1
                 case GameState.Game:
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
-                    player1.Draw(_spriteBatch);
-                    player2.Draw(_spriteBatch);
-                    tileManager.HandlePlayerCollision(player1);
-                    tileManager.HandlePlayerCollision(player2);
+                    playerManager.Player1.Draw(_spriteBatch);
+                    playerManager.Player2.Draw(_spriteBatch);
+                    tileManager.HandlePlayerCollision(playerManager.Player1);
+                    tileManager.HandlePlayerCollision(playerManager.Player2);
                     bulletManager.DrawBullet(_spriteBatch);
                     UIPOne.Draw(_spriteBatch);
                     UIPTwo.Draw(_spriteBatch);
@@ -336,9 +340,24 @@ namespace Project1
                 case GameState.GameOver:
                     //draw players and tiles but without adding new collisions
                     tileManager.DrawTiles(_spriteBatch);
-                    player1.Draw(_spriteBatch);
-                    player2.Draw(_spriteBatch);
+                    playerManager.Player1.Draw(_spriteBatch);
+                    playerManager.Player2.Draw(_spriteBatch);
                     gameOver.Draw(_spriteBatch);
+
+                    // prints game over message
+                    _spriteBatch.DrawString(text, "Game Over", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 100, 10), Color.White);
+
+                    // win message for player 2
+                    if (playerManager.Player1.Health == 0)
+                    {
+                        _spriteBatch.DrawString(text, "Player 2 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
+                    }
+
+                    // win message for player 1
+                    if (playerManager.Player2.Health == 0)
+                    {
+                        _spriteBatch.DrawString(text, "Player 1 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
+                    }
                     break;
             }
 
@@ -350,11 +369,9 @@ namespace Project1
         public void LoadGame()
         {
             //load the game
-            Vector2 player1Position = new Vector2(320, 360);
-            Vector2 player2Position = new Vector2(960, 360);
-            playerManager = new PlayerManager(PlayerCrash1, PlayerCrash2);
-            player1 = new Player(PlayerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, playerManager.player1Controls, Bullettext, PlayerCrash1);
-            player2 = new Player(PlayerText2, 960, 360, 40, 40, 5, 2, 1, 180, player2Position, playerManager.player2Controls, Bullettext, PlayerCrash2);
+            Vector2 player1Position = new Vector2(340, 100);
+            Vector2 player2Position = new Vector2(1180, 620);
+            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2);
             bulletManager = new BulletManager();
             playerManager.AddPlayer(player1);
             playerManager.AddPlayer(player2);
@@ -366,7 +383,8 @@ namespace Project1
             UIPTwo = new UIManager(healthFullText, magFullText,
                 new Rectangle(100, 500, healthFullText.Width, healthFullText.Height),
                 new Rectangle(100, 530, magFullText.Width, magFullText.Height));
-
+            playerManager.Player1.OnShoot += bulletManager.AddBullet;
+            playerManager.Player2.OnShoot += bulletManager.AddBullet;
 
         }
 
@@ -531,7 +549,6 @@ namespace Project1
                         break;
                     }
             }
-
         }
 
     }

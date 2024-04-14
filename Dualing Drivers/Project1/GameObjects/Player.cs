@@ -82,11 +82,11 @@ namespace Project1
             }
             if (state.IsKeyDown(playerControl["Left"]))
             {
-                playerAngle -= 1f;
+                playerAngle -= 2f;
             }
             if (state.IsKeyDown(playerControl["Right"]))
             {
-                playerAngle += 1f;
+                playerAngle += 2f;
             }
         }
 
@@ -108,7 +108,7 @@ namespace Project1
             if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && bulletNum > 0)
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
-                OnShoot?.Invoke(bullet,this);
+                OnShoot?.Invoke(bullet, this);
                 bulletNum--;
             }
             if (bulletNum <= 0 && reload == false)
@@ -118,7 +118,10 @@ namespace Project1
             }
         }
 
-
+        /// <summary>
+        /// method to judge if the tank is destroyed
+        /// </summary>
+        /// <returns></returns>
         public bool IsPlayerCrash()
         {
             if (Health <= 0)
@@ -180,6 +183,57 @@ namespace Project1
             {
                 sb.Draw(crashed, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
             }
+
         }
-    }
+
+        }
+
+        /// <summary>
+        /// method to avoid two tanks can go through each other
+        /// </summary>
+        /// <param name="player"></param>
+        public void BlockPlayer(Player player)
+        {
+            // finds where the objects overlap
+            Microsoft.Xna.Framework.Rectangle overlap =
+                Microsoft.Xna.Framework.Rectangle.Intersect(this.PlayerRect, player.PlayerRect);
+
+            // moves player horizontally left or right
+            // from conflicting player
+            if (overlap.Height >= overlap.Width)
+            {
+                if (this.PlayerRect.X > player.PlayerRect.X)
+                {
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.X -= overlap.Width;
+                    player.PlayerPosition = vector2;
+                }
+                else if (this.PlayerRect.X < player.PlayerRect.X)
+                {
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.X += overlap.Width;
+                    player.PlayerPosition = vector2;
+                }
+            }
+
+            // moves player vertically up or down
+            // from conflicting player
+            if (overlap.Width >= overlap.Height)
+            {
+                if (this.PlayerRect.Y > player.PlayerRect.Y)
+                {
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.Y -= overlap.Height;
+                    player.PlayerPosition = vector2;
+                }
+                else if (this.PlayerRect.Y < player.PlayerRect.Y)
+                {
+                    Vector2 vector2 = new Vector2(player.PlayerPosition.X, player.PlayerPosition.Y);
+                    vector2.Y += overlap.Height;
+                    player.PlayerPosition = vector2;
+                }
+            }
+
+        }
 }
+

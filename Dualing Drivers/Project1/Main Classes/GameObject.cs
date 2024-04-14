@@ -37,13 +37,6 @@ namespace Project1
 
         }
 
-        public void Destroy()
-        {
-            this.active = false;
-           
-            
-        }
-
         public virtual bool IsColliding(Rectangle rectangle)
         {
             if(this.rect.Intersects(rectangle))
