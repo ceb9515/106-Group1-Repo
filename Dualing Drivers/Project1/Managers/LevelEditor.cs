@@ -69,19 +69,8 @@ namespace Project1.Managers
                     }
                     else
                     {
-                        //check if the tiles are the player spawn cages
-                        if((i == 3 && k <= 3) || (i <= 3 && k == 3)
-                           || (i == 21 && k >= 13) || (i >= 21 && k == 13))
-                        {
-                            tileTypes[i, k] = TileType.Breakable;
-                            mapTiles[i, k] = new Button(breakableTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
-                        }
-                        else
-                        {
-                            tileTypes[i, k] = TileType.Ground;
-                            mapTiles[i, k] = new Button(groundTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
-
-                        }
+                        tileTypes[i, k] = TileType.Ground;
+                        mapTiles[i, k] = new Button(groundTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
                     }
                 }
             }
@@ -109,7 +98,7 @@ namespace Project1.Managers
         {
             if(x!= 0 && x != mapWidth - 1 && y != 0 && y != mapHeight - 1) 
             { 
-                if((x > 3 || y > 3) && (x < 21 || y < 13 ))
+                if((x >= 3 || y >= 3) && (x <= 21 || y <= 13 ))
                 {
                     //switch the tile to the coorect tileType
                     if (t == TileType.Breakable)

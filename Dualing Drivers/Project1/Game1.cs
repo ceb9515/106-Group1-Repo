@@ -261,13 +261,6 @@ namespace Project1
                     bulletManager.ProcessCollision(tileManager.GetTiles(),playerManager.PlayerList,bulletManager.BulletList);
                     playerManager.Update();
 
-                    //ADD A GAME OVER CONDITION HERE
-                    //testCount++;
-                    //if(testCount >= 1000)
-                    //{
-                    //    gameState = GameState.GameOver;
-                    //}
-
                     // ends game if either player dies
                     if (playerManager.Player1.Health == 0 || playerManager.Player2.Health == 0)
                     {
@@ -277,13 +270,17 @@ namespace Project1
 
                 case GameState.GameOver:
 
-                    // waits few seconds then switches back to title screen
-                    testCount++;
-                    /*
-                    if (testCount == 200)
+                    //check button to restart the game
+                    if (gameOver.restartGameButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.LevelSelect;
+                        LoadGame();
+                    }
+                    //check button to go back to the title screen
+                    if (gameOver.titleButton.Clicked(mouseState))
                     {
                         gameState = GameState.Title;
-                    }*/
+                    }
 
                     break;
             }
