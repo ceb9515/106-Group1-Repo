@@ -186,7 +186,7 @@ namespace Project1
 
         }
 
-        }
+
 
         /// <summary>
         /// method to avoid two tanks can go through each other
@@ -233,7 +233,8 @@ namespace Project1
                     player.PlayerPosition = vector2;
                 }
             }
-
         }
+
+    }
 }
 

@@ -348,15 +348,20 @@ namespace Project1
                     _spriteBatch.DrawString(text, "Game Over", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 100, 10), Color.White);
 
                     // win message for player 2
-                    if (playerManager.Player1.Health == 0)
+                    if (playerManager.Player1.Health == 0 && playerManager.Player2.Health != 0)
                     {
                         _spriteBatch.DrawString(text, "Player 2 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
                     }
 
                     // win message for player 1
-                    if (playerManager.Player2.Health == 0)
+                    if (playerManager.Player2.Health == 0 && playerManager.Player1.Health != 0)
                     {
                         _spriteBatch.DrawString(text, "Player 1 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
+                    }
+
+                    if (playerManager.Player2.Health == 0 && playerManager.Player1.Health == 0)
+                    {
+                        _spriteBatch.DrawString(text, "It's a tie!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 90, 100), Color.White);
                     }
                     break;
             }
@@ -373,18 +378,14 @@ namespace Project1
             Vector2 player2Position = new Vector2(1180, 620);
             playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2);
             bulletManager = new BulletManager();
-            playerManager.AddPlayer(player1);
-            playerManager.AddPlayer(player2);
-            player1.OnShoot += bulletManager.AddBullet;
-            player2.OnShoot += bulletManager.AddBullet;
+            playerManager.Player1.OnShoot += bulletManager.AddBullet;
+            playerManager.Player2.OnShoot += bulletManager.AddBullet;
             UIPOne = new UIManager(healthFullText, magFullText, 
                 new Rectangle(100, 200, healthFullText.Width, healthFullText.Height), 
                 new Rectangle(100, 230, magFullText.Width, magFullText.Height));
             UIPTwo = new UIManager(healthFullText, magFullText,
                 new Rectangle(100, 500, healthFullText.Width, healthFullText.Height),
                 new Rectangle(100, 530, magFullText.Width, magFullText.Height));
-            playerManager.Player1.OnShoot += bulletManager.AddBullet;
-            playerManager.Player2.OnShoot += bulletManager.AddBullet;
 
         }
 
@@ -394,7 +395,7 @@ namespace Project1
         public void UpdateUI()
         {
 
-            switch (player1.Health)
+            switch (playerManager.Player1.Health)
             {
                 case 4:
                     {
@@ -433,7 +434,7 @@ namespace Project1
                     }
             }
 
-            switch (player2.Health)
+            switch (playerManager.Player2.Health)
             {
                 case 4:
                     {
@@ -472,7 +473,7 @@ namespace Project1
                     }
             }
 
-            switch (player1.Ammo)
+            switch (playerManager.Player1.Ammo)
             {
                 case 4:
                     {
@@ -511,7 +512,7 @@ namespace Project1
                     }
             }
 
-            switch (player2.Ammo)
+            switch (playerManager.Player2.Ammo)
             {
                 case 4:
                     {
