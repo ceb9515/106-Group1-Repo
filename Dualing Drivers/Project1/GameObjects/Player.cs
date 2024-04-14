@@ -117,7 +117,10 @@ namespace Project1
             }
         }
 
-
+        /// <summary>
+        /// method to judge if the tank is destroyed
+        /// </summary>
+        /// <returns></returns>
         public bool IsPlayerCrash()
         {
             if (Health <= 0)
@@ -182,7 +185,10 @@ namespace Project1
 
         }
 
-
+        /// <summary>
+        /// method to avoid two tanks can go through each other
+        /// </summary>
+        /// <param name="player"></param>
         public void BlockPlayer(Player player)
         {
             // finds where the objects overlap
@@ -190,7 +196,7 @@ namespace Project1
                 Microsoft.Xna.Framework.Rectangle.Intersect(this.PlayerRect, player.PlayerRect);
 
             // moves player horizontally left or right
-            // from conflicting tile
+            // from conflicting player
             if (overlap.Height >= overlap.Width)
             {
                 if (this.PlayerRect.X > player.PlayerRect.X)
@@ -208,7 +214,7 @@ namespace Project1
             }
 
             // moves player vertically up or down
-            // from conflicting tile
+            // from conflicting player
             if (overlap.Width >= overlap.Height)
             {
                 if (this.PlayerRect.Y > player.PlayerRect.Y)

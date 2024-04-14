@@ -42,15 +42,6 @@ namespace Project1.Managers
                 {"Shoot", Keys.RightControl}
         };
 
-        public Dictionary<string, Keys> playerCrashControls = new Dictionary<string, Keys>
-        {
-                {"Up", Keys.F1},
-                {"Down", Keys.F2},
-                {"Left", Keys.F3},
-                {"Right", Keys.F4},
-                {"Shoot", Keys.F5}
-        };
-
         // properties
         private List<Player> playerList;
         public List<Player> PlayerList { get { return playerList; } }
