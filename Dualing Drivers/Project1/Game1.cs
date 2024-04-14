@@ -84,6 +84,9 @@ namespace Project1
         bool testing = true;
         private int testCount = 0;
 
+        // text fonts
+        private SpriteFont text;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -146,6 +149,9 @@ namespace Project1
             PlayerCrash1 = Content.Load<Texture2D>("tankExplosion");
             PlayerCrash2 = Content.Load<Texture2D>("tankAltExplosion");
 
+            // load text fonts
+            text = Content.Load<SpriteFont>("text");
+
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
 
@@ -191,6 +197,7 @@ namespace Project1
                         }
                     }
                     menuDelay++;
+                    testCount = 0;
                     break;
 
                 case GameState.Editor:
@@ -254,17 +261,14 @@ namespace Project1
                     bulletManager.ProcessCollision(tileManager.GetTiles(),playerManager.PlayerList,bulletManager.BulletList);
                     playerManager.Update();
 
-                    //ADD A GAME OVER CONDITION HERE
-                    testCount++;
-                    if(testCount >= 1000)
+                    // ends game if either player dies
+                    if (playerManager.Player1.Health == 0 || playerManager.Player2.Health == 0)
                     {
                         gameState = GameState.GameOver;
                     }
                     break;
 
                 case GameState.GameOver:
-                    //reset test variable (can remove in final version)
-                    testCount = 0;
 
                     //check button to restart the game
                     if (gameOver.restartGameButton.Clicked(mouseState))
@@ -324,6 +328,21 @@ namespace Project1
                     playerManager.Player1.Draw(_spriteBatch);
                     playerManager.Player2.Draw(_spriteBatch);
                     gameOver.Draw(_spriteBatch);
+
+                    // prints game over message
+                    _spriteBatch.DrawString(text, "Game Over", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 100, 10), Color.White);
+
+                    // win message for player 2
+                    if (playerManager.Player1.Health == 0)
+                    {
+                        _spriteBatch.DrawString(text, "Player 2 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
+                    }
+
+                    // win message for player 1
+                    if (playerManager.Player2.Health == 0)
+                    {
+                        _spriteBatch.DrawString(text, "Player 1 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
+                    }
                     break;
             }
 
