@@ -15,10 +15,6 @@ namespace Project1.Managers
         // fields
         Player player1;
         Player player2;
-        Texture2D playerCrash1;
-        Texture2D playerCrash2;
-        Player crash1;
-        Player crash2;
 
         /// <summary>
         /// Dictionary of player 1 controls
@@ -60,11 +56,9 @@ namespace Project1.Managers
         /// <summary>
         /// Basic Player Manager Constructor
         /// </summary>
-        public PlayerManager(Texture2D playerCrash1, Texture2D playerCrash2)
+        public PlayerManager()
         {
             playerList = new List<Player>();
-            this.playerCrash1 = playerCrash1;
-            this.playerCrash2 = playerCrash2;
         }
 
         /// <summary>
@@ -86,8 +80,9 @@ namespace Project1.Managers
             foreach (Player player in playerList)
             {
                 player.Update();
-
             }
+            PlayerList[0].BlockPlayer(PlayerList[1]);
+            PlayerList[1].BlockPlayer(PlayerList[0]);
         }
     }
 }
