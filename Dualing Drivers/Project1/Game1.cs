@@ -81,6 +81,10 @@ namespace Project1
         private Player player1;
         private Player player2;
 
+        //Player ui
+        private UIManager UIPOne;
+        private UIManager UIPTwo;
+
         //variable for menu selection delays
         private int menuDelay = 0;
 
@@ -264,6 +268,9 @@ namespace Project1
                     {
                         gameState = GameState.GameOver;
                     }
+
+                    UpdateUI();
+
                     break;
 
                 case GameState.GameOver:
@@ -321,6 +328,10 @@ namespace Project1
                     tileManager.HandlePlayerCollision(player1);
                     tileManager.HandlePlayerCollision(player2);
                     bulletManager.DrawBullet(_spriteBatch);
+                    UIPOne.Draw(_spriteBatch);
+                    UIPTwo.Draw(_spriteBatch);
+
+
                     break;
                 case GameState.GameOver:
                     //draw players and tiles but without adding new collisions
@@ -349,6 +360,178 @@ namespace Project1
             playerManager.AddPlayer(player2);
             player1.OnShoot += bulletManager.AddBullet;
             player2.OnShoot += bulletManager.AddBullet;
+            UIPOne = new UIManager(healthFullText, magFullText, 
+                new Rectangle(100, 200, healthFullText.Width, healthFullText.Height), 
+                new Rectangle(100, 230, magFullText.Width, magFullText.Height));
+            UIPTwo = new UIManager(healthFullText, magFullText,
+                new Rectangle(100, 500, healthFullText.Width, healthFullText.Height),
+                new Rectangle(100, 530, magFullText.Width, magFullText.Height));
+
+
+        }
+
+        /// <summary>
+        /// Helper Method to update health and ammo UI of both players
+        /// </summary>
+        public void UpdateUI()
+        {
+
+            switch (player1.Health)
+            {
+                case 4:
+                    {
+                        UIPOne.HealthTexture = healthFourText;
+                        break;
+                    }
+
+                case 3:
+                    {
+                        UIPOne.HealthTexture = healthThreeText;
+                        break;
+                    }
+
+                case 2:
+                    {
+                        UIPOne.HealthTexture = healthTwoText;
+                        break;
+                    }
+
+                case 1:
+                    {
+                        UIPOne.HealthTexture = healthOneText;
+                        break;
+                    }
+
+                case 0:
+                    {
+                        UIPOne.HealthTexture = healthZeroText;
+                        break;
+                    }
+
+                default:
+                    {
+                        UIPOne.HealthTexture = healthFullText;
+                        break;
+                    }
+            }
+
+            switch (player2.Health)
+            {
+                case 4:
+                    {
+                        UIPTwo.HealthTexture = healthFourText;
+                        break;
+                    }
+
+                case 3:
+                    {
+                        UIPTwo.HealthTexture = healthThreeText;
+                        break;
+                    }
+
+                case 2:
+                    {
+                        UIPTwo.HealthTexture = healthTwoText;
+                        break;
+                    }
+
+                case 1:
+                    {
+                        UIPTwo.HealthTexture = healthOneText;
+                        break;
+                    }
+
+                case 0:
+                    {
+                        UIPTwo.HealthTexture = healthZeroText;
+                        break;
+                    }
+
+                default:
+                    {
+                        UIPTwo.HealthTexture = healthFullText;
+                        break;
+                    }
+            }
+
+            switch (player1.Ammo)
+            {
+                case 4:
+                    {
+                        UIPOne.AmmoTexture = magFourText;
+                        break;
+                    }
+
+                case 3:
+                    {
+                        UIPOne.AmmoTexture = magThreeText;
+                        break;
+                    }
+
+                case 2:
+                    {
+                        UIPOne.AmmoTexture = magTwoText;
+                        break;
+                    }
+
+                case 1:
+                    {
+                        UIPOne.AmmoTexture = magOneText;
+                        break;
+                    }
+
+                case 0:
+                    {
+                        UIPOne.AmmoTexture = magEmptyText;
+                        break;
+                    }
+
+                default:
+                    {
+                        UIPOne.AmmoTexture = magFullText;
+                        break;
+                    }
+            }
+
+            switch (player2.Ammo)
+            {
+                case 4:
+                    {
+                        UIPTwo.AmmoTexture = magFourText;
+                        break;
+                    }
+
+                case 3:
+                    {
+                        UIPTwo.AmmoTexture = magEmptyText;
+                        break;
+                    }
+
+                case 2:
+                    {
+                        UIPTwo.AmmoTexture = magTwoText;
+                        break;
+                    }
+
+                case 1:
+                    {
+                        UIPTwo.AmmoTexture = magOneText;
+                        break;
+                    }
+
+                case 0:
+                    {
+                        UIPTwo.AmmoTexture = magEmptyText;
+                        break;
+                    }
+
+                default:
+                    {
+                        UIPTwo.AmmoTexture = magFullText;
+                        break;
+                    }
+            }
+
         }
 
     }

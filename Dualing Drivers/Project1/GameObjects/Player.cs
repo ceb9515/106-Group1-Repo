@@ -36,6 +36,7 @@ namespace Project1
         // properties
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
+        public int Ammo { get { return bulletNum; } set { bulletNum = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
         public Rectangle PlayerRect { get { return playerRect; } set { playerRect = value; } }
@@ -179,8 +180,6 @@ namespace Project1
             {
                 sb.Draw(crashed, PlayerPosition, null, Color.White, playerAngle * (float)Math.PI / 180, origin, new Vector2(1, 1), SpriteEffects.None, 1);
             }
-            
         }
-
     }
 }
