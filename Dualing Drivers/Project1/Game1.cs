@@ -77,10 +77,6 @@ namespace Project1
         private BulletManager bulletManager;
         private PlayerManager playerManager;
 
-        //Create players
-        private Player player1;
-        private Player player2;
-
         //variable for menu selection delays
         private int menuDelay = 0;
 
@@ -316,17 +312,17 @@ namespace Project1
                 case GameState.Game:
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
-                    player1.Draw(_spriteBatch);
-                    player2.Draw(_spriteBatch);
-                    tileManager.HandlePlayerCollision(player1);
-                    tileManager.HandlePlayerCollision(player2);
+                    playerManager.Player1.Draw(_spriteBatch);
+                    playerManager.Player2.Draw(_spriteBatch);
+                    tileManager.HandlePlayerCollision(playerManager.Player1);
+                    tileManager.HandlePlayerCollision(playerManager.Player2);
                     bulletManager.DrawBullet(_spriteBatch);
                     break;
                 case GameState.GameOver:
                     //draw players and tiles but without adding new collisions
                     tileManager.DrawTiles(_spriteBatch);
-                    player1.Draw(_spriteBatch);
-                    player2.Draw(_spriteBatch);
+                    playerManager.Player1.Draw(_spriteBatch);
+                    playerManager.Player2.Draw(_spriteBatch);
                     gameOver.Draw(_spriteBatch);
                     break;
             }
@@ -341,14 +337,10 @@ namespace Project1
             //load the game
             Vector2 player1Position = new Vector2(340, 100);
             Vector2 player2Position = new Vector2(1180, 620);
-            playerManager = new PlayerManager(PlayerCrash1, PlayerCrash2);
-            player1 = new Player(PlayerText1, 0, 0, 40, 40, 5, 2, 1, 0, player1Position, playerManager.player1Controls, Bullettext, PlayerCrash1);
-            player2 = new Player(PlayerText2, 0, 0, 40, 40, 5, 2, 1, 180, player2Position, playerManager.player2Controls, Bullettext, PlayerCrash2);
+            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2);
             bulletManager = new BulletManager();
-            playerManager.AddPlayer(player1);
-            playerManager.AddPlayer(player2);
-            player1.OnShoot += bulletManager.AddBullet;
-            player2.OnShoot += bulletManager.AddBullet;
+            playerManager.Player1.OnShoot += bulletManager.AddBullet;
+            playerManager.Player2.OnShoot += bulletManager.AddBullet;
         }
 
     }

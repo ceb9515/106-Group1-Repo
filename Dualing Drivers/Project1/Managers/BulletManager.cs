@@ -46,13 +46,13 @@ namespace Project1.Managers
                                 if (bulletList[i].Active)
                                 {
                                     currentTile.TakeDamage();
-                                    bulletList[i].Destroy();
+                                    bulletList[i].Active=false;
                                 }
                                 break;
                             }
                             else if (currentTile.Type == TileType.solid)
                             {
-                                bulletList[i].Destroy();
+                                bulletList[i].Active=false;
                                 
                                 break;
                             }
@@ -70,7 +70,7 @@ namespace Project1.Managers
                         if (bulletList[i].Active)
                         {
                             playerList[k].TakeDamage(playerList[k]);
-                            bulletList[i].Destroy();
+                            bulletList[i].Active = false;
                         }
 
                         break;
@@ -90,7 +90,7 @@ namespace Project1.Managers
         {
             for( int i = 0;i<BulletList.Count;i++)
             {
-                BulletList[i].Destroy();
+                BulletList[i].Active=false;
             }
         }
         
