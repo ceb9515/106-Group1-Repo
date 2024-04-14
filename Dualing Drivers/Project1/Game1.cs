@@ -357,8 +357,8 @@ namespace Project1
         public void LoadGame()
         {
             //load the game
-            Vector2 player1Position = new Vector2(320, 360);
-            Vector2 player2Position = new Vector2(960, 360);
+            Vector2 player1Position = new Vector2(340, 100);
+            Vector2 player2Position = new Vector2(1180, 620);
             playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2);
             bulletManager = new BulletManager();
             playerManager.Player1.OnShoot += bulletManager.AddBullet;
