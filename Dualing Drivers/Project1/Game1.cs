@@ -339,11 +339,11 @@ namespace Project1
         public void LoadGame()
         {
             //load the game
-            Vector2 player1Position = new Vector2(320, 360);
-            Vector2 player2Position = new Vector2(960, 360);
+            Vector2 player1Position = new Vector2(340, 100);
+            Vector2 player2Position = new Vector2(1180, 620);
             playerManager = new PlayerManager(PlayerCrash1, PlayerCrash2);
-            player1 = new Player(PlayerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, playerManager.player1Controls, Bullettext, PlayerCrash1);
-            player2 = new Player(PlayerText2, 960, 360, 40, 40, 5, 2, 1, 180, player2Position, playerManager.player2Controls, Bullettext, PlayerCrash2);
+            player1 = new Player(PlayerText1, 0, 0, 40, 40, 5, 2, 1, 0, player1Position, playerManager.player1Controls, Bullettext, PlayerCrash1);
+            player2 = new Player(PlayerText2, 0, 0, 40, 40, 5, 2, 1, 180, player2Position, playerManager.player2Controls, Bullettext, PlayerCrash2);
             bulletManager = new BulletManager();
             playerManager.AddPlayer(player1);
             playerManager.AddPlayer(player2);

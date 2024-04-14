@@ -61,6 +61,7 @@ namespace Project1.Managers
             {
                 for (int k = 0; k < mapHeight; k++)
                 {
+                    //check if the tiles are the game's border
                     if(i == 0 || i == mapWidth - 1 || k == 0 || k == mapHeight - 1)
                     {
                         tileTypes[i, k] = TileType.Wall;
@@ -68,8 +69,19 @@ namespace Project1.Managers
                     }
                     else
                     {
-                        tileTypes[i, k] = TileType.Ground;
-                        mapTiles[i, k] = new Button(groundTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
+                        //check if the tiles are the player spawn cages
+                        if((i == 3 && k <= 3) || (i <= 3 && k == 3)
+                           || (i == 21 && k >= 13) || (i >= 21 && k == 13))
+                        {
+                            tileTypes[i, k] = TileType.Breakable;
+                            mapTiles[i, k] = new Button(breakableTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
+                        }
+                        else
+                        {
+                            tileTypes[i, k] = TileType.Ground;
+                            mapTiles[i, k] = new Button(groundTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
+
+                        }
                     }
                 }
             }
@@ -97,27 +109,30 @@ namespace Project1.Managers
         {
             if(x!= 0 && x != mapWidth - 1 && y != 0 && y != mapHeight - 1) 
             { 
-                //switch the tile to the coorect tileType
-                if (t == TileType.Breakable)
+                if((x > 3 || y > 3) && (x < 21 || y < 13 ))
                 {
-                    tileTypes[x, y] = TileType.Breakable;
-                    this.mapTiles[x, y].texture = this.breakableTexture;
-                }
-                else if (t == TileType.Half)
-                {
-                    tileTypes[x, y] = TileType.Half;
-                    this.mapTiles[x, y].texture = this.halfTexture;
-                }
-                else if (t == TileType.Wall)
-                {
-                    tileTypes[x, y] = TileType.Wall;
-                    this.mapTiles[x, y].texture = this.wallTexture;
-                }
-                //set ground for "else" as a failsafe
-                else
-                {
-                    tileTypes[x, y] = TileType.Ground;
-                    this.mapTiles[x, y].texture = this.groundTexture;
+                    //switch the tile to the coorect tileType
+                    if (t == TileType.Breakable)
+                    {
+                        tileTypes[x, y] = TileType.Breakable;
+                        this.mapTiles[x, y].texture = this.breakableTexture;
+                    }
+                    else if (t == TileType.Half)
+                    {
+                        tileTypes[x, y] = TileType.Half;
+                        this.mapTiles[x, y].texture = this.halfTexture;
+                    }
+                    else if (t == TileType.Wall)
+                    {
+                        tileTypes[x, y] = TileType.Wall;
+                        this.mapTiles[x, y].texture = this.wallTexture;
+                    }
+                    //set ground for "else" as a failsafe
+                    else
+                    {
+                        tileTypes[x, y] = TileType.Ground;
+                        this.mapTiles[x, y].texture = this.groundTexture;
+                    }
                 }
             }
         }
