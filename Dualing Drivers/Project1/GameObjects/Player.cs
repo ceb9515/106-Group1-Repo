@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Project1.Managers.PlayerManager;
 
 namespace Project1
 {
@@ -28,7 +29,9 @@ namespace Project1
         private Texture2D bulletTexture;
         private Texture2D crashed;
         private Dictionary<string, Keys> playerControl;
+        private Dictionary<string, Microsoft.Xna.Framework.Input.Buttons> controllerControl;
         private KeyboardState previousKB;
+        private GamePadState previousGB;
         private int reloadNum = 0;
         private int bulletNum = 5;
         private bool reload;
@@ -50,6 +53,19 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
+        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Microsoft.Xna.Framework.Input.Buttons> controllercontrol, Texture2D bulletTexture, Texture2D crashed) : base(texture, x, y, width, height)
+        {
+            Health = health;
+            Speed = speed;
+            this.damage = damage;
+            this.playerPosition = playerPosition;
+            this.playerAngle = playerAngle;
+            playerTexture = texture;
+            this.crashed = crashed;
+            PlayerRect = new Rectangle((int)(playerPosition.X - texture.Width / 2), (int)(playerPosition.Y - texture.Height / 2), texture.Width, texture.Height);
+            this.controllerControl = controllercontrol;
+            this.bulletTexture = bulletTexture;
+        }
         public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl, Texture2D bulletTexture, Texture2D crashed) : base(texture, x, y, width, height)
         {
             Health = health;
@@ -63,6 +79,7 @@ namespace Project1
             this.playerControl = playerControl;
             this.bulletTexture = bulletTexture;
         }
+        
 
         /// <summary>
         /// method to move the player
@@ -70,6 +87,7 @@ namespace Project1
         public override void Move()
         {
             KeyboardState state = Keyboard.GetState();
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
             if (state.IsKeyDown(playerControl["Up"]))
             {
                 playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
@@ -87,6 +105,29 @@ namespace Project1
             if (state.IsKeyDown(playerControl["Right"]))
             {
                 playerAngle += 2f;
+            }
+            //controller control
+            if(gamePadState.IsConnected)
+            {
+
+                if (gamePadState.IsButtonDown(controllerControl["Up"]))
+                {
+                    playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                    playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                }
+                if (gamePadState.IsButtonDown(controllerControl["Down"]))
+                {
+                    playerPosition.X -= speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                    playerPosition.Y -= speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                }
+                if (gamePadState.IsButtonDown(controllerControl["Left"]))
+                {
+                    playerAngle -= 2f;
+                }
+                if (gamePadState.IsButtonDown(controllerControl["Right"]))
+                {
+                    playerAngle += 2f;
+                }
             }
         }
 
@@ -166,6 +207,7 @@ namespace Project1
                 Shoot();
             }
             previousKB = Keyboard.GetState();
+            previousGB = GamePad.GetState(PlayerIndex.One);
         }
 
         /// <summary>
