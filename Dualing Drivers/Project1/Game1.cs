@@ -532,7 +532,7 @@ namespace Project1
 
                 case 3:
                     {
-                        UIPTwo.AmmoTexture = magEmptyText;
+                        UIPTwo.AmmoTexture = magThreeText;
                         break;
                     }
 
