@@ -49,6 +49,9 @@
 /processorParam:TextureFormat=Color
 /build:Bullet.png
 
+#begin Dockyard.level
+/copy:Dockyard.level
+
 #begin ExitButton.png
 /importer:TextureImporter
 /processor:TextureProcessor

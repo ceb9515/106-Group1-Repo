@@ -277,6 +277,7 @@ namespace Project1
                     break;
 
                 case GameState.LevelSelect:
+                    //load a custom level
                     if (levelSelect.levelCustomButton.Clicked(mouseState))
                     {
                         //open load file window
@@ -285,6 +286,12 @@ namespace Project1
                         loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
                         loadingM.FileOk += tileManager.LoadTiles;
                         loadingM.ShowDialog();
+                        gameState = GameState.Game;
+                    }
+                    //load level one
+                    else if (levelSelect.level1Button.Clicked(mouseState))
+                    {
+                        tileManager.PreLoad(1);
                         gameState = GameState.Game;
                     }
                     break;

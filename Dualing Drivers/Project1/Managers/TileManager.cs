@@ -62,6 +62,83 @@ namespace Project1
         }
 
         /// <summary>
+        /// Read level data from an internal file
+        /// </summary>
+        public void PreLoad(int levelNum)
+        {
+            //reset the current tiles list
+            tiles.Clear();
+            //get the filename based on the input
+            string filename = "";
+            if(levelNum == 1){
+                filename = "Content/Dockyard.level";
+            }
+
+            //load variables from a file
+            StreamReader input = new StreamReader(filename);
+            string[] textTiles = new string[25];
+            int x = 220 + 40;
+            int y = -20 + 40;
+            TileType tileType = TileType.background;
+            Texture2D texture = background;
+            int row = 0;
+            int mapHeight = 18 - 1;
+            int mapWidth = 26 - 1;
+
+            for (int i = 0; i < mapHeight; i++)
+            {
+                tiles.Add(new List<Tile>());
+            }
+
+            //get the data into a list of the correct rows
+            List<string> rows = new List<string>();
+            string readLine = null;
+            while ((readLine = input.ReadLine()) != null)
+            {
+                rows.Add(readLine);
+            }
+            rows.RemoveAt(0);
+
+            //loop through the rows and add tiles to the map
+            for (int i = 0; i < mapHeight; i++)
+            {
+                for (int k = 0; k < mapWidth; k++)
+                {
+                    //get this row of data for tiles
+                    string[] rowData = rows[i].Split("|");
+                    //default tile type = ground
+                    TileType loadTileType = TileType.background;
+                    texture = background;
+                    //read the type of tile to input
+                    if (rowData[k] == "Half")
+                    {
+                        loadTileType = TileType.semiSolid;
+                        texture = semiSolid;
+                    }
+                    else if (rowData[k] == "Wall")
+                    {
+                        loadTileType = TileType.solid;
+                        texture = solid;
+                    }
+                    else if (rowData[k] == "Breakable")
+                    {
+                        loadTileType = TileType.breakable;
+                        texture = breakable;
+                    }
+
+                    // adds tile to list
+                    AddTile(new Tile(texture, x, y, 40, 40, loadTileType, background), i);
+
+                    x += 40;
+                }
+                x = 220 + 40;
+                y += 40;
+            }
+
+            input.Close();
+        }
+
+        /// <summary>
         /// Read level data from an external file
         /// </summary>
         public void LoadTiles(object? sender, System.ComponentModel.CancelEventArgs e)
