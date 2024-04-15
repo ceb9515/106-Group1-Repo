@@ -72,9 +72,15 @@ namespace Project1
         private Texture2D PlayerCrash2;
         private Texture2D Bullettext;
 
+        //Create Level Select Preview Textures
+        private Texture2D levelText1;
+        private Texture2D levelTextCustom;
+        private Texture2D levelTextBlank;
+
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
         private TitleScreen titleScreen;
+        private LevelSelect levelSelect;
         private GameOver gameOver;
         private TileManager tileManager;
         private BulletManager bulletManager;
@@ -164,6 +170,11 @@ namespace Project1
             PlayerCrash1 = Content.Load<Texture2D>("tankExplosion");
             PlayerCrash2 = Content.Load<Texture2D>("tankAltExplosion");
 
+            //load level select textures
+            levelText1 = Content.Load<Texture2D>("LevelDockside");
+            levelTextBlank = Content.Load<Texture2D>("LevelBlank");
+            levelTextCustom = Content.Load<Texture2D>("LevelCustom");
+
             // load text fonts
             text = Content.Load<SpriteFont>("text");
 
@@ -172,6 +183,9 @@ namespace Project1
 
             //load title screen
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
+
+            //load level select screen
+            levelSelect = new LevelSelect(levelTextCustom, levelText1, levelTextBlank, levelTextBlank);
 
             //load game over screen
             gameOver = new GameOver(restartButtonTexture, titleButtonTexture);
@@ -263,13 +277,16 @@ namespace Project1
                     break;
 
                 case GameState.LevelSelect:
-                    //open load file window
-                    OpenFileDialog loadingM = new OpenFileDialog();
-                    loadingM.Title = "Load a level file.";
-                    loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
-                    loadingM.FileOk += tileManager.LoadTiles;
-                    loadingM.ShowDialog();
-                    gameState = GameState.Game;
+                    if (levelSelect.levelCustomButton.Clicked(mouseState))
+                    {
+                        //open load file window
+                        OpenFileDialog loadingM = new OpenFileDialog();
+                        loadingM.Title = "Load a level file.";
+                        loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
+                        loadingM.FileOk += tileManager.LoadTiles;
+                        loadingM.ShowDialog();
+                        gameState = GameState.Game;
+                    }
                     break;
 
                 case GameState.Game:
@@ -343,9 +360,12 @@ namespace Project1
                     _spriteBatch.DrawString(text, "Player 1", new Vector2(_graphics.PreferredBackBufferWidth + 100, 100), Color.White);
                     UIPTwo.Draw(_spriteBatch);
                     _spriteBatch.DrawString(text, "Player 2", new Vector2(_graphics.PreferredBackBufferWidth + 100, 300), Color.White);
-
-
                     break;
+
+                case GameState.LevelSelect:
+                    levelSelect.Draw(_spriteBatch);
+                    break;
+
                 case GameState.GameOver:
                     //draw players and tiles but without adding new collisions
                     tileManager.DrawTiles(_spriteBatch);
