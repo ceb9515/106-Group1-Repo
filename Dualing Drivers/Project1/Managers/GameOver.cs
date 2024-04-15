@@ -32,6 +32,7 @@ namespace Project1.Managers
             this.titleTexture = titleTexture;
 
 
+
             restartGameButton = new Button(restartTexture, 400, 500, restartTexture.Width, restartTexture.Height);
             titleButton = new Button(titleTexture, 700, 500, titleTexture.Width, titleTexture.Height);
         }

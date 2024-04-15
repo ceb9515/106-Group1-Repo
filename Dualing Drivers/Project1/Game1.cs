@@ -54,6 +54,7 @@ namespace Project1
         private Texture2D magTwoText;
         private Texture2D magOneText;
         private Texture2D magEmptyText;
+        private Texture2D gameOverText;
 
 
         //Create TileSet Textures
@@ -146,6 +147,8 @@ namespace Project1
             magTwoText = Content.Load<Texture2D>("MagTwo");
             magOneText = Content.Load<Texture2D>("MagOne");
             magEmptyText = Content.Load<Texture2D>("MagEmpty");
+            gameOverText = Content.Load<Texture2D>("GameOver");
+
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
@@ -337,7 +340,9 @@ namespace Project1
                     tileManager.HandlePlayerCollision(playerManager.Player2);
                     bulletManager.DrawBullet(_spriteBatch);
                     UIPOne.Draw(_spriteBatch);
+                    _spriteBatch.DrawString(text, "Player 1", new Vector2(_graphics.PreferredBackBufferWidth + 100, 100), Color.White);
                     UIPTwo.Draw(_spriteBatch);
+                    _spriteBatch.DrawString(text, "Player 2", new Vector2(_graphics.PreferredBackBufferWidth + 100, 300), Color.White);
 
 
                     break;
@@ -347,6 +352,7 @@ namespace Project1
                     playerManager.Player1.Draw(_spriteBatch);
                     playerManager.Player2.Draw(_spriteBatch);
                     gameOver.Draw(_spriteBatch);
+                    _spriteBatch.Draw(gameOverText, new Rectangle(300, 700, gameOverText.Width, gameOverText.Height), Color.White);
 
                     // prints game over message
                     _spriteBatch.DrawString(text, "Game Over", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 100, 10), Color.White);
