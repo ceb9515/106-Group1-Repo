@@ -45,13 +45,13 @@ namespace Project1.Managers
         };
         
         public Dictionary<string, Microsoft.Xna.Framework.Input.Buttons> controllerControl = new Dictionary<string, Microsoft.Xna.Framework.Input.Buttons>
-{
-    {"Up", Microsoft.Xna.Framework.Input.Buttons.LeftThumbstickUp},
-    {"Down", Microsoft.Xna.Framework.Input.Buttons.LeftThumbstickDown},
-    {"Left", Microsoft.Xna.Framework.Input.Buttons.RightThumbstickUp},
-    {"Right", Microsoft.Xna.Framework.Input.Buttons.RightThumbstickDown},
-    // Add more controls as needed
-};
+        {
+            {"Up", Microsoft.Xna.Framework.Input.Buttons.LeftThumbstickUp},
+            {"Down", Microsoft.Xna.Framework.Input.Buttons.LeftThumbstickDown},
+            {"Left", Microsoft.Xna.Framework.Input.Buttons.RightThumbstickUp},
+            {"Right", Microsoft.Xna.Framework.Input.Buttons.RightThumbstickDown},
+            // Add more controls as needed
+        };
 
 
         // properties
