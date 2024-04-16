@@ -410,6 +410,7 @@ namespace Project1
 
         public void LoadGame()
         {
+
             //load the game
             Vector2 player1Position = new Vector2(340, 100);
             Vector2 player2Position = new Vector2(1180, 620);

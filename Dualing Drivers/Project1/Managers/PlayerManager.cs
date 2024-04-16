@@ -64,7 +64,7 @@ namespace Project1.Managers
         public PlayerManager(Texture2D playerText1, Texture2D playerText2, Vector2 player1Position, Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2)
         {
             playerList = new List<Player>();
-            player1 = new Player(playerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, controllerControl, bulletTexture, playerCrashedText1);
+            player1 = new Player(playerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, player1Controls, bulletTexture, playerCrashedText1);
             player2 = new Player(playerText2, 960, 360, 40, 40, 5, 2, 1, 180, player2Position, player2Controls, bulletTexture, playerCrashedText2);
             playerList.Add(player1);
             playerList.Add(player2);

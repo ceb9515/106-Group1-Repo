@@ -35,6 +35,7 @@ namespace Project1
         private int reloadNum = 0;
         private int bulletNum = 5;
         private bool reload;
+        private bool moving = false;
 
         // properties
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
@@ -87,7 +88,7 @@ namespace Project1
         public override void Move()
         {
             KeyboardState state = Keyboard.GetState();
-            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
             if (state.IsKeyDown(playerControl["Up"]))
             {
                 playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
@@ -110,24 +111,49 @@ namespace Project1
             if(gamePadState.IsConnected)
             {
 
-                if (gamePadState.IsButtonDown(controllerControl["Up"]))
+                float leftThumbX = gamePadState.ThumbSticks.Left.X;
+                float leftThumbY = gamePadState.ThumbSticks.Left.Y;
+                double degrees = Math.Atan2(leftThumbX, leftThumbY) * (180 / Math.PI);
+                degrees = (degrees + 360) % 360 - 90;
+                if (Math.Abs(leftThumbX) > 0.1 || Math.Abs(leftThumbY) > 0.1)
                 {
-                    playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
-                    playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                    double angleDifference = degrees - playerAngle;
+                    if (angleDifference > 180)
+                    {
+                        angleDifference -= 360;
+                    }
+                    else if (angleDifference < -180)
+                    {
+                        angleDifference += 360;
+                    }
+
+                    if (angleDifference > 0)
+                    {
+                        playerAngle += 2f;
+                    }
+                    else if (angleDifference < 0)
+                    {
+                        playerAngle -= 2f;
+                    }
+
+                    if (moving == true && angleDifference < 15 && angleDifference > -15)
+                    {
+                        playerPosition.X += speed * leftThumbX;
+                        playerPosition.Y -= speed * leftThumbY;
+                    }
+                    else if (angleDifference < 10 && angleDifference > -10)
+                    {
+                        moving = true;
+                        playerPosition.X += speed * leftThumbX;
+                        playerPosition.Y -= speed * leftThumbY;
+                    }
+
                 }
-                if (gamePadState.IsButtonDown(controllerControl["Down"]))
+                else
                 {
-                    playerPosition.X -= speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
-                    playerPosition.Y -= speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                       moving = false;
                 }
-                if (gamePadState.IsButtonDown(controllerControl["Left"]))
-                {
-                    playerAngle -= 2f;
-                }
-                if (gamePadState.IsButtonDown(controllerControl["Right"]))
-                {
-                    playerAngle += 2f;
-                }
+
             }
         }
 
@@ -146,7 +172,14 @@ namespace Project1
         public void Shoot()
         {
             KeyboardState state = Keyboard.GetState();
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
             if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && bulletNum > 0)
+            {
+                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
+                OnShoot?.Invoke(bullet, this);
+                bulletNum--;
+            }
+            if (gamePadState.Buttons.A == ButtonState.Pressed && previousGB.Buttons.A == ButtonState.Released && bulletNum > 0)
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet, this);
