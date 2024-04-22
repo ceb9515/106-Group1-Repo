@@ -76,7 +76,7 @@ namespace Project1
         /// </summary>
         public override void Move()
         {
-            KeyboardState state = Keyboard.GetState(PlayerIndex.One);
+            KeyboardState state = Keyboard.GetState();
             
             if (state.IsKeyDown(playerControl["Up"]))
             {
@@ -101,56 +101,62 @@ namespace Project1
 
             
         }
+        
+        
         public void moveC()
         {
-            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
-            float leftThumbX = gamePadState.ThumbSticks.Left.X;
-            float leftThumbY = gamePadState.ThumbSticks.Left.Y;
-            double degrees = Math.Atan2(leftThumbX, leftThumbY) * (180 / Math.PI);
-            degrees = (degrees + 360) % 360 - 90;
-            if (Math.Abs(leftThumbX) > 0.1 || Math.Abs(leftThumbY) > 0.1)
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+            if (gamePadState.IsConnected)
             {
-                double angleDifference = degrees - playerAngle;
-                if (angleDifference > 180)
+                float leftThumbX = gamePadState.ThumbSticks.Left.X;
+                float leftThumbY = gamePadState.ThumbSticks.Left.Y;
+                double degrees = Math.Atan2(leftThumbX, leftThumbY) * (180 / Math.PI);
+                degrees = (degrees + 360) % 360 - 90;
+                if (Math.Abs(leftThumbX) > 0.1 || Math.Abs(leftThumbY) > 0.1)
                 {
-                    angleDifference -= 360;
-                }
-                else if (angleDifference < -180)
-                {
-                    angleDifference += 360;
-                }
+                    double angleDifference = degrees - playerAngle;
+                    if (angleDifference > 180)
+                    {
+                        angleDifference -= 360;
+                    }
+                    else if (angleDifference < -180)
+                    {
+                        angleDifference += 360;
+                    }
 
-                if (angleDifference > 0)
-                {
-                    playerAngle += 2f;
-                }
-                else if (angleDifference < 0)
-                {
-                    playerAngle -= 2f;
-                }
+                    if (angleDifference > 0)
+                    {
+                        playerAngle += 2f;
+                    }
+                    else if (angleDifference < 0)
+                    {
+                        playerAngle -= 2f;
+                    }
 
-                if (moving)
-                {
-                    playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
-                    playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
-                }
+                    if (moving)
+                    {
+                        playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                        playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                    }
 
 
-                if (angleDifference < 5 && angleDifference > -5)
-                {
-                    speed = 2;
-                }
-                else if (angleDifference < 90 && angleDifference > -90)
-                {
-                    moving = true;
-                    speed = 1;
-                }
+                    if (angleDifference < 5 && angleDifference > -5)
+                    {
+                        speed = 2;
+                    }
+                    else if (angleDifference < 90 && angleDifference > -90)
+                    {
+                        moving = true;
+                        speed = 1;
+                    }
 
+                }
+                else
+                {
+                    moving = false;
+                }
             }
-            else
-            {
-                moving = false;
-            }
+            
         }
 
         /// <summary>
@@ -168,7 +174,6 @@ namespace Project1
         public void Shoot()
         {
             KeyboardState state = Keyboard.GetState();
-            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
             if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && currentBulletNum > 0)
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
@@ -183,18 +188,20 @@ namespace Project1
         }
         public void ShootC()
         {
-            KeyboardState state = Keyboard.GetState();
-            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
-            if (gamePadState.Buttons.A == ButtonState.Pressed && previousGB.Buttons.A == ButtonState.Released && currentBulletNum > 0)
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+            if (gamePadState.IsConnected)
             {
-                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
-                OnShoot?.Invoke(bullet, this);
-                currentBulletNum--;
-            }
-            if (currentBulletNum <= maxBulletNum && reload == false)
-            {
-                reloadNum = 100;
-                reload = true;
+                if (gamePadState.Buttons.A == ButtonState.Pressed && previousGB.Buttons.A == ButtonState.Released && currentBulletNum > 0)
+                {
+                    Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
+                    OnShoot?.Invoke(bullet, this);
+                    currentBulletNum--;
+                }
+                if (currentBulletNum <= maxBulletNum && reload == false)
+                {
+                    reloadNum = 100;
+                    reload = true;
+                }
             }
         }
 

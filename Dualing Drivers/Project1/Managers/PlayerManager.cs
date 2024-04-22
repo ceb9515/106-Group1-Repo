@@ -14,7 +14,6 @@ namespace Project1.Managers
         // fields
         Player player1;
         Player player2;
-        GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
 
 
         public Player Player1 { get { return player1; } }
@@ -79,22 +78,12 @@ namespace Project1.Managers
             foreach (Player player in playerList)
             {
                 
-                if (gamePadState.IsConnected)
-                {
-                    if (player1.IsPlayerCrash()==false||player2.IsPlayerCrash())
-                    {
-                        player1.Move();
-                        player1.Shoot();
-                        player2.moveC();
-                        player2.ShootC();
-                    }
-                }
-                else
-                {
-                   player.Move();
-                    player.Shoot();
-                }
+                player2.moveC();
+                player2.ShootC();
+                player1.Move();
+                player1.Shoot();
                 player.Update();
+
             }
             PlayerList[0].BlockPlayer(PlayerList[1]);
             PlayerList[1].BlockPlayer(PlayerList[0]);
