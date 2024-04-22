@@ -33,14 +33,16 @@ namespace Project1
         private KeyboardState previousKB;
         private GamePadState previousGB;
         private int reloadNum = 0;
-        private int bulletNum = 3;
+        private int currentBulletNum = 3;
+        private int maxBulletNum = 3;
         private bool reload;
         private bool moving = false;
 
         // properties
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
-        public int Ammo { get { return bulletNum; } set { bulletNum = value; } }
+        public int Ammo { get { return currentBulletNum; } set { currentBulletNum = value; } }
+        public int MaxAmmo { get { return maxBulletNum; } set { maxBulletNum = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
         public Rectangle PlayerRect { get { return playerRect; } set { playerRect = value; } }
@@ -54,19 +56,6 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Microsoft.Xna.Framework.Input.Buttons> controllercontrol, Texture2D bulletTexture, Texture2D crashed) : base(texture, x, y, width, height)
-        {
-            Health = health;
-            Speed = speed;
-            this.damage = damage;
-            this.playerPosition = playerPosition;
-            this.playerAngle = playerAngle;
-            playerTexture = texture;
-            this.crashed = crashed;
-            PlayerRect = new Rectangle((int)(playerPosition.X - texture.Width / 2), (int)(playerPosition.Y - texture.Height / 2), texture.Width, texture.Height);
-            this.controllerControl = controllercontrol;
-            this.bulletTexture = bulletTexture;
-        }
         public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl, Texture2D bulletTexture, Texture2D crashed) : base(texture, x, y, width, height)
         {
             Health = health;
@@ -140,16 +129,21 @@ namespace Project1
                     playerAngle -= 2f;
                 }
 
-                if (moving == true && angleDifference < 15 && angleDifference > -15)
+                if (moving)
                 {
-                    playerPosition.X += speed * leftThumbX;
-                    playerPosition.Y -= speed * leftThumbY;
+                    playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                    playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
                 }
-                else if (angleDifference < 10 && angleDifference > -10)
+
+
+                if (angleDifference < 5 && angleDifference > -5)
+                {
+                    speed = 2;
+                }
+                else if (angleDifference < 90 && angleDifference > -90)
                 {
                     moving = true;
-                    playerPosition.X += speed * leftThumbX;
-                    playerPosition.Y -= speed * leftThumbY;
+                    speed = 1;
                 }
 
             }
@@ -175,14 +169,14 @@ namespace Project1
         {
             KeyboardState state = Keyboard.GetState();
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
-            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && bulletNum > 0)
+            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && currentBulletNum > 0)
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet, this);
-                bulletNum--;
+                currentBulletNum--;
             }
             
-            if (bulletNum <= 0 && reload == false)
+            if (currentBulletNum <= 0 && reload == false)
             {
                 reloadNum = 100;
                 reload = true;
@@ -192,13 +186,13 @@ namespace Project1
         {
             KeyboardState state = Keyboard.GetState();
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
-            if (gamePadState.Buttons.A == ButtonState.Pressed && previousGB.Buttons.A == ButtonState.Released && bulletNum > 0)
+            if (gamePadState.Buttons.A == ButtonState.Pressed && previousGB.Buttons.A == ButtonState.Released && currentBulletNum > 0)
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet, this);
-                bulletNum--;
+                currentBulletNum--;
             }
-            if (bulletNum <= 0 && reload == false)
+            if (currentBulletNum <= 0 && reload == false)
             {
                 reloadNum = 50;
                 reload = true;
@@ -242,9 +236,12 @@ namespace Project1
             {
                 reload = false;
             }
-            if (bulletNum <= 0 && reload == false)
+            if (currentBulletNum <= 0 && reload == false)
             {
-                bulletNum += 1;
+
+
+                currentBulletNum += maxBulletNum;
+
             }
 
             previousKB = Keyboard.GetState();
