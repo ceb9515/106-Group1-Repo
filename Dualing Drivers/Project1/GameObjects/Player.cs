@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Project1.Managers.PlayerManager;
 
 namespace Project1
 {
@@ -28,15 +29,20 @@ namespace Project1
         private Texture2D bulletTexture;
         private Texture2D crashed;
         private Dictionary<string, Keys> playerControl;
+        private Dictionary<string, Microsoft.Xna.Framework.Input.Buttons> controllerControl;
         private KeyboardState previousKB;
+        private GamePadState previousGB;
         private int reloadNum = 0;
-        private int bulletNum = 5;
+        private int currentBulletNum = 3;
+        private int maxBulletNum = 3;
         private bool reload;
+        private bool moving = false;
 
         // properties
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
-        public int Ammo { get { return bulletNum; } set { bulletNum = value; } }
+        public int Ammo { get { return currentBulletNum; } set { currentBulletNum = value; } }
+        public int MaxAmmo { get { return maxBulletNum; } set { maxBulletNum = value; } }
         public int Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
         public Rectangle PlayerRect { get { return playerRect; } set { playerRect = value; } }
@@ -63,13 +69,15 @@ namespace Project1
             this.playerControl = playerControl;
             this.bulletTexture = bulletTexture;
         }
+        
 
         /// <summary>
         /// method to move the player
         /// </summary>
         public override void Move()
         {
-            KeyboardState state = Keyboard.GetState();
+            KeyboardState state = Keyboard.GetState(PlayerIndex.One);
+            
             if (state.IsKeyDown(playerControl["Up"]))
             {
                 playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
@@ -88,6 +96,61 @@ namespace Project1
             {
                 playerAngle += 2f;
             }
+            //controller control
+            
+
+            
+        }
+        public void moveC()
+        {
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
+            float leftThumbX = gamePadState.ThumbSticks.Left.X;
+            float leftThumbY = gamePadState.ThumbSticks.Left.Y;
+            double degrees = Math.Atan2(leftThumbX, leftThumbY) * (180 / Math.PI);
+            degrees = (degrees + 360) % 360 - 90;
+            if (Math.Abs(leftThumbX) > 0.1 || Math.Abs(leftThumbY) > 0.1)
+            {
+                double angleDifference = degrees - playerAngle;
+                if (angleDifference > 180)
+                {
+                    angleDifference -= 360;
+                }
+                else if (angleDifference < -180)
+                {
+                    angleDifference += 360;
+                }
+
+                if (angleDifference > 0)
+                {
+                    playerAngle += 2f;
+                }
+                else if (angleDifference < 0)
+                {
+                    playerAngle -= 2f;
+                }
+
+                if (moving)
+                {
+                    playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                    playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                }
+
+
+                if (angleDifference < 5 && angleDifference > -5)
+                {
+                    speed = 2;
+                }
+                else if (angleDifference < 90 && angleDifference > -90)
+                {
+                    moving = true;
+                    speed = 1;
+                }
+
+            }
+            else
+            {
+                moving = false;
+            }
         }
 
         /// <summary>
@@ -105,15 +168,33 @@ namespace Project1
         public void Shoot()
         {
             KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && bulletNum > 0)
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
+            if (state.IsKeyDown(playerControl["Shoot"]) && previousKB.IsKeyUp(playerControl["Shoot"]) && currentBulletNum > 0)
             {
                 Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
                 OnShoot?.Invoke(bullet, this);
-                bulletNum--;
+                currentBulletNum--;
             }
-            if (bulletNum <= 0 && reload == false)
+            
+            if (currentBulletNum <= 0 && reload == false)
             {
                 reloadNum = 100;
+                reload = true;
+            }
+        }
+        public void ShootC()
+        {
+            KeyboardState state = Keyboard.GetState();
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.Two);
+            if (gamePadState.Buttons.A == ButtonState.Pressed && previousGB.Buttons.A == ButtonState.Released && currentBulletNum > 0)
+            {
+                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
+                OnShoot?.Invoke(bullet, this);
+                currentBulletNum--;
+            }
+            if (currentBulletNum <= 0 && reload == false)
+            {
+                reloadNum = 50;
                 reload = true;
             }
         }
@@ -155,17 +236,16 @@ namespace Project1
             {
                 reload = false;
             }
-            if (bulletNum <= 0 && reload == false)
+            if (currentBulletNum <= 0 && reload == false)
             {
-                bulletNum += 5;
+
+
+                currentBulletNum += maxBulletNum;
+
             }
 
-            if (!IsPlayerCrash())
-            {
-                Move();
-                Shoot();
-            }
             previousKB = Keyboard.GetState();
+            previousGB = GamePad.GetState(PlayerIndex.Two);
         }
 
         /// <summary>
