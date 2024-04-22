@@ -57,10 +57,12 @@ namespace Project1.Managers
         private List<Player> playerList;
         public List<Player> PlayerList { get { return playerList; } }
 
+        private List<PowerUp> powerUpList;
+
         /// <summary>
         /// Basic Player Manager Constructor
         /// </summary>
-        public PlayerManager(Texture2D playerText1, Texture2D playerText2, Vector2 player1Position, Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2)
+        public PlayerManager(Texture2D playerText1, Texture2D playerText2, Vector2 player1Position, Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2, List<PowerUp> powerUps)
         {
             playerList = new List<Player>();
             player1 = new Player(playerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, player1Controls, bulletTexture, playerCrashedText1);
@@ -68,6 +70,7 @@ namespace Project1.Managers
             
             playerList.Add(player1);
             playerList.Add(player2);
+            this.powerUpList = powerUps;
         }
 
         /// <summary>
@@ -83,6 +86,10 @@ namespace Project1.Managers
                 player1.Move();
                 player1.Shoot();
                 player.Update();
+                foreach (PowerUp powerUp in powerUpList)
+                {
+                    powerUp.PowerUpPlayer(player);
+                }
 
             }
             PlayerList[0].BlockPlayer(PlayerList[1]);

@@ -113,6 +113,7 @@ namespace Project1
         private PowerUp healthPowerUp;
         private PowerUp speedPowerUp;
 
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -233,10 +234,7 @@ namespace Project1
             // makes a test map with only background tiles
             tileManager.TestMap();
 
-            // loads power ups
-            ammoPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
-            healthPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
-            speedPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -470,7 +468,15 @@ namespace Project1
             //load the game
             Vector2 player1Position = new Vector2(340, 100);
             Vector2 player2Position = new Vector2(1180, 620);
-            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2);
+            // loads power ups
+            ammoPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
+            healthPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
+            speedPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
+            List<PowerUp> powerUps = new List<PowerUp>();
+            powerUps.Add(ammoPowerUp);
+            powerUps.Add(healthPowerUp);
+            powerUps.Add(speedPowerUp);
+            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2, powerUps);
             bulletManager = new BulletManager();
             playerManager.Player1.OnShoot += bulletManager.AddBullet;
             playerManager.Player2.OnShoot += bulletManager.AddBullet;
