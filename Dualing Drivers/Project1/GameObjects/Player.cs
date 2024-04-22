@@ -200,7 +200,7 @@ namespace Project1
             }
             if (bulletNum <= 0 && reload == false)
             {
-                reloadNum = 100;
+                reloadNum = 50;
                 reload = true;
             }
         }
@@ -244,7 +244,7 @@ namespace Project1
             }
             if (bulletNum <= 0 && reload == false)
             {
-                bulletNum += 3;
+                bulletNum += 1;
             }
 
             previousKB = Keyboard.GetState();
