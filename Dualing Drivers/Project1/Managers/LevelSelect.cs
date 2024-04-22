@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,40 +16,57 @@ namespace Project1.Managers
     /// </summary>
     internal class LevelSelect
     {
-        public Button level1Button;
-        public Button level2Button;
-        public Button level3Button;
-        public Button levelCustomButton;
-
-        public Texture2D level1Text;
-        public Texture2D level2Text;
-        public Texture2D level3Text;
-        public Texture2D levelCustomText;
-
+        public List<Button> levelButtons;
+        public List<Texture2D> levelTextures;
+        private Texture2D levelTextHover;
 
         /// <summary>
         /// Constructor for LevelSelect
         /// </summary>
-        public LevelSelect(Texture2D levelCustomText, Texture2D level1Text, Texture2D level2Text, Texture2D level3Text)
+        public LevelSelect(List<Texture2D> levelTextures, Texture2D levelTextHover)
         {
-            this.level1Text = level1Text;
-            this.level2Text = level2Text;
-            this.level3Text = level3Text;
-            this.levelCustomText = levelCustomText;
-
-            level1Button = new Button(level1Text, 80, 150, level1Text.Width, level1Text.Height);
-            level2Button = new Button(level2Text, 380, 150, level2Text.Width, level2Text.Height);
-            level3Button = new Button(level3Text, 680, 150, level3Text.Width, level3Text.Height);
-            levelCustomButton = new Button(levelCustomText, 980, 150, levelCustomText.Width, levelCustomText.Height);
+            this.levelTextures = levelTextures;
+            levelButtons = new List<Button>();
+            int row = 0;
+            int col = 0;
+            this.levelTextHover = levelTextHover;
+            //loop through to create the level buttons
+            for(int i = 0; i < levelTextures.Count; i++)
+            {
+                levelButtons.Add(new Button(levelTextures[i], 55 + 150 * col, 200 + 150 * row, 120, 120));
+                col++;
+                //move to a new row after 8 buttons
+                if(col > 7)
+                {
+                    row++;
+                    col = 0;
+                }
+            }
         }
 
         //Draws the level select screen's elements and buttons
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, MouseState mouseState)
         {
-            level1Button.Draw(sb);
-            level2Button.Draw(sb);
-            level3Button.Draw(sb);
-            levelCustomButton.Draw(sb);
+            int col = 0;
+            int row = 0;
+            for (int i = 0; i < levelButtons.Count; i++)
+            {
+                //draw the buttons
+                levelButtons[i].Draw(sb);
+                //if hovering, draw hovering texture
+                if (levelButtons[i].IsHovering(mouseState))
+                {
+                    sb.Draw(levelTextHover, new Microsoft.Xna.Framework.Vector2(55 + 150 * col, 200 + 150 * row), Microsoft.Xna.Framework.Color.White);
+                }
+
+                col++;
+                //move to a new row after 8 buttons
+                if (col > 7)
+                {
+                    row++;
+                    col = 0;
+                }
+            }
         }
     }
 }

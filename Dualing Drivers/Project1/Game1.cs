@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics.Metrics;
 using System;
+using System.Collections.Generic;
 using static System.Windows.Forms.DataFormats;
 using System.IO;
 using System.Reflection;
@@ -76,7 +77,9 @@ namespace Project1
         //Create Level Select Preview Textures
         private Texture2D levelText1;
         private Texture2D levelTextCustom;
+        private Texture2D levelTextHover;
         private Texture2D levelTextBlank;
+        private List<Texture2D> levelTextures;
 
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
@@ -178,9 +181,36 @@ namespace Project1
             PlayerCrash2 = Content.Load<Texture2D>("tankAltExplosion");
 
             //load level select textures
-            levelText1 = Content.Load<Texture2D>("LevelDockside");
-            levelTextBlank = Content.Load<Texture2D>("LevelBlank");
-            levelTextCustom = Content.Load<Texture2D>("LevelCustom");
+            levelTextCustom = Content.Load<Texture2D>("Level_Custom");
+            levelTextHover = Content.Load<Texture2D>("Level_Hover");
+            levelTextBlank = Content.Load<Texture2D>("Level0_Blank");
+            levelText1 = Content.Load<Texture2D>("Level1_Dockside");
+            //create the list of level textures
+            levelTextures = new List<Texture2D>();
+            levelTextures.Add(levelText1);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextCustom);
 
             // load text fonts
             text = Content.Load<SpriteFont>("text");
@@ -192,7 +222,7 @@ namespace Project1
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
 
             //load level select screen
-            levelSelect = new LevelSelect(levelTextCustom, levelText1, levelTextBlank, levelTextBlank);
+            levelSelect = new LevelSelect(levelTextures, levelTextHover);
 
             //load game over screen
             gameOver = new GameOver(restartButtonTexture, titleButtonTexture);
@@ -290,7 +320,7 @@ namespace Project1
 
                 case GameState.LevelSelect:
                     //load a custom level
-                    if (levelSelect.levelCustomButton.Clicked(mouseState))
+                    if (levelSelect.levelButtons[23].Clicked(mouseState))
                     {
                         //open load file window
                         OpenFileDialog loadingM = new OpenFileDialog();
@@ -301,7 +331,7 @@ namespace Project1
                         gameState = GameState.Game;
                     }
                     //load level one
-                    else if (levelSelect.level1Button.Clicked(mouseState))
+                    else if (levelSelect.levelButtons[0].Clicked(mouseState))
                     {
                         tileManager.PreLoad(1);
                         gameState = GameState.Game;
@@ -396,7 +426,7 @@ namespace Project1
                     break;
 
                 case GameState.LevelSelect:
-                    levelSelect.Draw(_spriteBatch);
+                    levelSelect.Draw(_spriteBatch, mouseState);
                     break;
 
                 case GameState.GameOver:

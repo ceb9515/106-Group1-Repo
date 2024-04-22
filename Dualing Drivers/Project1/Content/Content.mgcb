@@ -184,7 +184,7 @@
 /processorParam:TextureFormat=Color
 /build:LEButton.png
 
-#begin LevelBlank.png
+#begin Level_Custom.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -194,9 +194,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:LevelBlank.png
+/build:Level_Custom.png
 
-#begin LevelCustom.png
+#begin Level_Hover.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -206,9 +206,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:LevelCustom.png
+/build:Level_Hover.png
 
-#begin LevelDockside.png
+#begin Level0_Blank.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -218,7 +218,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:LevelDockside.png
+/build:Level0_Blank.png
+
+#begin Level1_Dockside.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Level1_Dockside.png
 
 #begin loadButton.png
 /importer:TextureImporter

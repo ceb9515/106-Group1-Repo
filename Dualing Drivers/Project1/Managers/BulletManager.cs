@@ -47,7 +47,7 @@ namespace Project1.Managers
                                 {
                                     currentTile.TakeDamage();
                                     bulletList[i].Active=false;
-                                }
+                                }     
                                 break;
                             }
                             else if (currentTile.Type == TileType.solid)
