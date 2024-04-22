@@ -53,24 +53,34 @@ namespace Project1
         /// <param name="player">player who picked up power up</param>
         public void PowerUpPlayer(Player player)
         {
-            if (player.PlayerRect.Intersects(this.rect))
+            if (player.PlayerRect.Intersects(this.rect) && this.Active)
             {
                 if (this.type == PowerUpType.health)
                 {
-                    // gives player health
-                    player.Health += 3;
-                }
-                else if (this.type == PowerUpType.ammo)
-                {
-                    // increase max ammo
+                    // gives player 3 health or sets their health to 5
+                    if (player.Health + 3 <= 5)
+                    {
+                        player.Health += 3;
+                    }
+                    else
+                    {
+                        player.Health = 5;
+                    }
                 }
                 else if (this.type == PowerUpType.speed)
                 {
                     // increase player speed
                     player.Speed += 1;
                 }
+                else if (this.type == PowerUpType.ammo)
+                {
+                    // increase player's max ammo
+                    //player.MaxAmmo = 5;
+                }
+                this.active = false;
             }
         }
+
        
     }
 }

@@ -55,6 +55,7 @@ namespace Project1
         private Texture2D magOneText;
         private Texture2D magEmptyText;
         private Texture2D gameOverText;
+        private Texture2D tempPowerUpText; // temporary texture for power ups can delete after real textures loaded
 
 
         //Create TileSet Textures
@@ -103,6 +104,11 @@ namespace Project1
 
         // text fonts
         private SpriteFont text;
+
+        // create power ups
+        private PowerUp ammoPowerUp;
+        private PowerUp healthPowerUp;
+        private PowerUp speedPowerUp;
 
         public Game1()
         {
@@ -154,6 +160,7 @@ namespace Project1
             magOneText = Content.Load<Texture2D>("MagOne");
             magEmptyText = Content.Load<Texture2D>("MagEmpty");
             gameOverText = Content.Load<Texture2D>("GameOver");
+            tempPowerUpText = Content.Load<Texture2D>("PowerUp");
 
 
             //load tile textures
@@ -195,6 +202,11 @@ namespace Project1
 
             // makes a test map with only background tiles
             tileManager.TestMap();
+
+            // loads power ups
+            ammoPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
+            healthPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
+            speedPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
         }
 
         protected override void Update(GameTime gameTime)
@@ -367,6 +379,20 @@ namespace Project1
                     _spriteBatch.DrawString(text, "Player 1", new Vector2(100, 100), Color.White);
                     UIPTwo.Draw(_spriteBatch);
                     _spriteBatch.DrawString(text, "Player 2", new Vector2(100, 300), Color.White);
+
+                    // draws power ups to screen
+                    if (healthPowerUp.Active)
+                    {
+                        healthPowerUp.Draw(_spriteBatch);
+                    }
+                    if (ammoPowerUp.Active)
+                    {
+                        ammoPowerUp.Draw(_spriteBatch);
+                    }
+                    if (speedPowerUp.Active)
+                    {
+                        speedPowerUp.Draw(_spriteBatch);
+                    }
                     break;
 
                 case GameState.LevelSelect:
