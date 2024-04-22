@@ -175,8 +175,7 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            
-            if (currentBulletNum <= 0 && reload == false)
+            if (currentBulletNum <= maxBulletNum && reload == false)
             {
                 reloadNum = 100;
                 reload = true;
@@ -192,9 +191,9 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            if (currentBulletNum <= 0 && reload == false)
+            if (currentBulletNum <= maxBulletNum && reload == false)
             {
-                reloadNum = 50;
+                reloadNum = 100;
                 reload = true;
             }
         }
@@ -228,7 +227,7 @@ namespace Project1
             playerAngle = playerAngle % 360;
             this.playerRect.X = (int)(playerPosition.X - playerRect.Width / 2);
             this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
-            if (reload == true)
+            if (reload)
             {
                 reloadNum--;
             }
@@ -236,12 +235,9 @@ namespace Project1
             {
                 reload = false;
             }
-            if (currentBulletNum <= 0 && reload == false)
+            if (currentBulletNum < maxBulletNum && reload == false)
             {
-
-
-                currentBulletNum += maxBulletNum;
-
+                currentBulletNum += 1;
             }
 
             previousKB = Keyboard.GetState();
