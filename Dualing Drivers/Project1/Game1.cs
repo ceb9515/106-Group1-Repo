@@ -75,10 +75,17 @@ namespace Project1
         private Texture2D Bullettext;
 
         //Create Level Select Preview Textures
+        private Texture2D levelExitTexture;
+        private Texture2D levelExitHTexture;
+        private Texture2D levelLoadTexture;
+        private Texture2D levelLoadHTexture;
+        private Texture2D levelEditTexture;
+        private Texture2D levelEditHTexture;
         private Texture2D levelText1;
         private Texture2D levelTextCustom;
         private Texture2D levelTextHover;
         private Texture2D levelTextBlank;
+        private Texture2D levelSelectLogo;
         private List<Texture2D> levelTextures;
 
         //Create Gamestate manager objects
@@ -186,6 +193,14 @@ namespace Project1
             levelTextHover = Content.Load<Texture2D>("Level_Hover");
             levelTextBlank = Content.Load<Texture2D>("Level0_Blank");
             levelText1 = Content.Load<Texture2D>("Level1_Dockside");
+            levelExitTexture = Content.Load<Texture2D>("Exit");
+            levelExitHTexture = Content.Load<Texture2D>("Exit_Hover");
+            levelEditTexture = Content.Load<Texture2D>("Edit");
+            levelEditHTexture = Content.Load<Texture2D>("Edit_Hovering");
+            levelLoadTexture = Content.Load<Texture2D>("Load");
+            levelLoadHTexture = Content.Load<Texture2D>("Load_Hovering");
+            levelSelectLogo = Content.Load<Texture2D>("Level Select LOGO");
+
             //create the list of level textures
             levelTextures = new List<Texture2D>();
             levelTextures.Add(levelText1);
@@ -223,7 +238,7 @@ namespace Project1
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
 
             //load level select screen
-            levelSelect = new LevelSelect(levelTextures, levelTextHover);
+            levelSelect = new LevelSelect(levelTextures, levelTextHover, levelExitTexture, levelExitHTexture, levelLoadTexture, levelLoadHTexture, levelEditTexture, levelEditHTexture, levelSelectLogo);
 
             //load game over screen
             gameOver = new GameOver(restartButtonTexture, titleButtonTexture);
@@ -317,8 +332,18 @@ namespace Project1
                     break;
 
                 case GameState.LevelSelect:
+                    //quit to title
+                    if (levelSelect.exitButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.Title;
+                    }
+                    //quit to level editor
+                    else if (levelSelect.editButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.Editor;
+                    }
                     //load a custom level
-                    if (levelSelect.levelButtons[23].Clicked(mouseState))
+                    else if (levelSelect.levelButtons[23].Clicked(mouseState) || levelSelect.loadButton.Clicked(mouseState))
                     {
                         //open load file window
                         OpenFileDialog loadingM = new OpenFileDialog();

@@ -51,7 +51,7 @@ namespace Project1
         {
             if (tileType == TileType.breakable)
             {
-                health = 9;
+                health = 3;
             }
             this.tileType = tileType;
             this.backGroundText = backGround;
