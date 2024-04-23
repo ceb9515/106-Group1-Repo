@@ -56,7 +56,9 @@ namespace Project1
         private Texture2D magOneText;
         private Texture2D magEmptyText;
         private Texture2D gameOverText;
-        private Texture2D tempPowerUpText; // temporary texture for power ups can delete after real textures loaded
+        private Texture2D healthPowerUpText;
+        private Texture2D ammoPowerUpText;
+        private Texture2D speedPowerUpText;
 
 
         //Create TileSet Textures
@@ -171,8 +173,9 @@ namespace Project1
             magOneText = Content.Load<Texture2D>("MagOne");
             magEmptyText = Content.Load<Texture2D>("MagEmpty");
             gameOverText = Content.Load<Texture2D>("GameOver");
-            tempPowerUpText = Content.Load<Texture2D>("PowerUp");
-
+            ammoPowerUpText = Content.Load<Texture2D>("PU_Ammo");
+            healthPowerUpText = Content.Load<Texture2D>("PU_Health");
+            speedPowerUpText = Content.Load<Texture2D>("PU_Speed");
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
@@ -494,9 +497,9 @@ namespace Project1
             Vector2 player1Position = new Vector2(340, 100);
             Vector2 player2Position = new Vector2(1180, 620);
             // loads power ups
-            ammoPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
-            healthPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
-            speedPowerUp = new PowerUp(tempPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
+            ammoPowerUp = new PowerUp(ammoPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
+            healthPowerUp = new PowerUp(healthPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
+            speedPowerUp = new PowerUp(speedPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
             List<PowerUp> powerUps = new List<PowerUp>();
             powerUps.Add(ammoPowerUp);
             powerUps.Add(healthPowerUp);
