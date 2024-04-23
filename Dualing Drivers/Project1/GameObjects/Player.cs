@@ -248,7 +248,7 @@ namespace Project1
             }
 
             previousKB = Keyboard.GetState();
-            previousGB = GamePad.GetState(PlayerIndex.Two);
+            previousGB = GamePad.GetState(PlayerIndex.One);
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,8 @@ namespace Project1.Managers
         Player player1;
         Player player2;
 
-
+        GamePadState gamePadState1 = GamePad.GetState(PlayerIndex.One);
+        GamePadState gamePadState2 = GamePad.GetState(PlayerIndex.Two);
         public Player Player1 { get { return player1; } }
         public Player Player2 { get { return player2; } }
 
@@ -62,7 +64,7 @@ namespace Project1.Managers
         /// <summary>
         /// Basic Player Manager Constructor
         /// </summary>
-        public PlayerManager(Texture2D playerText1, Texture2D playerText2, Vector2 player1Position, Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2, List<PowerUp> powerUps)
+        public PlayerManager(Texture2D playerText1, Texture2D playerText2, Microsoft.Xna.Framework.Vector2 player1Position, Microsoft.Xna.Framework.Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2, List<PowerUp> powerUps)
         {
             playerList = new List<Player>();
             player1 = new Player(playerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, player1Controls, bulletTexture, playerCrashedText1);
@@ -78,19 +80,38 @@ namespace Project1.Managers
         /// </summary>
         public void Update()
         {
-            foreach (Player player in playerList)
+            if (gamePadState1.IsConnected&& gamePadState2.IsConnected)
             {
-                
+                player2.moveC();
+                player2.ShootC();
+                player1.moveC();
+                player1.ShootC();
+            }
+            else if (gamePadState1.IsConnected&&!gamePadState2.IsConnected)
+            {
                 player2.moveC();
                 player2.ShootC();
                 player1.Move();
                 player1.Shoot();
-                player.Update();
+
+            }
+            else if(!gamePadState1.IsConnected)
+            {
+                player1.Move();
+                player1.Shoot();
+                player2.Move();
+                player2.Shoot();
+
+            }
+            
+            foreach (Player player in playerList)
+            {
+                
                 foreach (PowerUp powerUp in powerUpList)
                 {
                     powerUp.PowerUpPlayer(player);
                 }
-
+                player.Update();
             }
             PlayerList[0].BlockPlayer(PlayerList[1]);
             PlayerList[1].BlockPlayer(PlayerList[0]);
