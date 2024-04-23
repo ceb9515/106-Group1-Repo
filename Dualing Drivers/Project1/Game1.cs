@@ -20,7 +20,7 @@ namespace Project1
         private SpriteBatch _spriteBatch;
 
         //Setup the GameState enum
-        public enum GameState { Title, Menu, Game, Editor, GameOver, LevelSelect }
+        public enum GameState { Title, Menu, Game, Editor, GameOver, LevelSelect, Controls }
         public GameState gameState = GameState.Title;
 
         //Setup keyboard + mouse states
@@ -59,6 +59,7 @@ namespace Project1
         private Texture2D healthPowerUpText;
         private Texture2D ammoPowerUpText;
         private Texture2D speedPowerUpText;
+        private Texture2D controlsText;
 
 
         //Create TileSet Textures
@@ -98,6 +99,7 @@ namespace Project1
         private TileManager tileManager;
         private BulletManager bulletManager;
         private PlayerManager playerManager;
+        private Controls controls;
 
         //Create players
         private Player player1;
@@ -176,6 +178,7 @@ namespace Project1
             ammoPowerUpText = Content.Load<Texture2D>("PU_Ammo");
             healthPowerUpText = Content.Load<Texture2D>("PU_Health");
             speedPowerUpText = Content.Load<Texture2D>("PU_Speed");
+            controlsText = Content.Load<Texture2D>("Controls");
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
@@ -235,13 +238,20 @@ namespace Project1
             text = Content.Load<SpriteFont>("text");
 
             //load the tile textures into the level editor
-            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
+            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, 
+                selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
 
             //load title screen
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
 
+            //load controls screen
+            controls = new Controls(controlsText, titleButtonTexture);
+
             //load level select screen
-            levelSelect = new LevelSelect(levelTextures, levelTextHover, levelExitTexture, levelExitHTexture, levelLoadTexture, levelLoadHTexture, levelEditTexture, levelEditHTexture, levelSelectLogo);
+            levelSelect = new LevelSelect(
+                levelTextures, levelTextHover, levelExitTexture, levelExitHTexture, 
+                levelLoadTexture, levelLoadHTexture, levelEditTexture, levelEditHTexture, 
+                levelSelectLogo);
 
             //load game over screen
             gameOver = new GameOver(restartButtonTexture, titleButtonTexture);
@@ -265,7 +275,7 @@ namespace Project1
             // TODO: Add your update logic here
 
             //TESTING GAMESTATE(S)
-            //gameState = GameState.Title;
+            //gameState = GameState.Controls;
 
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
@@ -282,6 +292,7 @@ namespace Project1
                             gameState = GameState.LevelSelect;
                             LoadGame();
                         }
+                        
                     }
                     menuDelay++;
                     testCount = 0;
@@ -393,6 +404,13 @@ namespace Project1
                     }
 
                     break;
+
+                case GameState.Controls:
+                    if (controls.menuButton.Clicked(mouseState))
+                    {
+                        gameState = GameState.Title;
+                    }
+                    break;
             }
 
             previousMS = mouseState;
@@ -483,6 +501,12 @@ namespace Project1
                         _spriteBatch.DrawString(text, "It's a tie!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 90, 100), Color.White);
                     }
                     break;
+
+                case GameState.Controls:
+                    {
+                        controls.Draw(_spriteBatch, _graphics);
+                        break;
+                    }
             }
 
             _spriteBatch.End();
