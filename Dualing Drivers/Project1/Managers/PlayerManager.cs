@@ -18,6 +18,8 @@ namespace Project1.Managers
 
         GamePadState gamePadState1 = GamePad.GetState(PlayerIndex.One);
         GamePadState gamePadState2 = GamePad.GetState(PlayerIndex.Two);
+        GamePadState prevGamePadState1 = GamePad.GetState(PlayerIndex.One);
+        GamePadState prevGamePadState2 = GamePad.GetState(PlayerIndex.Two);
         public Player Player1 { get { return player1; } }
         public Player Player2 { get { return player2; } }
 
@@ -67,8 +69,8 @@ namespace Project1.Managers
         public PlayerManager(Texture2D playerText1, Texture2D playerText2, Microsoft.Xna.Framework.Vector2 player1Position, Microsoft.Xna.Framework.Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2, List<PowerUp> powerUps)
         {
             playerList = new List<Player>();
-            player1 = new Player(playerText1, 320, 360, 40, 40, 5, 2, 1, 0, player1Position, player1Controls, bulletTexture, playerCrashedText1);
-            player2 = new Player(playerText2, 960, 360, 40, 40, 5, 2, 1, 180, player2Position, player2Controls, bulletTexture, playerCrashedText2);
+            player1 = new Player(playerText1, 320, 360, 40, 40, 3, 2.8f, 1, 0, player1Position, player1Controls, bulletTexture, playerCrashedText1);
+            player2 = new Player(playerText2, 960, 360, 40, 40, 3, 2.8f, 1, 180, player2Position, player2Controls, bulletTexture, playerCrashedText2);
             
             playerList.Add(player1);
             playerList.Add(player2);
@@ -80,7 +82,10 @@ namespace Project1.Managers
         /// </summary>
         public void Update()
         {
-            if (gamePadState1.IsConnected&& gamePadState2.IsConnected)
+            gamePadState1 = GamePad.GetState(PlayerIndex.One);
+            gamePadState2 = GamePad.GetState(PlayerIndex.Two);
+            //old player movement code
+            /*if (gamePadState1.IsConnected&& gamePadState2.IsConnected)
             {
                 player2.moveC();
                 player2.ShootC();
@@ -102,8 +107,34 @@ namespace Project1.Managers
                 player2.Move();
                 player2.Shoot();
 
+            }*/
+            //UPDATED MOVEMENT CODE
+            //if there's a gamepad1, update using that
+            if (gamePadState1.IsConnected)
+            {
+                player1.Move(gamePadState1);
+                player1.Shoot(gamePadState1, prevGamePadState1);
+                //player1.Move();
             }
-            
+            //else update using keyboard
+            else
+            {
+                player1.Move();
+                player1.Shoot();
+            }
+            //if there's a gamepad2, update using that
+            if (gamePadState2.IsConnected)
+            {
+                player2.Move(gamePadState2);
+                player2.Shoot(gamePadState2, prevGamePadState2);
+            }
+            //else update using keyboard
+            else
+            {
+                player2.Move();
+                player2.Shoot();
+            }
+
             foreach (Player player in playerList)
             {
                 
@@ -115,6 +146,9 @@ namespace Project1.Managers
             }
             PlayerList[0].BlockPlayer(PlayerList[1]);
             PlayerList[1].BlockPlayer(PlayerList[0]);
+
+            prevGamePadState1 = gamePadState1;
+            prevGamePadState2 = gamePadState2;
         }
     }
 }

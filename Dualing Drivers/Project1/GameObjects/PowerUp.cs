@@ -26,7 +26,7 @@ namespace Project1
         /// <summary>
         /// gets active status of power up
         /// </summary>
-        public bool Active { get { return active; } }
+        public bool Active { get { return active; } set { active = value; } }
 
         // constructor
 

@@ -27,7 +27,7 @@ namespace Project1
         KeyboardState kb = Keyboard.GetState();
         KeyboardState previousKbState = Keyboard.GetState();
         MouseState mouseState;
-        MouseState previousMS;
+        MouseState mouseLastState;
 
         //Create Titlescreen Textures
         private Texture2D titleTexture;
@@ -85,12 +85,13 @@ namespace Project1
         private Texture2D levelLoadHTexture;
         private Texture2D levelEditTexture;
         private Texture2D levelEditHTexture;
-        private Texture2D levelText1;
         private Texture2D levelTextCustom;
         private Texture2D levelTextHover;
         private Texture2D levelTextBlank;
         private Texture2D levelSelectLogo;
         private List<Texture2D> levelTextures;
+        private Texture2D levelText1;
+        private Texture2D levelText2;
 
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
@@ -201,6 +202,7 @@ namespace Project1
             levelTextHover = Content.Load<Texture2D>("Level_Hover");
             levelTextBlank = Content.Load<Texture2D>("Level0_Blank");
             levelText1 = Content.Load<Texture2D>("Level1_Dockside");
+            levelText2 = Content.Load<Texture2D>("Level2_Courtyard");
             levelExitTexture = Content.Load<Texture2D>("Exit");
             levelExitHTexture = Content.Load<Texture2D>("Exit_Hover");
             levelEditTexture = Content.Load<Texture2D>("Edit");
@@ -212,7 +214,7 @@ namespace Project1
             //create the list of level textures
             levelTextures = new List<Texture2D>();
             levelTextures.Add(levelText1);
-            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelText2);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
@@ -271,7 +273,7 @@ namespace Project1
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ms.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(ms.Keys.Escape))
                 Exit();
-
+  
             mouseState = Mouse.GetState();
 
             // TODO: Add your update logic here
@@ -285,16 +287,16 @@ namespace Project1
                 case GameState.Title:
                     if(menuDelay > 15)
                     {
-                        if (titleScreen.levelEditorButton.Clicked(mouseState))
+                        if (titleScreen.levelEditorButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                         {
                             gameState = GameState.Editor;
                         }
-                        if (titleScreen.startGameButton.Clicked(mouseState))
+                        if (titleScreen.startGameButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                         {
                             gameState = GameState.LevelSelect;
                             LoadGame();
                         }
-                        if (titleScreen.controlsButton.Clicked(mouseState))
+                        if (titleScreen.controlsButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                         {
                             gameState = GameState.Controls;
                         }
@@ -311,7 +313,7 @@ namespace Project1
                     {
                         for (int k = 0; k < levelEditor.MapHeight; k++)
                         {
-                            if (levelEditor.mapTiles[i, k].Clicked(mouseState))
+                            if (levelEditor.mapTiles[i, k].Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                             {
                                 levelEditor.SwitchTile(i, k, currentTile);
                             }
@@ -320,17 +322,17 @@ namespace Project1
                     //loop through the tile selection to check collisions
                     for (int i = 0; i < levelEditor.selectTiles.Length; i++)
                     {
-                        if (levelEditor.selectTiles[i].Clicked(mouseState))
+                        if (levelEditor.selectTiles[i].Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                         {
                             currentTile = (LevelEditor.TileType)i;
                         }
                     }
                     //loop through buttons to check collisions
-                    if(levelEditor.exitButton.Clicked(mouseState))
+                    if(levelEditor.exitButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         gameState = GameState.Title;
                     }
-                    if (levelEditor.saveButton.Clicked(mouseState))
+                    if (levelEditor.saveButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         //open save file window
                         SaveFileDialog saving = new SaveFileDialog();
@@ -340,7 +342,7 @@ namespace Project1
                         saving.FileOk += levelEditor.Save;
                         saving.ShowDialog();
                     }
-                    if (levelEditor.loadButton.Clicked(mouseState))
+                    if (levelEditor.loadButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         //open load file window
                         OpenFileDialog loading = new OpenFileDialog();
@@ -353,17 +355,17 @@ namespace Project1
 
                 case GameState.LevelSelect:
                     //quit to title
-                    if (levelSelect.exitButton.Clicked(mouseState))
+                    if (levelSelect.exitButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         gameState = GameState.Title;
                     }
                     //quit to level editor
-                    else if (levelSelect.editButton.Clicked(mouseState))
+                    else if (levelSelect.editButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         gameState = GameState.Editor;
                     }
                     //load a custom level
-                    else if (levelSelect.levelButtons[23].Clicked(mouseState) || levelSelect.loadButton.Clicked(mouseState))
+                    else if (levelSelect.levelButtons[23].Clicked(mouseState) || levelSelect.loadButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         //open load file window
                         OpenFileDialog loadingM = new OpenFileDialog();
@@ -373,11 +375,17 @@ namespace Project1
                         loadingM.ShowDialog();
                         gameState = GameState.Game;
                     }
-                    //load level one
-                    else if (levelSelect.levelButtons[0].Clicked(mouseState))
+                    //load levels
+                    else
                     {
-                        tileManager.PreLoad(1);
-                        gameState = GameState.Game;
+                        for(int i = 0; i < 5; i++)
+                        {
+                            if (levelSelect.levelButtons[i].Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                            {
+                                tileManager.PreLoad(i);
+                                gameState = GameState.Game;
+                            }
+                        }
                     }
                     break;
 
@@ -398,13 +406,13 @@ namespace Project1
                 case GameState.GameOver:
 
                     //check button to restart the game
-                    if (gameOver.restartGameButton.Clicked(mouseState))
+                    if (gameOver.restartGameButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         gameState = GameState.LevelSelect;
                         LoadGame();
                     }
                     //check button to go back to the title screen
-                    if (gameOver.titleButton.Clicked(mouseState))
+                    if (gameOver.titleButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         gameState = GameState.Title;
                     }
@@ -412,14 +420,14 @@ namespace Project1
                     break;
 
                 case GameState.Controls:
-                    if (controls.menuButton.Clicked(mouseState))
+                    if (controls.menuButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         gameState = GameState.Title;
                     }
                     break;
             }
 
-            previousMS = mouseState;
+            mouseLastState = mouseState;
             base.Update(gameTime);
         }
 
@@ -530,6 +538,9 @@ namespace Project1
             ammoPowerUp = new PowerUp(ammoPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
             healthPowerUp = new PowerUp(healthPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
             speedPowerUp = new PowerUp(speedPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
+            ammoPowerUp.Active = false;
+            healthPowerUp.Active = false;
+            speedPowerUp.Active = false;
             List<PowerUp> powerUps = new List<PowerUp>();
             powerUps.Add(ammoPowerUp);
             powerUps.Add(healthPowerUp);
@@ -709,6 +720,5 @@ namespace Project1
                     }
             }
         }
-
     }
 }
