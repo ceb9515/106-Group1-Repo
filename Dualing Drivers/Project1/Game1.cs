@@ -85,12 +85,13 @@ namespace Project1
         private Texture2D levelLoadHTexture;
         private Texture2D levelEditTexture;
         private Texture2D levelEditHTexture;
-        private Texture2D levelText1;
         private Texture2D levelTextCustom;
         private Texture2D levelTextHover;
         private Texture2D levelTextBlank;
         private Texture2D levelSelectLogo;
         private List<Texture2D> levelTextures;
+        private Texture2D levelText1;
+        private Texture2D levelText2;
 
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
@@ -201,6 +202,7 @@ namespace Project1
             levelTextHover = Content.Load<Texture2D>("Level_Hover");
             levelTextBlank = Content.Load<Texture2D>("Level0_Blank");
             levelText1 = Content.Load<Texture2D>("Level1_Dockside");
+            levelText2 = Content.Load<Texture2D>("Level2_Courtyard");
             levelExitTexture = Content.Load<Texture2D>("Exit");
             levelExitHTexture = Content.Load<Texture2D>("Exit_Hover");
             levelEditTexture = Content.Load<Texture2D>("Edit");
@@ -212,7 +214,7 @@ namespace Project1
             //create the list of level textures
             levelTextures = new List<Texture2D>();
             levelTextures.Add(levelText1);
-            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelText2);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
@@ -536,6 +538,9 @@ namespace Project1
             ammoPowerUp = new PowerUp(ammoPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
             healthPowerUp = new PowerUp(healthPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
             speedPowerUp = new PowerUp(speedPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
+            ammoPowerUp.Active = false;
+            healthPowerUp.Active = false;
+            speedPowerUp.Active = false;
             List<PowerUp> powerUps = new List<PowerUp>();
             powerUps.Add(ammoPowerUp);
             powerUps.Add(healthPowerUp);
