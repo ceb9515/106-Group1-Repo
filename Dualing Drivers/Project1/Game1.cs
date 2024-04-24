@@ -124,10 +124,8 @@ namespace Project1
         // text fonts
         private SpriteFont text;
 
-        // create power ups
-        private PowerUp ammoPowerUp;
-        private PowerUp healthPowerUp;
-        private PowerUp speedPowerUp;
+        // create power up manager
+        PowerUpManager powerUpManager;
 
 
         public Game1()
@@ -273,7 +271,8 @@ namespace Project1
             // makes a test map with only background tiles
             tileManager.TestMap();
 
-            
+            // loads power up manager
+            powerUpManager = new PowerUpManager(healthPowerUpText, speedPowerUpText, ammoPowerUpText);
         }
 
         protected override void Update(GameTime gameTime)
@@ -475,19 +474,8 @@ namespace Project1
                     UIPTwo.Draw(_spriteBatch);
                     _spriteBatch.Draw(playerTwoLabel, new Vector2(25, 400), Color.White);
 
-                    // draws power ups to screen
-                    if (healthPowerUp.Active)
-                    {
-                        healthPowerUp.Draw(_spriteBatch);
-                    }
-                    if (ammoPowerUp.Active)
-                    {
-                        ammoPowerUp.Draw(_spriteBatch);
-                    }
-                    if (speedPowerUp.Active)
-                    {
-                        speedPowerUp.Draw(_spriteBatch);
-                    }
+                    // draws all power ups to screen if they're active
+                    powerUpManager.DrawPowerUps(_spriteBatch);
                     break;
 
                 case GameState.LevelSelect:
