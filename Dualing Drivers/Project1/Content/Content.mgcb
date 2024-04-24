@@ -244,6 +244,18 @@
 /processorParam:TextureFormat=Color
 /build:HealthTwo.png
 
+#begin L2_Courtyard.level
+/copy:L2_Courtyard.level
+
+#begin L3_Bridged.level
+/copy:L3_Bridged.level
+
+#begin L4_Pirate'sCove.level
+/copy:L4_Pirate'sCove.level
+
+#begin L5_Labyrinth.level
+/copy:L5_Labyrinth.level
+
 #begin LEButton.png
 /importer:TextureImporter
 /processor:TextureProcessor

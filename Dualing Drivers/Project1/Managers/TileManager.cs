@@ -70,8 +70,24 @@ namespace Project1
             tiles.Clear();
             //get the filename based on the input
             string filename = "";
-            if(levelNum == 1){
+            if(levelNum == 0){
                 filename = "Content/Dockyard.level";
+            }
+            else if(levelNum == 1)
+            {
+                filename = "Content/L2_Courtyard.level";
+            }
+            else if (levelNum == 2)
+            {
+                filename = "Content/L3_Bridged.level";
+            }
+            else if (levelNum == 3)
+            {
+                filename = "Content/L4_Pirate'sCove.level";
+            }
+            else if (levelNum == 4)
+            {
+                filename = "Content/L5_Labyrinth.level";
             }
 
             //load variables from a file
