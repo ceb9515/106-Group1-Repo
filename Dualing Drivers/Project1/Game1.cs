@@ -92,6 +92,7 @@ namespace Project1
         private List<Texture2D> levelTextures;
         private Texture2D levelText1;
         private Texture2D levelText2;
+        private Texture2D levelText4;
 
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
@@ -203,6 +204,7 @@ namespace Project1
             levelTextBlank = Content.Load<Texture2D>("Level0_Blank");
             levelText1 = Content.Load<Texture2D>("Level1_Dockside");
             levelText2 = Content.Load<Texture2D>("Level2_Courtyard");
+            levelText4 = Content.Load<Texture2D>("Level4_Pirate'sCove");
             levelExitTexture = Content.Load<Texture2D>("Exit");
             levelExitHTexture = Content.Load<Texture2D>("Exit_Hover");
             levelEditTexture = Content.Load<Texture2D>("Edit");
@@ -216,7 +218,7 @@ namespace Project1
             levelTextures.Add(levelText1);
             levelTextures.Add(levelText2);
             levelTextures.Add(levelTextBlank);
-            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelText4);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
