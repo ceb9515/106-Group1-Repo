@@ -61,6 +61,8 @@ namespace Project1
         private Texture2D ammoPowerUpText;
         private Texture2D speedPowerUpText;
         private Texture2D controlsText;
+        private Texture2D playerOneLabel;
+        private Texture2D playerTwoLabel;
 
 
         //Create TileSet Textures
@@ -183,6 +185,9 @@ namespace Project1
             healthPowerUpText = Content.Load<Texture2D>("PU_Health");
             speedPowerUpText = Content.Load<Texture2D>("PU_Speed");
             controlsText = Content.Load<Texture2D>("Controls");
+            playerOneLabel = Content.Load<Texture2D>("Player1");
+            playerTwoLabel = Content.Load<Texture2D>("Player2");
+
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
@@ -466,9 +471,9 @@ namespace Project1
                     tileManager.HandlePlayerCollision(playerManager.Player2);
                     bulletManager.DrawBullet(_spriteBatch);
                     UIPOne.Draw(_spriteBatch);
-                    _spriteBatch.DrawString(text, "Player 1", new Vector2(100, 100), Color.White);
+                    _spriteBatch.Draw(playerOneLabel, new Vector2(25, 100), Color.White);
                     UIPTwo.Draw(_spriteBatch);
-                    _spriteBatch.DrawString(text, "Player 2", new Vector2(100, 300), Color.White);
+                    _spriteBatch.Draw(playerTwoLabel, new Vector2(25, 400), Color.White);
 
                     // draws power ups to screen
                     if (healthPowerUp.Active)
