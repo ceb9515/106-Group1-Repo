@@ -17,10 +17,12 @@ namespace Project1.Managers
         public Button startGameButton;
         public Button levelEditorButton;
         public Button settingsButton;
+        public Button controlsButton;
 
         public Texture2D startTexture;
         public Texture2D levelEditorTexture;
         public Texture2D titleLogo;
+        public Texture2D controlsTexture;
 
 
         /// <summary>
@@ -28,15 +30,17 @@ namespace Project1.Managers
         /// </summary>
         /// <param name="startTexture"> texture for start button </param>
         /// <param name="levelEditorTexture"> texture for level editor button</param>
-        public TitleScreen(Texture2D startTexture, Texture2D levelEditorTexture, Texture2D titleLogo)
+        public TitleScreen(Texture2D startTexture, Texture2D levelEditorTexture, Texture2D titleLogo, Texture2D controlsText)
         {
             this.startTexture = startTexture;
             this.levelEditorTexture = levelEditorTexture;
             this.titleLogo = titleLogo;
+            controlsTexture = controlsText;
+
 
             startGameButton = new Button(startTexture, 400, 300, startTexture.Width, startTexture.Height);
             levelEditorButton = new Button(levelEditorTexture, 716, 300, levelEditorTexture.Width, levelEditorTexture.Height);
-
+            controlsButton = new Button(controlsTexture, 550, 500, controlsTexture.Width, controlsTexture.Height);
 
             
         }
@@ -46,7 +50,9 @@ namespace Project1.Managers
         {
             startGameButton.Draw(sb);
             levelEditorButton.Draw(sb);
+            controlsButton.Draw(sb);
             sb.Draw(titleLogo, new Microsoft.Xna.Framework.Rectangle(640 - titleLogo.Width/3, 50, 2*titleLogo.Width/3, 2*titleLogo.Height/3), Microsoft.Xna.Framework.Color.White);
+            
         }
     }
 }

@@ -41,6 +41,7 @@ namespace Project1
         private Texture2D loadButtonTexture;
         private Texture2D titleButtonTexture;
         private Texture2D restartButtonTexture;
+        private Texture2D controlsButtonTexture;
 
         //UI textures
         private Texture2D healthFullText;
@@ -155,6 +156,7 @@ namespace Project1
             LEButtonTexture = Content.Load<Texture2D>("LEButton");
             restartButtonTexture = Content.Load<Texture2D>("PlayAgainButton");
             titleButtonTexture = Content.Load<Texture2D>("MenuButton");
+            controlsButtonTexture = Content.Load<Texture2D>("ControlsButton");
 
             //Load the test button textures
             exitButtonTexture = Content.Load<Texture2D>("exitButton");
@@ -242,7 +244,7 @@ namespace Project1
                 selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
 
             //load title screen
-            titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture);
+            titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture, controlsButtonTexture);
 
             //load controls screen
             controls = new Controls(controlsText, titleButtonTexture);
@@ -291,6 +293,10 @@ namespace Project1
                         {
                             gameState = GameState.LevelSelect;
                             LoadGame();
+                        }
+                        if (titleScreen.controlsButton.Clicked(mouseState))
+                        {
+                            gameState = GameState.Controls;
                         }
                         
                     }
