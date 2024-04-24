@@ -57,7 +57,7 @@ namespace Project1
         /// <param name="y">y value of position rectangle</param>
         /// <param name="width">width of position rectangle</param>
         /// <param name="height">height of position rectangle</param>
-        public Player(Texture2D texture, int x, int y, int width, int height, int health, int speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl, Texture2D bulletTexture, Texture2D crashed) : base(texture, x, y, width, height)
+        public Player(Texture2D texture, int x, int y, int width, int height, int health, float speed, int damage, int playerAngle, Vector2 playerPosition, Dictionary<string, Keys> playerControl, Texture2D bulletTexture, Texture2D crashed) : base(texture, x, y, width, height)
         {
             Health = health;
             Speed = speed;
@@ -91,11 +91,11 @@ namespace Project1
             }
             if (state.IsKeyDown(playerControl["Left"]))
             {
-                playerAngle -= (float)(speed);
+                playerAngle -= (float)(4);
             }
             if (state.IsKeyDown(playerControl["Right"]))
             {
-                playerAngle += (float)(speed);
+                playerAngle += (float)(4);
             }
             //controller control   
         }
@@ -118,11 +118,13 @@ namespace Project1
                 }
                 if (gb.ThumbSticks.Right.X < -0.1)
                 {
-                    playerAngle -= (float)(speed);
+                    //turns at a base speed of 3 + half of the speed buff, if a player has one
+                    playerAngle -= (float)(4);
                 }
                 else if (gb.ThumbSticks.Right.X > 0.1)
                 {
-                    playerAngle += (float)(speed);
+                    //turns at a base speed of 3 + half of the speed buff, if a player has one
+                    playerAngle += (float)(4);
                 }
         }
 
