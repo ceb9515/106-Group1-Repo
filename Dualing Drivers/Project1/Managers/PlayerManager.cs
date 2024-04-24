@@ -85,17 +85,17 @@ namespace Project1.Managers
             gamePadState1 = GamePad.GetState(PlayerIndex.One);
             gamePadState2 = GamePad.GetState(PlayerIndex.Two);
             //old player movement code
-            /*if (gamePadState1.IsConnected&& gamePadState2.IsConnected)
+            if (gamePadState1.IsConnected&& gamePadState2.IsConnected)
             {
-                player2.moveC();
-                player2.ShootC();
-                player1.moveC();
-                player1.ShootC();
+                player2.moveC(gamePadState2);
+                player2.Shoot(gamePadState2, prevGamePadState2);
+                player1.moveC(gamePadState1);    
+                player1.Shoot(gamePadState1, prevGamePadState1);
             }
             else if (gamePadState1.IsConnected&&!gamePadState2.IsConnected)
             {
-                player2.moveC();
-                player2.ShootC();
+                player2.moveC(gamePadState1);
+                player2.Shoot(gamePadState1, prevGamePadState1);
                 player1.Move();
                 player1.Shoot();
 
@@ -107,7 +107,7 @@ namespace Project1.Managers
                 player2.Move();
                 player2.Shoot();
 
-            }*/
+            }/*
             //UPDATED MOVEMENT CODE
             //if there's a gamepad1, update using that
             if (gamePadState1.IsConnected)
@@ -134,7 +134,7 @@ namespace Project1.Managers
                 player2.Move();
                 player2.Shoot();
             }
-
+            */
             foreach (Player player in playerList)
             {
                 

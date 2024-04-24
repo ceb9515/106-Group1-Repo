@@ -128,13 +128,13 @@ namespace Project1
                 }
         }
 
-        public void moveC()
+        public void moveC(GamePadState gb)
         {
-            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
-            if (gamePadState.IsConnected)
+           
+            if (gb.IsConnected)
             {
-                float leftThumbX = gamePadState.ThumbSticks.Left.X;
-                float leftThumbY = gamePadState.ThumbSticks.Left.Y;
+                float leftThumbX = gb.ThumbSticks.Left.X;
+                float leftThumbY = gb.ThumbSticks.Left.Y;
                 double degrees = Math.Atan2(leftThumbX, leftThumbY) * (180 / Math.PI);
                 degrees = (degrees + 360) % 360 - 90;
                 if (Math.Abs(leftThumbX) > 0.1 || Math.Abs(leftThumbY) > 0.1)
@@ -151,11 +151,11 @@ namespace Project1
 
                     if (angleDifference > 0)
                     {
-                        playerAngle += 2f;
+                        playerAngle += 4f;
                     }
                     else if (angleDifference < 0)
                     {
-                        playerAngle -= 2f;
+                        playerAngle -= 4f;
                     }
 
                     if (moving)
