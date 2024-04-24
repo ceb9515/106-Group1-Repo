@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Project1.Managers.PlayerManager;
+using static System.Windows.Forms.AxHost;
 
 namespace Project1
 {
@@ -18,7 +19,7 @@ namespace Project1
 
         // fields
         private int health;
-        private int speed;
+        private float speed;
         private int damage;
         private Vector2 playerPosition;
         private Vector2 playerCrashedPosition;
@@ -43,7 +44,7 @@ namespace Project1
         public int Health { get { return health; } set { health = value; } }
         public int Ammo { get { return currentBulletNum; } set { currentBulletNum = value; } }
         public int MaxAmmo { get { return maxBulletNum; } set { maxBulletNum = value; } }
-        public int Speed { get { return speed; } set { speed = value; } }
+        public float Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
         public Rectangle PlayerRect { get { return playerRect; } set { playerRect = value; } }
         public Vector2 PlayerPosition { get { return playerPosition; } set { playerPosition = value; } }
@@ -90,19 +91,41 @@ namespace Project1
             }
             if (state.IsKeyDown(playerControl["Left"]))
             {
-                playerAngle -= 2f;
+                playerAngle -= (float)(speed);
             }
             if (state.IsKeyDown(playerControl["Right"]))
             {
-                playerAngle += 2f;
+                playerAngle += (float)(speed);
             }
-            //controller control
-            
-
-            
+            //controller control   
         }
         
-        
+        /// <summary>
+        /// method to move the player using a controler
+        /// </summary>
+        /// <param name="gb">gamepad state to direct movement</param>
+        public void Move(GamePadState gb)
+        {
+                if (gb.ThumbSticks.Left.Y > 0.1)
+                {
+                    playerPosition.X += speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                    playerPosition.Y += speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                }
+                else if (gb.ThumbSticks.Left.Y < -0.1)
+                {
+                    playerPosition.X -= speed * (float)Math.Cos(MathHelper.ToRadians(playerAngle));
+                    playerPosition.Y -= speed * (float)Math.Sin(MathHelper.ToRadians(playerAngle));
+                }
+                if (gb.ThumbSticks.Right.X < -0.1)
+                {
+                    playerAngle -= (float)(speed);
+                }
+                else if (gb.ThumbSticks.Right.X > 0.1)
+                {
+                    playerAngle += (float)(speed);
+                }
+        }
+
         public void moveC()
         {
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
@@ -186,6 +209,25 @@ namespace Project1
                 reload = true;
             }
         }
+
+        /// <summary>
+        /// method to shoot bullets with a controller
+        /// </summary>
+        public void Shoot(GamePadState gb, GamePadState prev)
+        {
+            if (((gb.Buttons.A == ButtonState.Pressed && prev.Buttons.A == ButtonState.Released) || (gb.Triggers.Right > 0.2 && prev.Triggers.Right < 0.2)) && currentBulletNum > 0)
+            {
+                Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
+                OnShoot?.Invoke(bullet, this);
+                currentBulletNum--;
+            }
+            if (currentBulletNum <= maxBulletNum && reload == false)
+            {
+                reloadNum = 100;
+                reload = true;
+            }
+        }
+
         public void ShootC()
         {
             GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
