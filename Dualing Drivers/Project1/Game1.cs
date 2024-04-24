@@ -313,7 +313,7 @@ namespace Project1
                     {
                         for (int k = 0; k < levelEditor.MapHeight; k++)
                         {
-                            if (levelEditor.mapTiles[i, k].Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                            if (levelEditor.mapTiles[i, k].Clicked(mouseState))
                             {
                                 levelEditor.SwitchTile(i, k, currentTile);
                             }
