@@ -186,7 +186,7 @@ namespace Project1.Managers
                         else if (powerUps[i, k] == TileType.Speed)
                         {
                             sb.Draw(speedTexture, new Rectangle(i * 40 + 260,
-                            k + 40 + 20, 40, 40), Color.White);
+                            k * 40 + 20, 40, 40), Color.White);
                         }
                     }
                 }
