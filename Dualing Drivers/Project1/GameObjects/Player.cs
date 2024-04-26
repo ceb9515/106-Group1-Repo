@@ -205,7 +205,6 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            reloadNum = 100;
         }
 
         /// <summary>
@@ -219,7 +218,6 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            reloadNum = 100;
         }
 
         public void ShootC()
@@ -234,7 +232,6 @@ namespace Project1
                     currentBulletNum--;
                 }
             }
-            reloadNum = 100;
         }
 
         /// <summary>
