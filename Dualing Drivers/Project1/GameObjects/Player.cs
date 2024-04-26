@@ -33,7 +33,7 @@ namespace Project1
         private Dictionary<string, Microsoft.Xna.Framework.Input.Buttons> controllerControl;
         private KeyboardState previousKB;
         private GamePadState previousGB;
-        private int reloadNum = 0;
+        private int reloadNum = 100;
         private int currentBulletNum = 3;
         private int maxBulletNum = 3;
         private bool reload;
@@ -42,7 +42,7 @@ namespace Project1
         // properties
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
-        public int Ammo { get { return currentBulletNum; } set { currentBulletNum = value; } }
+        public int Ammo { get { return currentBulletNum; } }
         public int MaxAmmo { get { return maxBulletNum; } set { maxBulletNum = value; } }
         public float Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
@@ -63,6 +63,7 @@ namespace Project1
             Speed = speed;
             this.damage = damage;
             this.playerPosition = playerPosition;
+            currentBulletNum = maxBulletNum;
             this.playerAngle = playerAngle;
             playerTexture = texture;
             this.crashed = crashed;
@@ -205,7 +206,6 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            reloadNum = 100;
         }
 
         /// <summary>
@@ -219,7 +219,6 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            reloadNum = 100;
         }
 
         public void ShootC()
@@ -234,7 +233,6 @@ namespace Project1
                     currentBulletNum--;
                 }
             }
-            reloadNum = 100;
         }
 
         /// <summary>
