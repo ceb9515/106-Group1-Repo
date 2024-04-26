@@ -156,6 +156,19 @@ namespace Project1
                 y += 40;
             }
 
+            //Loop for PowerUps
+            List<string> powerUpData = new List<string>();
+            while (rows.Count > 17)
+            {
+                powerUpData.Add(rows[17]);
+                rows.RemoveAt(17);
+            }
+            //load power ups if there are any
+            if (powerUpData.Count > 0)
+            {
+                PowerUps.LoadPowerUps(powerUpData);
+            }
+
             input.Close();
         }
 

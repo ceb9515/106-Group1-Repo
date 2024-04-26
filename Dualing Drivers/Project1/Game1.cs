@@ -249,7 +249,7 @@ namespace Project1
             text = Content.Load<SpriteFont>("text");
 
             //load the tile textures into the level editor
-            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, 
+            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, speedPowerUpText, healthPowerUpText, ammoPowerUpText, ammoPowerUpText, 
                 selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
 
             //load title screen

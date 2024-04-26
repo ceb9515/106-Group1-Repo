@@ -41,15 +41,15 @@ namespace Project1.Managers
             powerUps.Clear();
 
         }
-            /// <summary>
-            /// loads power ups 
-            /// </summary>
-            /// <param name="powerUpInfo">string info on each power up</param>
-            public void LoadPowerUps(List<string> powerUpInfo)
+
+        /// <summary>
+        /// loads power ups 
+        /// </summary>
+        /// <param name="powerUpInfo">string info on each power up</param>
+        public void LoadPowerUps(List<string> powerUpInfo)
         {
             powerUps.Clear();
             string[] rowData;
-
             // goes through ever string in powerUpInfo
             for (int x = 0; x < powerUpInfo.Count; x++)
             {

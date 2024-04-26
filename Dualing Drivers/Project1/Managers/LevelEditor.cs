@@ -14,7 +14,7 @@ namespace Project1.Managers
 {
     internal class LevelEditor
     {
-        public enum TileType { Ground, Half, Wall, Breakable }
+        public enum TileType { Ground, Half, Wall, Breakable, Ammo, Health, Speed, Delete }
 
         //create fields for map width and height (will stay the same but is useful for testing possibilities)
         private int mapHeight = 17;
@@ -28,14 +28,19 @@ namespace Project1.Managers
         private Texture2D wallTexture;
         private Texture2D breakableTexture;
         private Texture2D selectedTexture;
+        private Texture2D speedTexture;
+        private Texture2D ammoTexture;
+        private Texture2D healthTexture;
+        private Texture2D deleteTexture;
         private Texture2D exitTexture;
         private Texture2D saveTexture;
         private Texture2D loadTexture;
 
         //create internal array fields
+        public TileType[,] powerUps = new TileType[25, 17];
         public TileType[,] tileTypes = new TileType[25, 17];
         public Button[,] mapTiles = new Button[25,17];
-        public Button[] selectTiles = new Button[4];
+        public Button[] selectTiles = new Button[8];
         public Button exitButton;
         public Button saveButton;
         public Button loadButton;
@@ -44,7 +49,7 @@ namespace Project1.Managers
         /// <summary>
         /// Basic LevelEditor Constructor
         /// </summary>
-        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D selectedTexture, Texture2D exitTexture, Texture2D saveTexture, Texture2D loadTexture)
+        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D speedTexture, Texture2D healthTexture, Texture2D ammoTexture, Texture2D deleteTexture, Texture2D selectedTexture, Texture2D exitTexture, Texture2D saveTexture, Texture2D loadTexture)
         {
             //set internal fields to the constructor input
             this.wallTexture = wallTexture;
@@ -55,6 +60,10 @@ namespace Project1.Managers
             this.exitTexture = exitTexture;
             this.saveTexture = saveTexture;
             this.loadTexture = loadTexture;
+            this.speedTexture = speedTexture;
+            this.healthTexture = healthTexture;
+            this.ammoTexture = ammoTexture;
+            this.deleteTexture = deleteTexture;
 
             //create a basic array
             for(int i = 0; i < mapWidth; i++)
@@ -72,20 +81,24 @@ namespace Project1.Managers
                         tileTypes[i, k] = TileType.Ground;
                         mapTiles[i, k] = new Button(groundTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
                     }
+                    powerUps[i, k] = TileType.Delete;
                 }
             }
 
             //create the selecting Tiles array 
             selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
-            selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
             selectTiles[1] = new Button(halfTexture, halfTexture, 140, 20, 80, 80);
             selectTiles[2] = new Button(wallTexture, wallTexture, 30, 130, 80, 80);
             selectTiles[3] = new Button(breakableTexture, breakableTexture, 140, 130, 80, 80);
+            selectTiles[4] = new Button(ammoTexture, ammoTexture, 30, 240, 80, 80);
+            selectTiles[5] = new Button(healthTexture, healthTexture, 140, 240, 80, 80);
+            selectTiles[6] = new Button(speedTexture, speedTexture, 30, 350, 80, 80);
+            selectTiles[7] = new Button(deleteTexture, speedTexture, 140, 350, 80, 80);
 
             //Create the buttons
             exitButton = new Button(exitTexture, 30, 700 - exitTexture.Height, exitTexture.Width, exitTexture.Height);
-            saveButton = new Button(saveTexture, 30, 500 - saveTexture.Height, saveTexture.Width, saveTexture.Height);
-            loadButton = new Button(loadTexture, 30, 400 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
+            saveButton = new Button(saveTexture, 30, 620 - saveTexture.Height, saveTexture.Width, saveTexture.Height);
+            loadButton = new Button(loadTexture, 30, 540 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
         }
 
         /// <summary>
@@ -116,12 +129,30 @@ namespace Project1.Managers
                         tileTypes[x, y] = TileType.Wall;
                         this.mapTiles[x, y].texture = this.wallTexture;
                     }
+                    else if (t == TileType.Ammo)
+                    {
+                        powerUps[x, y] = TileType.Ammo;
+                    }
+                    else if (t == TileType.Health)
+                    {
+                        powerUps[x, y] = TileType.Health;
+                    }
+                    else if (t == TileType.Speed)
+                    {
+                        powerUps[x, y] = TileType.Speed;
+                    }
+                    else if (t == TileType.Delete)
+                    {
+                        powerUps[x, y] = TileType.Delete;
+                    }
+
                     //set ground for "else" as a failsafe
                     else
                     {
                         tileTypes[x, y] = TileType.Ground;
                         this.mapTiles[x, y].texture = this.groundTexture;
                     }
+
                 }
             }
         }
@@ -137,6 +168,24 @@ namespace Project1.Managers
                for (int k = 0; k < mapHeight; k++)
                {
                    mapTiles[i, k].Draw(sb, false);
+                    if (powerUps[i,k] != TileType.Ground)
+                    {
+                        if (powerUps[i, k] == TileType.Ammo)
+                        {
+                            sb.Draw(ammoTexture, new Rectangle(i * 40 + 260,
+                            k * 40 + 20, 40, 40), Color.White);
+                        }
+                        else if (powerUps[i, k] == TileType.Health)
+                        {
+                            sb.Draw(healthTexture, new Rectangle(i * 40 + 260,
+                            k * 40 + 20, 40, 40), Color.White);
+                        }
+                        else if (powerUps[i, k] == TileType.Speed)
+                        {
+                            sb.Draw(speedTexture, new Rectangle(i * 40 + 260,
+                            k * 40 + 20, 40, 40), Color.White);
+                        }
+                    }
                }
            }
         }
@@ -170,6 +219,7 @@ namespace Project1.Managers
         {
             string filename = (sender as SaveFileDialog).FileName;
             StreamWriter output = new StreamWriter(filename);
+            //loop through the tiles to print
             for (int i = 0; i < mapHeight; i++)
             {
                 for(int k = 0; k < mapWidth; k++)
@@ -181,6 +231,29 @@ namespace Project1.Managers
                     else
                     {
                         output.Write("|" + tileTypes[k, i].ToString());
+                    }
+                }
+            }
+            //loop through powerups to print
+            output.Write("\n");
+            for (int i = 0; i < mapWidth; i++)
+            {
+                for (int k = 0; k < mapHeight; k++)
+                {
+                    if (powerUps[i, k] != TileType.Delete)
+                    {
+                        if(powerUps[i, k] == TileType.Ammo)
+                        {
+                            output.WriteLine("ammo|" + i + "|" + k);
+                        }
+                        else if (powerUps[i, k] == TileType.Health)
+                        {
+                            output.WriteLine("health|" + i + "|" + k);
+                        }
+                        else if (powerUps[i, k] == TileType.Speed)
+                        {
+                            output.WriteLine("speed|" + i + "|" + k);
+                        }
                     }
                 }
             }
@@ -206,6 +279,15 @@ namespace Project1.Managers
             }
             rows.RemoveAt(0);
 
+            //reset all powerups
+            for (int i = 0; i < mapWidth; i++)
+            {
+                for (int k = 0; k < mapHeight; k++)
+                {
+                    powerUps[i, k] = TileType.Delete;
+                }
+            }
+
             //loop through the rows and add tiles to the map
             for (int i = 0; i < mapHeight; i++)
             {
@@ -230,6 +312,38 @@ namespace Project1.Managers
                     }
                     //switch to the correct type of tiles
                     this.SwitchTile(k, i, loadTileType);
+                }
+            }
+            //loop through to get powerups
+            List<string> powerUpData = new List<string>();
+            while (rows.Count > 17)
+            {
+                powerUpData.Add(rows[17]);
+                rows.RemoveAt(17);
+            }
+            //load power ups if there are any
+            if (powerUpData.Count > 0)
+            {
+                string[] rowData;
+                // goes through every string in powerUpData
+                for (int x = 0; x < powerUpData.Count; x++)
+                {
+                    // splits each string
+                    rowData = powerUpData[x].Split("|");
+
+                    //insert the powerUp into the correct list
+                    if (rowData[0] == "ammo")
+                    {
+                        powerUps[int.Parse(rowData[1]), int.Parse(rowData[2])] = TileType.Ammo;
+                    }
+                    else if (rowData[0] == "health")
+                    {
+                        powerUps[int.Parse(rowData[1]), int.Parse(rowData[2])] = TileType.Health;
+                    }
+                    else if (rowData[0] == "speed")
+                    {
+                        powerUps[int.Parse(rowData[1]), int.Parse(rowData[2])] = TileType.Speed;
+                    }
                 }
             }
             //show message box that loading was successful
