@@ -387,6 +387,7 @@ namespace Project1
                         loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
                         loadingM.FileOk += tileManager.LoadTiles;
                         loadingM.ShowDialog();
+                        menuButton = new Button(titleButtonTexture, 50, 20, titleButtonTexture.Width, titleButtonTexture.Height);
                         gameState = GameState.Game;
                     }
                     //load levels
