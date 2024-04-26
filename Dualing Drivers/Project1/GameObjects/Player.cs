@@ -205,11 +205,7 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            if (currentBulletNum <= maxBulletNum && reload == false)
-            {
-                reloadNum = 75;
-                reload = true;
-            }
+            reloadNum = 100;
         }
 
         /// <summary>
@@ -223,11 +219,7 @@ namespace Project1
                 OnShoot?.Invoke(bullet, this);
                 currentBulletNum--;
             }
-            if (currentBulletNum <= maxBulletNum && reload == false)
-            {
-                reloadNum = 100;
-                reload = true;
-            }
+            reloadNum = 100;
         }
 
         public void ShootC()
@@ -241,12 +233,8 @@ namespace Project1
                     OnShoot?.Invoke(bullet, this);
                     currentBulletNum--;
                 }
-                if (currentBulletNum <= maxBulletNum && reload == false)
-                {
-                    reloadNum = 100;
-                    reload = true;
-                }
             }
+            reloadNum = 100;
         }
 
         /// <summary>
@@ -278,17 +266,22 @@ namespace Project1
             playerAngle = playerAngle % 360;
             this.playerRect.X = (int)(playerPosition.X - playerRect.Width / 2);
             this.playerRect.Y = (int)(playerPosition.Y - playerRect.Height / 2);
-            if (reload)
+            if (currentBulletNum < maxBulletNum)
+            {
+                reload = true;
+            }
+            else if (currentBulletNum == maxBulletNum)
+            {
+                reload = false;
+            }
+            if (reload && reloadNum > 0)
             {
                 reloadNum--;
             }
             if (reloadNum <= 0)
             {
-                reload = false;
-            }
-            if (currentBulletNum < maxBulletNum && reload == false)
-            {
                 currentBulletNum += 1;
+                reloadNum = 100;
             }
 
             previousKB = Keyboard.GetState();
