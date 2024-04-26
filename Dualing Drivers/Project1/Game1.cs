@@ -94,6 +94,7 @@ namespace Project1
         private List<Texture2D> levelTextures;
         private Texture2D levelText1;
         private Texture2D levelText2;
+        private Texture2D levelText3;
         private Texture2D levelText4;
 
         //Create Gamestate manager objects
@@ -207,6 +208,7 @@ namespace Project1
             levelTextBlank = Content.Load<Texture2D>("Level0_Blank");
             levelText1 = Content.Load<Texture2D>("Level1_Dockside");
             levelText2 = Content.Load<Texture2D>("Level2_Courtyard");
+            levelText3 = Content.Load<Texture2D>("Level3_Bridged");
             levelText4 = Content.Load<Texture2D>("Level4_Pirate'sCove");
             levelExitTexture = Content.Load<Texture2D>("Exit");
             levelExitHTexture = Content.Load<Texture2D>("Exit_Hover");
@@ -220,7 +222,7 @@ namespace Project1
             levelTextures = new List<Texture2D>();
             levelTextures.Add(levelText1);
             levelTextures.Add(levelText2);
-            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelText3);
             levelTextures.Add(levelText4);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
@@ -530,7 +532,7 @@ namespace Project1
             Vector2 player1Position = new Vector2(340, 100);
             Vector2 player2Position = new Vector2(1180, 620);
             // loads power ups
-            ammoPowerUp = new PowerUp(ammoPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
+            /*ammoPowerUp = new PowerUp(ammoPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.ammo);
             healthPowerUp = new PowerUp(healthPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.health);
             speedPowerUp = new PowerUp(speedPowerUpText, _graphics.PreferredBackBufferWidth / 2, 60, 40, 40, PowerUp.PowerUpType.speed);
             ammoPowerUp.Active = false;
@@ -539,8 +541,8 @@ namespace Project1
             List<PowerUp> powerUps = new List<PowerUp>();
             powerUps.Add(ammoPowerUp);
             powerUps.Add(healthPowerUp);
-            powerUps.Add(speedPowerUp);
-            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2, powerUps);
+            powerUps.Add(speedPowerUp);*/
+            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2, powerUpManager.GetPowerUps());
             bulletManager = new BulletManager();
             playerManager.Player1.OnShoot += bulletManager.AddBullet;
             playerManager.Player2.OnShoot += bulletManager.AddBullet;
