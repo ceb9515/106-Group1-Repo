@@ -46,6 +46,7 @@ namespace Project1.Managers
         public Button exitButton;
         public Button saveButton;
         public Button loadButton;
+        public Button clearButton;
         private Button selectedTile;
 
         /// <summary>
@@ -102,6 +103,7 @@ namespace Project1.Managers
             exitButton = new Button(exitTexture, 15, 700 - exitTexture.Height, exitTexture.Width, exitTexture.Height);
             saveButton = new Button(saveTexture, 15, 620 - saveTexture.Height, saveTexture.Width, saveTexture.Height);
             loadButton = new Button(loadTexture, 15, 540 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
+            clearButton = new Button(loadTexture, 15, 460 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
         }
 
         /// <summary>
@@ -156,6 +158,32 @@ namespace Project1.Managers
                         this.mapTiles[x, y].texture = this.groundTexture;
                     }
 
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clears all map tiles to a blank map
+        /// </summary>
+        public void ClearTiles()
+        {
+            //create a basic array
+            for (int i = 0; i < mapWidth; i++)
+            {
+                for (int k = 0; k < mapHeight; k++)
+                {
+                    //check if the tiles are the game's border
+                    if (i == 0 || i == mapWidth - 1 || k == 0 || k == mapHeight - 1)
+                    {
+                        tileTypes[i, k] = TileType.Wall;
+                        mapTiles[i, k] = new Button(wallTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
+                    }
+                    else
+                    {
+                        tileTypes[i, k] = TileType.Ground;
+                        mapTiles[i, k] = new Button(groundTexture, 260 + 40 * i, 20 + 40 * k, 40, 40);
+                    }
+                    powerUps[i, k] = TileType.Delete;
                 }
             }
         }

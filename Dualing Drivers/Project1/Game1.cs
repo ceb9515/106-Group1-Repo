@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using static System.Windows.Forms.DataFormats;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Project1
 {
@@ -90,6 +91,8 @@ namespace Project1
         private Texture2D levelLoadHTexture;
         private Texture2D levelEditTexture;
         private Texture2D levelEditHTexture;
+        private Texture2D levelSaveTexture;
+        private Texture2D levelSaveHTexture;
         private Texture2D levelTextCustom;
         private Texture2D levelTextHover;
         private Texture2D levelTextBlank;
@@ -224,6 +227,8 @@ namespace Project1
             levelEditHTexture = Content.Load<Texture2D>("Edit_Hovering");
             levelLoadTexture = Content.Load<Texture2D>("Load");
             levelLoadHTexture = Content.Load<Texture2D>("Load_Hovering");
+            levelSaveTexture = Content.Load<Texture2D>("Save");
+            levelSaveHTexture = Content.Load<Texture2D>("Save_Hovering");
             levelSelectLogo = Content.Load<Texture2D>("Level Select LOGO");
 
             //create the list of level textures
@@ -258,7 +263,7 @@ namespace Project1
 
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, speedPowerUpText, healthPowerUpText, ammoPowerUpText, selectedDelete, 
-                selectedText, levelExitTexture,saveButtonTexture,levelLoadTexture, PlayerText1, PlayerText2);
+                selectedText, levelExitTexture, levelSaveTexture,levelLoadTexture, PlayerText1, PlayerText2);
 
             //load title screen
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture, controlsButtonTexture);
@@ -366,6 +371,11 @@ namespace Project1
                         loading.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
                         loading.FileOk += levelEditor.Load;
                         loading.ShowDialog();
+                    }
+                    if (levelEditor.clearButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                    {
+                        //clear the map
+                        levelEditor.ClearTiles();
                     }
                     break;
 
@@ -491,7 +501,26 @@ namespace Project1
                     _spriteBatch.Draw(levelEditor.exitButton.texture, levelEditor.exitButton.rect, Color.White);
                     _spriteBatch.Draw(levelEditor.saveButton.texture, levelEditor.saveButton.rect, Color.White);
                     _spriteBatch.Draw(levelEditor.loadButton.texture, levelEditor.loadButton.rect, Color.White);
+                    _spriteBatch.Draw(levelEditor.clearButton.texture, levelEditor.clearButton.rect, Color.White);
+                    //draw button hovering
+                    if (levelEditor.exitButton.IsHovering(mouseState))
+                    {
+                        _spriteBatch.Draw(levelExitHTexture, levelEditor.exitButton.rect, Color.White);
+                    }
+                    else if(levelEditor.saveButton.IsHovering(mouseState))
+                    {
+                        _spriteBatch.Draw(levelSaveHTexture, levelEditor.saveButton.rect, Color.White);
+                    }
+                    else if(levelEditor.loadButton.IsHovering(mouseState))
+                    {
+                        _spriteBatch.Draw(levelLoadHTexture, levelEditor.loadButton.rect, Color.White);
+                    }
+                    else if (levelEditor.clearButton.IsHovering(mouseState))
+                    {
+                        _spriteBatch.Draw(levelLoadHTexture, levelEditor.clearButton.rect, Color.White);
+                    }
                     break;
+
                 case GameState.Game:
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
