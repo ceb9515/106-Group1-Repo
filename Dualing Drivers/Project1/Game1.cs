@@ -258,7 +258,7 @@ namespace Project1
 
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, speedPowerUpText, healthPowerUpText, ammoPowerUpText, selectedDelete, 
-                selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture, PlayerText1, PlayerText2);
+                selectedText, levelExitTexture,saveButtonTexture,levelLoadTexture, PlayerText1, PlayerText2);
 
             //load title screen
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture, controlsButtonTexture);

@@ -89,19 +89,19 @@ namespace Project1.Managers
             }
 
             //create the selecting Tiles array 
-            selectTiles[0] = new Button(groundTexture, groundTexture, 30, 20, 80, 80);
-            selectTiles[1] = new Button(halfTexture, halfTexture, 140, 20, 80, 80);
-            selectTiles[2] = new Button(wallTexture, wallTexture, 30, 130, 80, 80);
-            selectTiles[3] = new Button(breakableTexture, breakableTexture, 140, 130, 80, 80);
-            selectTiles[4] = new Button(ammoTexture, ammoTexture, 30, 240, 80, 80);
-            selectTiles[5] = new Button(healthTexture, healthTexture, 140, 240, 80, 80);
-            selectTiles[6] = new Button(speedTexture, speedTexture, 30, 350, 80, 80);
-            selectTiles[7] = new Button(deleteTexture, speedTexture, 140, 350, 80, 80);
+            selectTiles[0] = new Button(groundTexture, groundTexture, 45, 20, 80, 80);
+            selectTiles[1] = new Button(halfTexture, halfTexture, 125, 20, 80, 80);
+            selectTiles[2] = new Button(wallTexture, wallTexture, 45, 100, 80, 80);
+            selectTiles[3] = new Button(breakableTexture, breakableTexture, 125, 100, 80, 80);
+            selectTiles[4] = new Button(ammoTexture, ammoTexture, 45, 180, 80, 80);
+            selectTiles[5] = new Button(healthTexture, healthTexture, 125, 180, 80, 80);
+            selectTiles[6] = new Button(speedTexture, speedTexture, 45, 260, 80, 80);
+            selectTiles[7] = new Button(deleteTexture, speedTexture, 125, 260, 80, 80);
 
             //Create the buttons
-            exitButton = new Button(exitTexture, 30, 700 - exitTexture.Height, exitTexture.Width, exitTexture.Height);
-            saveButton = new Button(saveTexture, 30, 620 - saveTexture.Height, saveTexture.Width, saveTexture.Height);
-            loadButton = new Button(loadTexture, 30, 540 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
+            exitButton = new Button(exitTexture, 15, 700 - exitTexture.Height, exitTexture.Width, exitTexture.Height);
+            saveButton = new Button(saveTexture, 15, 620 - saveTexture.Height, saveTexture.Width, saveTexture.Height);
+            loadButton = new Button(loadTexture, 15, 540 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
         }
 
         /// <summary>
