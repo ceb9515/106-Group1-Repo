@@ -267,14 +267,14 @@ namespace Project1
             //load game over screen
             gameOver = new GameOver(restartButtonTexture, titleButtonTexture);
 
+            // loads power up manager
+            powerUpManager = new PowerUpManager(healthPowerUpText, speedPowerUpText, ammoPowerUpText);
+
             // loads tile manager
-            tileManager = new TileManager(wallText,breakableText,halfText,groundText);
+            tileManager = new TileManager(wallText, breakableText, halfText, groundText, powerUpManager);
 
             // makes a test map with only background tiles
             tileManager.TestMap();
-
-            // loads power up manager
-            powerUpManager = new PowerUpManager(healthPowerUpText, speedPowerUpText, ammoPowerUpText);
         }
 
         protected override void Update(GameTime gameTime)

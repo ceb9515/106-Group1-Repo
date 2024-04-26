@@ -207,7 +207,7 @@ namespace Project1
             }
             if (currentBulletNum <= maxBulletNum && reload == false)
             {
-                reloadNum = 100;
+                reloadNum = 75;
                 reload = true;
             }
         }

@@ -34,10 +34,18 @@ namespace Project1.Managers
         // methods
 
         /// <summary>
-        /// loads power ups 
+        /// clears power ups
         /// </summary>
-        /// <param name="powerUpInfo">string info on each power up</param>
-        public void LoadPowerUps(List<string> powerUpInfo)
+        public void Clear()
+        {
+            powerUps.Clear();
+
+        }
+            /// <summary>
+            /// loads power ups 
+            /// </summary>
+            /// <param name="powerUpInfo">string info on each power up</param>
+            public void LoadPowerUps(List<string> powerUpInfo)
         {
             powerUps.Clear();
             string[] rowData;
@@ -52,18 +60,18 @@ namespace Project1.Managers
                 // based on its type
                 if (rowData[0] == "ammo")
                 {
-                    powerUps.Add(new PowerUp(ammoTexture, int.Parse(rowData[1]),
-                        int.Parse(rowData[2]), 40, 40, PowerUp.PowerUpType.ammo));
+                    powerUps.Add(new PowerUp(ammoTexture, int.Parse(rowData[1]) * 40 + 220,
+                        int.Parse(rowData[2]) * 40 + 20, 40, 40, PowerUp.PowerUpType.ammo));
                 }
                 else if (rowData[0] == "health")
                 {
-                    powerUps.Add(new PowerUp(healthTexture, int.Parse(rowData[1]),
-                        int.Parse(rowData[2]), 40, 40, PowerUp.PowerUpType.health));
+                    powerUps.Add(new PowerUp(healthTexture, int.Parse(rowData[1]) * 40 + 220,
+                        int.Parse(rowData[2]) * 40 + 20, 40, 40, PowerUp.PowerUpType.health));
                 }
                 else if (rowData[0] == "speed")
                 {
-                    powerUps.Add(new PowerUp(speedTexture, int.Parse(rowData[1]),
-                        int.Parse(rowData[2]), 40, 40, PowerUp.PowerUpType.speed));
+                    powerUps.Add(new PowerUp(speedTexture, int.Parse(rowData[1]) * 40 + 220,
+                        int.Parse(rowData[2]) * 40 + 20, 40, 40, PowerUp.PowerUpType.speed));
                 }
             }
         }

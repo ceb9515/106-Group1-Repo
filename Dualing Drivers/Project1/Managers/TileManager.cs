@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project1.Managers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,17 +20,19 @@ namespace Project1
         private Texture2D semiSolid;
         private Texture2D breakable;
         private Texture2D background;
+        public PowerUpManager PowerUps;
 
         /// <summary>
         /// creates a new tile manager
         /// </summary>
-        public TileManager(Texture2D solid, Texture2D breakable, Texture2D semiSolid, Texture2D background)
+        public TileManager(Texture2D solid, Texture2D breakable, Texture2D semiSolid, Texture2D background, PowerUpManager PowerUps)
         {
             tiles = new List<List<Tile>>();
             this.solid = solid;
             this.breakable = breakable;
             this.semiSolid = semiSolid;
             this.background = background;
+            this.PowerUps = PowerUps;
         }
 
         // methods
@@ -66,6 +69,8 @@ namespace Project1
         /// </summary>
         public void PreLoad(int levelNum)
         {
+            //clear power ups
+            PowerUps.Clear();
             //reset the current tiles list
             tiles.Clear();
             //get the filename based on the input
@@ -159,6 +164,8 @@ namespace Project1
         /// </summary>
         public void LoadTiles(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            //clear power ups
+            PowerUps.Clear();
             //reset the current tiles list
             tiles.Clear();
             //get the streamreader from file
@@ -224,6 +231,18 @@ namespace Project1
                 y += 40;
             }
 
+            //Loop for PowerUps
+            List<string> powerUpData = new List<string>();
+            while (rows.Count > 17)
+            {
+                powerUpData.Add(rows[17]);
+                rows.RemoveAt(17);
+            }
+            //load power ups if there are any
+            if(powerUpData.Count > 0)
+            {
+                PowerUps.LoadPowerUps(powerUpData);
+            }
             input.Close();
         }
 
@@ -240,6 +259,7 @@ namespace Project1
                     tiles[i][k].Draw(sb);
                 }
             }
+            PowerUps.DrawPowerUps(sb);
         }
 
         /// <summary>
