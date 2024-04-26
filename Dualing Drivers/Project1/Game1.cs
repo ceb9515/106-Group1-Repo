@@ -42,6 +42,8 @@ namespace Project1
         private Texture2D titleButtonTexture;
         private Texture2D restartButtonTexture;
         private Texture2D controlsButtonTexture;
+        private Texture2D Leftcontrol;
+        private Texture2D Rightcontrol;
 
         //UI textures
         private Texture2D healthFullText;
@@ -114,6 +116,7 @@ namespace Project1
         //Player ui
         private UIManager UIPOne;
         private UIManager UIPTwo;
+        private Button menuButton;
 
         //variable for menu selection delays
         private int menuDelay = 0;
@@ -121,7 +124,8 @@ namespace Project1
         //test variables
         bool testing = true;
         private int testCount = 0;
-
+        private bool player1C = true;
+        private bool player2C = true;
         // text fonts
         private SpriteFont text;
 
@@ -186,7 +190,8 @@ namespace Project1
             controlsText = Content.Load<Texture2D>("Controls");
             playerOneLabel = Content.Load<Texture2D>("Player1");
             playerTwoLabel = Content.Load<Texture2D>("Player2");
-
+            Leftcontrol = Content.Load<Texture2D>("leftcontrol");
+            Rightcontrol = Content.Load<Texture2D>("rightcontrol");
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
@@ -194,6 +199,7 @@ namespace Project1
             halfText = Content.Load<Texture2D>("HalfWallter");
             breakableText = Content.Load<Texture2D>("BreakWall");
             selectedText = Content.Load<Texture2D>("selectedTile");
+
 
             //load game object texture
             Bullettext = Content.Load<Texture2D>("Bullet");
@@ -256,7 +262,7 @@ namespace Project1
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture, controlsButtonTexture);
 
             //load controls screen
-            controls = new Controls(controlsText, titleButtonTexture);
+            controls = new Controls(controlsText, titleButtonTexture,Leftcontrol,Rightcontrol);
 
             //load level select screen
             levelSelect = new LevelSelect(
@@ -392,6 +398,7 @@ namespace Project1
                             {
                                 tileManager.PreLoad(i);
                                 gameState = GameState.Game;
+                                menuButton = new Button(titleButtonTexture, 50, 20, titleButtonTexture.Width, titleButtonTexture.Height);
                             }
                         }
                     }
@@ -406,7 +413,10 @@ namespace Project1
                     {
                         gameState = GameState.GameOver;
                     }
-
+                    if(menuButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                    {
+                        gameState = GameState.Title;
+                    }
                     UpdateUI();
 
                     break;
@@ -431,6 +441,22 @@ namespace Project1
                     if (controls.menuButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         gameState = GameState.Title;
+                    }
+                    if (controls.leftControl1.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                    {
+                        player1C = false;
+                    }
+                    if (controls.rightControl1.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                    {
+                        player1C = true;
+                    }
+                    if (controls.leftControl2.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                    {
+                        player2C = false;
+                    }
+                    if (controls.rightControl2.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                    {
+                        player2C = true;
                     }
                     break;
             }
@@ -475,7 +501,7 @@ namespace Project1
                     _spriteBatch.Draw(playerOneLabel, new Vector2(25, 100), Color.White);
                     UIPTwo.Draw(_spriteBatch);
                     _spriteBatch.Draw(playerTwoLabel, new Vector2(25, 400), Color.White);
-
+                    menuButton.Draw(_spriteBatch);
                     // draws all power ups to screen if they're active
                     powerUpManager.DrawPowerUps(_spriteBatch);
                     break;
@@ -542,7 +568,7 @@ namespace Project1
             powerUps.Add(ammoPowerUp);
             powerUps.Add(healthPowerUp);
             powerUps.Add(speedPowerUp);*/
-            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2, powerUpManager.GetPowerUps());
+            playerManager = new PlayerManager(PlayerText1, PlayerText2, player1Position, player2Position, Bullettext, PlayerCrash1, PlayerCrash2, powerUpManager.GetPowerUps(),player1C, player2C);
             bulletManager = new BulletManager();
             playerManager.Player1.OnShoot += bulletManager.AddBullet;
             playerManager.Player2.OnShoot += bulletManager.AddBullet;

@@ -268,6 +268,18 @@
 /processorParam:TextureFormat=Color
 /build:LEButton.png
 
+#begin leftcontrol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:leftcontrol.png
+
 #begin Level Select LOGO.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -579,6 +591,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PU_Speed.png
+
+#begin rightcontrol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rightcontrol.png
 
 #begin SaveButton.png
 /importer:TextureImporter

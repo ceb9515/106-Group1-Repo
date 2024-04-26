@@ -15,7 +15,8 @@ namespace Project1.Managers
         // fields
         Player player1;
         Player player2;
-
+        private bool player1Control;
+        private bool player2Control;
         GamePadState gamePadState1 = GamePad.GetState(PlayerIndex.One);
         GamePadState gamePadState2 = GamePad.GetState(PlayerIndex.Two);
         GamePadState prevGamePadState1 = GamePad.GetState(PlayerIndex.One);
@@ -66,12 +67,14 @@ namespace Project1.Managers
         /// <summary>
         /// Basic Player Manager Constructor
         /// </summary>
-        public PlayerManager(Texture2D playerText1, Texture2D playerText2, Microsoft.Xna.Framework.Vector2 player1Position, Microsoft.Xna.Framework.Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2, List<PowerUp> powerUps)
+        public PlayerManager(Texture2D playerText1, Texture2D playerText2, Microsoft.Xna.Framework.Vector2 player1Position, Microsoft.Xna.Framework.Vector2 player2Position, Texture2D bulletTexture, Texture2D playerCrashedText1, Texture2D playerCrashedText2, List<PowerUp> powerUps,bool player1C,bool player2C)
         {
             playerList = new List<Player>();
             player1 = new Player(playerText1, 320, 360, 40, 40, 3, 2.8f, 1, 0, player1Position, player1Controls, bulletTexture, playerCrashedText1);
             player2 = new Player(playerText2, 960, 360, 40, 40, 3, 2.8f, 1, 180, player2Position, player2Controls, bulletTexture, playerCrashedText2);
-            
+
+            player1Control = player1C;
+            player2Control = player2C;
             playerList.Add(player1);
             playerList.Add(player2);
             this.powerUpList = powerUps;
@@ -113,11 +116,16 @@ namespace Project1.Managers
 
             //UPDATED MOVEMENT CODE
             //if there's a gamepad1, update using that
-            if (gamePadState1.IsConnected)
+            if (gamePadState1.IsConnected&&player1Control)
             {
                 player1.Move(gamePadState1);
                 player1.Shoot(gamePadState1, prevGamePadState1);
                 //player1.Move();
+            }
+            else if(gamePadState1.IsConnected && !player1Control)
+            {
+                player1.moveC(gamePadState1);
+                player1.Shoot(gamePadState1, prevGamePadState1);
             }
             //else update using keyboard
             else
@@ -126,9 +134,14 @@ namespace Project1.Managers
                 player1.Shoot();
             }
             //if there's a gamepad2, update using that
-            if (gamePadState2.IsConnected)
+            if (gamePadState2.IsConnected&&player2Control)
             {
                 player2.Move(gamePadState2);
+                player2.Shoot(gamePadState2, prevGamePadState2);
+            }
+            else if(gamePadState2.IsConnected && !player2Control)
+            {
+                player2.moveC(gamePadState2);
                 player2.Shoot(gamePadState2, prevGamePadState2);
             }
             //else update using keyboard
