@@ -70,7 +70,15 @@ namespace Project1
                 else if (this.type == PowerUpType.speed)
                 {
                     // increase player speed
-                    player.Speed += 1;
+                    if(player.Speed < 3.8f)
+                    {
+                        player.Speed = 3.8f;
+                    }
+                    else if (player.Speed < 4.3f)
+                    {
+                        player.Speed = 4.3f;
+                    }
+
                 }
                 else if (this.type == PowerUpType.ammo)
                 {

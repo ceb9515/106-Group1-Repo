@@ -35,6 +35,8 @@ namespace Project1.Managers
         private Texture2D exitTexture;
         private Texture2D saveTexture;
         private Texture2D loadTexture;
+        private Texture2D PlayerText1;
+        private Texture2D PlayerText2;
 
         //create internal array fields
         public TileType[,] powerUps = new TileType[25, 17];
@@ -49,7 +51,7 @@ namespace Project1.Managers
         /// <summary>
         /// Basic LevelEditor Constructor
         /// </summary>
-        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D speedTexture, Texture2D healthTexture, Texture2D ammoTexture, Texture2D deleteTexture, Texture2D selectedTexture, Texture2D exitTexture, Texture2D saveTexture, Texture2D loadTexture)
+        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D speedTexture, Texture2D healthTexture, Texture2D ammoTexture, Texture2D deleteTexture, Texture2D selectedTexture, Texture2D exitTexture, Texture2D saveTexture, Texture2D loadTexture, Texture2D PlayerText1, Texture2D PlayerText2)
         {
             //set internal fields to the constructor input
             this.wallTexture = wallTexture;
@@ -64,7 +66,8 @@ namespace Project1.Managers
             this.healthTexture = healthTexture;
             this.ammoTexture = ammoTexture;
             this.deleteTexture = deleteTexture;
-
+            this.PlayerText1 = PlayerText1;
+            this.PlayerText2 = PlayerText2;
             //create a basic array
             for(int i = 0; i < mapWidth; i++)
             {
@@ -186,8 +189,16 @@ namespace Project1.Managers
                             k * 40 + 20, 40, 40), Color.White);
                         }
                     }
-               }
+                }
            }
+            
+            //draw the players to the screen
+            sb.Draw(PlayerText1, new Vector2(60 + 280,
+            60 + 40), null, Color.White, 45 * (float)Math.PI / 180, new Vector2(20,
+            20), new Vector2(1, 1), SpriteEffects.None, 1);
+            sb.Draw(PlayerText2, new Vector2(900 + 280,
+            580 + 40), null, Color.White, 225 * (float)Math.PI / 180, new Vector2(20,
+            20), new Vector2(1, 1), SpriteEffects.None, 1);
         }
 
         /// <summary>

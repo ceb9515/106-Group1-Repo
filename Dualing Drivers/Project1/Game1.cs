@@ -73,6 +73,7 @@ namespace Project1
         private Texture2D halfText;
         private Texture2D breakableText;
         private Texture2D selectedText;
+        private Texture2D selectedDelete;
         private LevelEditor.TileType currentTile = 0;
 
         //Create player and bullet textures
@@ -199,6 +200,7 @@ namespace Project1
             halfText = Content.Load<Texture2D>("HalfWallter");
             breakableText = Content.Load<Texture2D>("BreakWall");
             selectedText = Content.Load<Texture2D>("selectedTile");
+            selectedDelete = Content.Load<Texture2D>("delete");
 
 
             //load game object texture
@@ -255,8 +257,8 @@ namespace Project1
             text = Content.Load<SpriteFont>("text");
 
             //load the tile textures into the level editor
-            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, speedPowerUpText, healthPowerUpText, ammoPowerUpText, ammoPowerUpText, 
-                selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture);
+            levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, speedPowerUpText, healthPowerUpText, ammoPowerUpText, selectedDelete, 
+                selectedText, exitButtonTexture,saveButtonTexture,loadButtonTexture, PlayerText1, PlayerText2);
 
             //load title screen
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture, controlsButtonTexture);
