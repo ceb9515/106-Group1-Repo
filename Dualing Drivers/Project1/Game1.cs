@@ -93,6 +93,8 @@ namespace Project1
         private Texture2D levelEditHTexture;
         private Texture2D levelSaveTexture;
         private Texture2D levelSaveHTexture;
+        private Texture2D levelResetTexture;
+        private Texture2D levelResetHTexture;
         private Texture2D levelTextCustom;
         private Texture2D levelTextHover;
         private Texture2D levelTextBlank;
@@ -229,6 +231,8 @@ namespace Project1
             levelLoadHTexture = Content.Load<Texture2D>("Load_Hovering");
             levelSaveTexture = Content.Load<Texture2D>("Save");
             levelSaveHTexture = Content.Load<Texture2D>("Save_Hovering");
+            levelResetTexture = Content.Load<Texture2D>("Reset");
+            levelResetHTexture = Content.Load<Texture2D>("Reset_Hovering");
             levelSelectLogo = Content.Load<Texture2D>("Level Select LOGO");
 
             //create the list of level textures
@@ -263,7 +267,7 @@ namespace Project1
 
             //load the tile textures into the level editor
             levelEditor = new LevelEditor(groundText, halfText, wallText, breakableText, speedPowerUpText, healthPowerUpText, ammoPowerUpText, selectedDelete, 
-                selectedText, levelExitTexture, levelSaveTexture,levelLoadTexture, PlayerText1, PlayerText2);
+                selectedText, levelExitTexture, levelSaveTexture,levelLoadTexture, levelResetTexture, PlayerText1, PlayerText2);
 
             //load title screen
             titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture, controlsButtonTexture);
@@ -517,7 +521,7 @@ namespace Project1
                     }
                     else if (levelEditor.clearButton.IsHovering(mouseState))
                     {
-                        _spriteBatch.Draw(levelLoadHTexture, levelEditor.clearButton.rect, Color.White);
+                        _spriteBatch.Draw(levelResetHTexture, levelEditor.clearButton.rect, Color.White);
                     }
                     break;
 

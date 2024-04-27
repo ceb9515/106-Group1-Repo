@@ -35,6 +35,7 @@ namespace Project1.Managers
         private Texture2D exitTexture;
         private Texture2D saveTexture;
         private Texture2D loadTexture;
+        private Texture2D resetTexture;
         private Texture2D PlayerText1;
         private Texture2D PlayerText2;
 
@@ -52,7 +53,7 @@ namespace Project1.Managers
         /// <summary>
         /// Basic LevelEditor Constructor
         /// </summary>
-        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D speedTexture, Texture2D healthTexture, Texture2D ammoTexture, Texture2D deleteTexture, Texture2D selectedTexture, Texture2D exitTexture, Texture2D saveTexture, Texture2D loadTexture, Texture2D PlayerText1, Texture2D PlayerText2)
+        public LevelEditor(Texture2D groundTexture, Texture2D halfTexture, Texture2D wallTexture, Texture2D breakableTexture, Texture2D speedTexture, Texture2D healthTexture, Texture2D ammoTexture, Texture2D deleteTexture, Texture2D selectedTexture, Texture2D exitTexture, Texture2D saveTexture, Texture2D loadTexture, Texture2D resetTexture, Texture2D PlayerText1, Texture2D PlayerText2)
         {
             //set internal fields to the constructor input
             this.wallTexture = wallTexture;
@@ -67,6 +68,7 @@ namespace Project1.Managers
             this.healthTexture = healthTexture;
             this.ammoTexture = ammoTexture;
             this.deleteTexture = deleteTexture;
+            this.resetTexture = resetTexture;
             this.PlayerText1 = PlayerText1;
             this.PlayerText2 = PlayerText2;
             //create a basic array
@@ -103,7 +105,7 @@ namespace Project1.Managers
             exitButton = new Button(exitTexture, 15, 700 - exitTexture.Height, exitTexture.Width, exitTexture.Height);
             saveButton = new Button(saveTexture, 15, 620 - saveTexture.Height, saveTexture.Width, saveTexture.Height);
             loadButton = new Button(loadTexture, 15, 540 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
-            clearButton = new Button(loadTexture, 15, 460 - loadTexture.Height, loadTexture.Width, loadTexture.Height);
+            clearButton = new Button(resetTexture, 15, 460 - resetTexture.Height, resetTexture.Width, resetTexture.Height);
         }
 
         /// <summary>
