@@ -571,23 +571,23 @@ namespace Project1
                     _spriteBatch.Draw(gameOverText, new Rectangle(100, 50, 607, 459), Color.White);
 
                     // prints game over message
-                    _spriteBatch.DrawString(text, "Game Over", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 100, 10), Color.White);
+                    _spriteBatch.DrawString(text, "Game Over", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 100, 10), Color.Red);
 
                     // win message for player 2
                     if (playerManager.Player1.Health == 0 && playerManager.Player2.Health != 0)
                     {
-                        _spriteBatch.DrawString(text, "Player 2 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
+                        _spriteBatch.DrawString(text, "Player 2 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.Red);
                     }
 
                     // win message for player 1
                     if (playerManager.Player2.Health == 0 && playerManager.Player1.Health != 0)
                     {
-                        _spriteBatch.DrawString(text, "Player 1 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.White);
+                        _spriteBatch.DrawString(text, "Player 1 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.Red);
                     }
 
                     if (playerManager.Player2.Health == 0 && playerManager.Player1.Health == 0)
                     {
-                        _spriteBatch.DrawString(text, "It's a tie!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 90, 100), Color.White);
+                        _spriteBatch.DrawString(text, "It's a tie!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 90, 100), Color.Red);
                     }
                     break;
 

@@ -221,19 +221,7 @@ namespace Project1
             }
         }
 
-        public void ShootC()
-        {
-            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
-            if (gamePadState.IsConnected)
-            {
-                if (gamePadState.Buttons.A == ButtonState.Pressed && previousGB.Buttons.A == ButtonState.Released && currentBulletNum > 0)
-                {
-                    Bullet bullet = new Bullet(bulletTexture, (int)this.playerPosition.X, (int)playerPosition.Y, 10, 10, playerAngle);
-                    OnShoot?.Invoke(bullet, this);
-                    currentBulletNum--;
-                }
-            }
-        }
+       
 
         /// <summary>
         /// method to judge if the tank is destroyed
