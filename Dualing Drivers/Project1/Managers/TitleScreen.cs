@@ -51,8 +51,8 @@ namespace Project1.Managers
             startGameButton.Draw(sb);
             levelEditorButton.Draw(sb);
             controlsButton.Draw(sb);
-            sb.Draw(titleLogo, new Microsoft.Xna.Framework.Rectangle(640 - titleLogo.Width/3, 50, 2*titleLogo.Width/3, 2*titleLogo.Height/3), Microsoft.Xna.Framework.Color.White);
-            
+            sb.Draw(titleLogo, new Microsoft.Xna.Framework.Rectangle(150, 50, (int)(titleLogo.Width * 1.2), (int)(titleLogo.Height * 1.2)), Microsoft.Xna.Framework.Color.White);
+
         }
     }
 }

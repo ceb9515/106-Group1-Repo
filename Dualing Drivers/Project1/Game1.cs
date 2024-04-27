@@ -168,7 +168,7 @@ namespace Project1
 
             // TODO: use this.Content to load your game content here
             //Load Title Screen Textures
-            titleTexture = Content.Load<Texture2D>("altLogo");
+            titleTexture = Content.Load<Texture2D>("DualingDriversLogo2");
             playButtonTexture = Content.Load<Texture2D>("playButton");
             LEButtonTexture = Content.Load<Texture2D>("LEButton");
             restartButtonTexture = Content.Load<Texture2D>("PlayAgainButton");
