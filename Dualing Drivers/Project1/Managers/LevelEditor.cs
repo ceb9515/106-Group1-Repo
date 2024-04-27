@@ -285,15 +285,15 @@ namespace Project1.Managers
                     {
                         if(powerUps[i, k] == TileType.Ammo)
                         {
-                            output.WriteLine("ammo|" + i + "|" + k);
+                            output.WriteLine("ammo|" + (i + 1) + "|" + (k));
                         }
                         else if (powerUps[i, k] == TileType.Health)
                         {
-                            output.WriteLine("health|" + i + "|" + k);
+                            output.WriteLine("health|" + (i + 1) + "|" + (k));
                         }
                         else if (powerUps[i, k] == TileType.Speed)
                         {
-                            output.WriteLine("speed|" + i + "|" + k);
+                            output.WriteLine("speed|" + (i + 1) + "|" + (k));
                         }
                     }
                 }

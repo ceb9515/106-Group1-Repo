@@ -30,6 +30,9 @@ namespace Project1
         MouseState mouseState;
         MouseState mouseLastState;
 
+        //load the bacground textures
+        private Texture2D gameBackground;
+
         //Create Titlescreen Textures
         private Texture2D titleTexture;
         private Texture2D playButtonTexture;
@@ -113,6 +116,7 @@ namespace Project1
         private TileManager tileManager;
         private BulletManager bulletManager;
         private PlayerManager playerManager;
+        private BackgroundAnimation backgroundAnimation;
         private Controls controls;
 
         //Create players
@@ -170,6 +174,7 @@ namespace Project1
             restartButtonTexture = Content.Load<Texture2D>("PlayAgainButton");
             titleButtonTexture = Content.Load<Texture2D>("MenuButton");
             controlsButtonTexture = Content.Load<Texture2D>("ControlsButton");
+            gameBackground = Content.Load<Texture2D>("Background3");
 
             //Load the test button textures
             exitButtonTexture = Content.Load<Texture2D>("exitButton");
@@ -290,6 +295,8 @@ namespace Project1
             // loads tile manager
             tileManager = new TileManager(wallText, breakableText, halfText, groundText, powerUpManager);
 
+            //creates the background animation
+            backgroundAnimation = new BackgroundAnimation(gameBackground);
             // makes a test map with only background tiles
             tileManager.TestMap();
         }
@@ -487,17 +494,20 @@ namespace Project1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
             _spriteBatch.Begin();
 
             //FINITE STATE MACHINE (for GameStates)
             switch (gameState)
             {
                 case GameState.Title:
+                    //draw the background
+                    backgroundAnimation.Draw(_spriteBatch, Color.SpringGreen);
                     titleScreen.DrawTitle(_spriteBatch);
                     break;
 
                 case GameState.Editor:
+                    //draw the background red
+                    backgroundAnimation.Draw(_spriteBatch, Color.LightPink);
                     //draw map and tiles
                     levelEditor.DrawMap(_spriteBatch);
                     levelEditor.DrawTiles(_spriteBatch, (int)currentTile);
@@ -526,6 +536,8 @@ namespace Project1
                     break;
 
                 case GameState.Game:
+                    //draw the background
+                    backgroundAnimation.Draw(_spriteBatch, Color.Khaki);
                     // draws all the tiles to the screen
                     tileManager.DrawTiles(_spriteBatch);
                     playerManager.Player1.Draw(_spriteBatch);
@@ -543,10 +555,14 @@ namespace Project1
                     break;
 
                 case GameState.LevelSelect:
+                    //draw the background
+                    backgroundAnimation.Draw(_spriteBatch, Color.LightSkyBlue);
                     levelSelect.Draw(_spriteBatch, mouseState);
                     break;
 
                 case GameState.GameOver:
+                    //draw the background
+                    backgroundAnimation.Draw(_spriteBatch, Color.Orange);
                     //draw players and tiles but without adding new collisions
                     tileManager.DrawTiles(_spriteBatch);
                     playerManager.Player1.Draw(_spriteBatch);
@@ -577,6 +593,8 @@ namespace Project1
 
                 case GameState.Controls:
                     {
+                        //draw the background
+                        backgroundAnimation.Draw(_spriteBatch, Color.LightSeaGreen);
                         controls.Draw(_spriteBatch, _graphics);
                         break;
                     }
