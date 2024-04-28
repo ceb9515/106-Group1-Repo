@@ -48,6 +48,8 @@ namespace Project1
         private Texture2D controlsButtonTexture;
         private Texture2D Leftcontrol;
         private Texture2D Rightcontrol;
+        private Texture2D LeftHcontrol;
+        private Texture2D RightHcontrol;
 
         //UI textures
         private Texture2D healthFullText;
@@ -63,6 +65,8 @@ namespace Project1
         private Texture2D magOneText;
         private Texture2D magEmptyText;
         private Texture2D gameOverText;
+        private Texture2D winnerP1Text;
+        private Texture2D winnerP2Text;
         private Texture2D healthPowerUpText;
         private Texture2D ammoPowerUpText;
         private Texture2D speedPowerUpText;
@@ -98,10 +102,15 @@ namespace Project1
         private Texture2D levelSaveHTexture;
         private Texture2D levelResetTexture;
         private Texture2D levelResetHTexture;
+        private Texture2D levelPlayTexture;
+        private Texture2D levelPlayHTexture;
+        private Texture2D levelControlsTexture;
+        private Texture2D levelControlsHTexture;
         private Texture2D levelTextCustom;
         private Texture2D levelTextHover;
         private Texture2D levelTextBlank;
         private Texture2D levelSelectLogo;
+        private Texture2D tintTexture;
         private List<Texture2D> levelTextures;
         private Texture2D levelText1;
         private Texture2D levelText2;
@@ -141,7 +150,6 @@ namespace Project1
 
         // create power up manager
         PowerUpManager powerUpManager;
-
 
         public Game1()
         {
@@ -195,6 +203,8 @@ namespace Project1
             magOneText = Content.Load<Texture2D>("MagOne");
             magEmptyText = Content.Load<Texture2D>("MagEmpty");
             gameOverText = Content.Load<Texture2D>("GameOver");
+            winnerP1Text = Content.Load<Texture2D>("GameOverNewP1");
+            winnerP2Text = Content.Load<Texture2D>("GameOverNewP2");
             ammoPowerUpText = Content.Load<Texture2D>("PU_Ammo");
             healthPowerUpText = Content.Load<Texture2D>("PU_Health");
             speedPowerUpText = Content.Load<Texture2D>("PU_Speed");
@@ -203,6 +213,8 @@ namespace Project1
             playerTwoLabel = Content.Load<Texture2D>("Player2");
             Leftcontrol = Content.Load<Texture2D>("leftcontrol");
             Rightcontrol = Content.Load<Texture2D>("rightcontrol");
+            LeftHcontrol = Content.Load<Texture2D>("leftcontrolHover");
+            RightHcontrol = Content.Load<Texture2D>("rightcontrolHover");
 
             //load tile textures
             groundText = Content.Load<Texture2D>("ground");
@@ -238,6 +250,11 @@ namespace Project1
             levelSaveHTexture = Content.Load<Texture2D>("Save_Hovering");
             levelResetTexture = Content.Load<Texture2D>("Reset");
             levelResetHTexture = Content.Load<Texture2D>("Reset_Hovering");
+            levelPlayTexture = Content.Load<Texture2D>("Play");
+            levelPlayHTexture = Content.Load<Texture2D>("Play_Hovering");
+            levelControlsTexture = Content.Load<Texture2D>("ControlsA");
+            levelControlsHTexture = Content.Load<Texture2D>("Controls_Hovering");
+            tintTexture = Content.Load<Texture2D>("TintTexture");
             levelSelectLogo = Content.Load<Texture2D>("Level Select LOGO");
 
             //create the list of level textures
@@ -275,10 +292,10 @@ namespace Project1
                 selectedText, levelExitTexture, levelSaveTexture,levelLoadTexture, levelResetTexture, PlayerText1, PlayerText2);
 
             //load title screen
-            titleScreen = new TitleScreen(playButtonTexture, LEButtonTexture, titleTexture, controlsButtonTexture);
+            titleScreen = new TitleScreen(levelPlayTexture, levelPlayHTexture, levelEditTexture, levelEditHTexture, levelControlsTexture, levelControlsHTexture, titleTexture);
 
             //load controls screen
-            controls = new Controls(controlsText, titleButtonTexture,Leftcontrol,Rightcontrol);
+            controls = new Controls(controlsText, levelExitTexture, levelExitHTexture, Leftcontrol, LeftHcontrol, Rightcontrol, RightHcontrol);
 
             //load level select screen
             levelSelect = new LevelSelect(
@@ -287,13 +304,16 @@ namespace Project1
                 levelSelectLogo);
 
             //load game over screen
-            gameOver = new GameOver(restartButtonTexture, titleButtonTexture);
+            gameOver = new GameOver(levelPlayTexture, levelExitTexture);
 
             // loads power up manager
             powerUpManager = new PowerUpManager(healthPowerUpText, speedPowerUpText, ammoPowerUpText);
 
             // loads tile manager
             tileManager = new TileManager(wallText, breakableText, halfText, groundText, powerUpManager);
+
+            //creates mid-Game exit button
+            menuButton = new Button(levelExitTexture, 20, 575, levelExitTexture.Width, levelExitTexture.Height);
 
             //creates the background animation
             backgroundAnimation = new BackgroundAnimation(gameBackground);
@@ -307,7 +327,6 @@ namespace Project1
                 Exit();
   
             mouseState = Mouse.GetState();
-
             // TODO: Add your update logic here
 
             //TESTING GAMESTATE(S)
@@ -410,7 +429,6 @@ namespace Project1
                         loadingM.Filter = "Level files (*.level)|*.level|All files (*.*)|*.*";
                         loadingM.FileOk += tileManager.LoadTiles;
                         loadingM.ShowDialog();
-                        menuButton = new Button(titleButtonTexture, 50, 20, titleButtonTexture.Width, titleButtonTexture.Height);
                         gameState = GameState.Game;
                     }
                     //load levels
@@ -422,7 +440,6 @@ namespace Project1
                             {
                                 tileManager.PreLoad(i);
                                 gameState = GameState.Game;
-                                menuButton = new Button(titleButtonTexture, 50, 20, titleButtonTexture.Width, titleButtonTexture.Height);
                             }
                         }
                     }
@@ -502,7 +519,7 @@ namespace Project1
                 case GameState.Title:
                     //draw the background
                     backgroundAnimation.Draw(_spriteBatch, Color.SpringGreen);
-                    titleScreen.DrawTitle(_spriteBatch);
+                    titleScreen.DrawTitle(_spriteBatch, mouseState);
                     break;
 
                 case GameState.Editor:
@@ -546,10 +563,21 @@ namespace Project1
                     tileManager.HandlePlayerCollision(playerManager.Player2);
                     bulletManager.DrawBullet(_spriteBatch);
                     UIPOne.Draw(_spriteBatch);
-                    _spriteBatch.Draw(playerOneLabel, new Vector2(25, 100), Color.White);
+                    _spriteBatch.Draw(playerOneLabel, new Vector2(35, 55), Color.White);
                     UIPTwo.Draw(_spriteBatch);
-                    _spriteBatch.Draw(playerTwoLabel, new Vector2(25, 400), Color.White);
-                    menuButton.Draw(_spriteBatch);
+                    _spriteBatch.Draw(playerTwoLabel, new Vector2(35, 305), Color.White);
+                    //draw button hovering
+                    if (menuButton.IsHovering(mouseState))
+                    {
+                        menuButton.Texture = levelExitHTexture;
+                        menuButton.Draw(_spriteBatch);
+                    }
+                    else
+                    {
+                        menuButton.Texture = levelExitTexture;
+                        menuButton.Draw(_spriteBatch);
+                    }
+
                     // draws all power ups to screen if they're active
                     powerUpManager.DrawPowerUps(_spriteBatch);
                     break;
@@ -567,35 +595,49 @@ namespace Project1
                     tileManager.DrawTiles(_spriteBatch);
                     playerManager.Player1.Draw(_spriteBatch);
                     playerManager.Player2.Draw(_spriteBatch);
-                    gameOver.Draw(_spriteBatch);
-                    _spriteBatch.Draw(gameOverText, new Rectangle(100, 50, 607, 459), Color.White);
+                    //draw UI
+                    UIPOne.Draw(_spriteBatch);
+                    _spriteBatch.Draw(playerOneLabel, new Vector2(35, 55), Color.White);
+                    UIPTwo.Draw(_spriteBatch);
+                    _spriteBatch.Draw(playerTwoLabel, new Vector2(35, 305), Color.White);
 
-                    // prints game over message
-                    _spriteBatch.DrawString(text, "Game Over", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 100, 10), Color.Red);
+                    //Apply the tint
+                    _spriteBatch.Draw(tintTexture, new Rectangle(0, 0, 1280, 720), Color.LightSlateGray);
+                    _spriteBatch.Draw(tintTexture, new Rectangle(0, 0, 1280, 720), Color.LightSlateGray);
 
                     // win message for player 2
-                    if (playerManager.Player1.Health == 0 && playerManager.Player2.Health != 0)
+                    if (playerManager.Player1.Health == 0 && playerManager.Player2.Health >= 0)
                     {
-                        _spriteBatch.DrawString(text, "Player 2 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.Red);
+                        _spriteBatch.Draw(winnerP2Text, new Rectangle(205, 0, winnerP2Text.Width, winnerP2Text.Height), Color.White);
                     }
 
                     // win message for player 1
-                    if (playerManager.Player2.Health == 0 && playerManager.Player1.Health != 0)
+                    if (playerManager.Player2.Health == 0 && playerManager.Player1.Health >= 0)
                     {
-                        _spriteBatch.DrawString(text, "Player 1 Wins!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 125, 100), Color.Red);
+                        _spriteBatch.Draw(winnerP1Text, new Rectangle(205, 0, winnerP1Text.Width, winnerP1Text.Height), Color.White);
                     }
 
-                    if (playerManager.Player2.Health == 0 && playerManager.Player1.Health == 0)
+                    //draw button hovering
+                    if (gameOver.restartGameButton.IsHovering(mouseState))
                     {
-                        _spriteBatch.DrawString(text, "It's a tie!", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 90, 100), Color.Red);
+                        gameOver.Draw(_spriteBatch, levelPlayHTexture, levelExitTexture); 
                     }
+                    else if (gameOver.titleButton.IsHovering(mouseState))
+                    {
+                        gameOver.Draw(_spriteBatch, levelPlayTexture, levelExitHTexture);
+                    }
+                    else
+                    {
+                        gameOver.Draw(_spriteBatch, levelPlayTexture, levelExitTexture);
+                    }
+
                     break;
 
                 case GameState.Controls:
                     {
                         //draw the background
                         backgroundAnimation.Draw(_spriteBatch, Color.LightSeaGreen);
-                        controls.Draw(_spriteBatch, _graphics);
+                        controls.Draw(_spriteBatch, _graphics, player1C, player2C, mouseState);
                         break;
                     }
             }
@@ -627,11 +669,11 @@ namespace Project1
             playerManager.Player1.OnShoot += bulletManager.AddBullet;
             playerManager.Player2.OnShoot += bulletManager.AddBullet;
             UIPOne = new UIManager(healthFullText, magFullText, 
-                new Rectangle(100, 200, healthFullText.Width, healthFullText.Height), 
-                new Rectangle(100, 230, magFullText.Width, magFullText.Height));
+                new Rectangle(30, 130, healthFullText.Width * 2, healthFullText.Height * 2), 
+                new Rectangle(30, 180, magFullText.Width * 2, magFullText.Height * 2));
             UIPTwo = new UIManager(healthFullText, magFullText,
-                new Rectangle(100, 500, healthFullText.Width, healthFullText.Height),
-                new Rectangle(100, 530, magFullText.Width, magFullText.Height));
+                new Rectangle(30, 380, healthFullText.Width * 2, healthFullText.Height * 2),
+                new Rectangle(30, 430, magFullText.Width * 2, magFullText.Height * 2));
 
         }
 

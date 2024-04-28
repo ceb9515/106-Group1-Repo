@@ -31,16 +31,16 @@ namespace Project1.Managers
             this.restartTexture = restartTexture;
             this.titleTexture = titleTexture;
 
-
-
-            restartGameButton = new Button(restartTexture, 400, 500, restartTexture.Width, restartTexture.Height);
-            titleButton = new Button(titleTexture, 700, 500, titleTexture.Width, titleTexture.Height);
+            restartGameButton = new Button(restartTexture, 300, 480, restartTexture.Width, restartTexture.Height);
+            titleButton = new Button(titleTexture, 800, 480, titleTexture.Width, titleTexture.Height);
         }
 
         //Draws the title screen's elements and buttons
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, Texture2D restartGameText, Texture2D titleText)
         {
+            restartGameButton.texture = restartGameText;
             restartGameButton.Draw(sb);
+            titleButton.texture = titleText;
             titleButton.Draw(sb);
         }
     }
