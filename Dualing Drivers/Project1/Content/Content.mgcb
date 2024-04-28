@@ -121,18 +121,6 @@
 /processorParam:TextureFormat=Color
 /build:Controls.png
 
-#begin Controls.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Controls.png
-
 #begin ControlsA.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -145,6 +133,18 @@
 /processorParam:TextureFormat=Color
 /build:ControlsA.png
 
+#begin ControlsAutomatic.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ControlsAutomatic.png
+
 #begin ControlsButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -156,6 +156,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ControlsButton.png
+
+#begin ControlsTank.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ControlsTank.png
 
 #begin delete.png
 /importer:TextureImporter

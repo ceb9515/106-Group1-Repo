@@ -73,7 +73,8 @@ namespace Project1
         private Texture2D controlsText;
         private Texture2D playerOneLabel;
         private Texture2D playerTwoLabel;
-
+        private Texture2D controlAutomatic;
+        private Texture2D controlTank;
 
         //Create TileSet Textures
         private Texture2D groundText;
@@ -211,6 +212,8 @@ namespace Project1
             controlsText = Content.Load<Texture2D>("Controls");
             playerOneLabel = Content.Load<Texture2D>("Player1");
             playerTwoLabel = Content.Load<Texture2D>("Player2");
+            controlAutomatic = Content.Load<Texture2D>("ControlsAutomatic");
+            controlTank = Content.Load<Texture2D>("ControlsTank");
             Leftcontrol = Content.Load<Texture2D>("leftcontrol");
             Rightcontrol = Content.Load<Texture2D>("rightcontrol");
             LeftHcontrol = Content.Load<Texture2D>("leftcontrolHover");
@@ -295,7 +298,7 @@ namespace Project1
             titleScreen = new TitleScreen(levelPlayTexture, levelPlayHTexture, levelEditTexture, levelEditHTexture, levelControlsTexture, levelControlsHTexture, titleTexture);
 
             //load controls screen
-            controls = new Controls(controlsText, levelExitTexture, levelExitHTexture, Leftcontrol, LeftHcontrol, Rightcontrol, RightHcontrol);
+            controls = new Controls(controlsText, levelExitTexture, levelExitHTexture, Leftcontrol, LeftHcontrol, Rightcontrol, RightHcontrol, controlTank, controlAutomatic, playerOneLabel, playerTwoLabel);
 
             //load level select screen
             levelSelect = new LevelSelect(
