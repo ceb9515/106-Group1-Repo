@@ -83,6 +83,10 @@ namespace Project1
                 else if (this.type == PowerUpType.ammo)
                 {
                     // increase player's max ammo
+                    if(player.Ammo < 3)
+                    {
+                        player.Ammo = 3;
+                    }
                     player.MaxAmmo = 5;
                 }
                 this.active = false;

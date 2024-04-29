@@ -375,15 +375,15 @@ namespace Project1.Managers
                     //insert the powerUp into the correct list
                     if (rowData[0] == "ammo")
                     {
-                        powerUps[int.Parse(rowData[1]), int.Parse(rowData[2])] = TileType.Ammo;
+                        powerUps[int.Parse(rowData[1]) - 1, int.Parse(rowData[2])] = TileType.Ammo;
                     }
                     else if (rowData[0] == "health")
                     {
-                        powerUps[int.Parse(rowData[1]), int.Parse(rowData[2])] = TileType.Health;
+                        powerUps[int.Parse(rowData[1]) - 1, int.Parse(rowData[2])] = TileType.Health;
                     }
                     else if (rowData[0] == "speed")
                     {
-                        powerUps[int.Parse(rowData[1]), int.Parse(rowData[2])] = TileType.Speed;
+                        powerUps[int.Parse(rowData[1]) - 1, int.Parse(rowData[2])] = TileType.Speed;
                     }
                 }
             }

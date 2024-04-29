@@ -42,7 +42,7 @@ namespace Project1
         // properties
         public float PlayerAngle { get { return playerAngle; } set { playerAngle = value; } }
         public int Health { get { return health; } set { health = value; } }
-        public int Ammo { get { return currentBulletNum; } }
+        public int Ammo { get { return currentBulletNum; } set { currentBulletNum = value; } }
         public int MaxAmmo { get { return maxBulletNum; } set { maxBulletNum = value; } }
         public float Speed { get { return speed; } set { speed = value; } }
         public int Damage { get { return damage; } set { damage = value; } }
@@ -267,7 +267,7 @@ namespace Project1
             if (reloadNum <= 0)
             {
                 currentBulletNum += 1;
-                reloadNum = 100;
+                reloadNum = 60;
             }
 
             previousKB = Keyboard.GetState();

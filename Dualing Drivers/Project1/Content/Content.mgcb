@@ -400,6 +400,12 @@
 #begin L5_Labyrinth.level
 /copy:L5_Labyrinth.level
 
+#begin L6_Cavern.level
+/copy:L6_Cavern.level
+
+#begin L7_SnipersDuel.level
+/copy:L7_SnipersDuel.level
+
 #begin LEButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -531,6 +537,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Level4_Pirate'sCove.png
+
+#begin Level5_Labyrinth.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Level5_Labyrinth.png
+
+#begin Level6_Cavern.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Level6_Cavern.png
+
+#begin Level7_Sniper'sDuel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Level7_Sniper'sDuel.png
 
 #begin Load_Hovering.png
 /importer:TextureImporter

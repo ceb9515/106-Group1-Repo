@@ -16,3 +16,6 @@ Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
 Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall
+speed|3|14
+ammo|15|2
+health|23|6

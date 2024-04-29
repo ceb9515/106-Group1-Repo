@@ -29,6 +29,8 @@ namespace Project1.Managers
         private Texture2D editTexture;
         private Texture2D editHTexture;
         private Texture2D logoTexture;
+        //extra y value boost since we only have 1 row of levels instead of 3
+        int yboost;
 
         /// <summary>
         /// Constructor for LevelSelect
@@ -46,15 +48,19 @@ namespace Project1.Managers
             this.levelTextHover = levelTextHover;
             this.logoTexture = logoTexture;
 
+            //extra y value boost since we only have 1 row of levels instead of 3
+            yboost = 100;
+
             //setup buttons
-            loadButton = new Button(loadTexture, 1000, 20, loadTexture.Width, loadTexture.Height);
-            editButton = new Button(editTexture, 1000, 100, editTexture.Width, editTexture.Height);
-            exitButton = new Button(exitTexture, 1000, 180, exitTexture.Width, exitTexture.Height);
+            loadButton = new Button(loadTexture, 1000, 20 + yboost, loadTexture.Width, loadTexture.Height);
+            editButton = new Button(editTexture, 1000, 100 + yboost, editTexture.Width, editTexture.Height);
+            exitButton = new Button(exitTexture, 1000, 180 + yboost, exitTexture.Width, exitTexture.Height);
             levelButtons = new List<Button>();
 
             //loop through to create the level buttons
-            int row = 0;
+            //int row = 0;
             int col = 0;
+            int row = 1;
             for(int i = 0; i < levelTextures.Count; i++)
             {
                 levelButtons.Add(new Button(levelTextures[i], 55 + 150 * col, 275 + 150 * row, 120, 120));
@@ -72,7 +78,8 @@ namespace Project1.Managers
         public void Draw(SpriteBatch sb, MouseState mouseState)
         {
             int col = 0;
-            int row = 0;
+            //int row = 0;
+            int row = 1;
             for (int i = 0; i < levelButtons.Count; i++)
             {
                 //draw the buttons
@@ -117,7 +124,7 @@ namespace Project1.Managers
                     sb.Draw(levelTextHover, new Microsoft.Xna.Framework.Vector2(55 + 150 * col, 275 + 150 * row), Microsoft.Xna.Framework.Color.White);
                 }
 
-                sb.Draw(logoTexture, new Microsoft.Xna.Framework.Vector2(90, 10), Microsoft.Xna.Framework.Color.White);
+                sb.Draw(logoTexture, new Microsoft.Xna.Framework.Vector2(90, 10 + yboost), Microsoft.Xna.Framework.Color.White);
 
                 col++;
                 //move to a new row after 8 buttons

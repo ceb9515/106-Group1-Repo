@@ -7,7 +7,7 @@ Wall|Ground|Ground|Ground|Wall|Ground|Ground|Wall|Breakable|Breakable|Ground|Gro
 Wall|Ground|Ground|Ground|Wall|Ground|Ground|Breakable|Breakable|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Breakable|Breakable|Ground|Ground|Wall|Ground|Ground|Ground|Wall
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Breakable|Ground|Ground|Ground|Half|Half|Half|Ground|Ground|Ground|Breakable|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Ground|Ground|Half|Half|Half|Half|Half|Ground|Ground|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
-Wall|Wall|Wall|Wall|Wall|Ground|Ground|Ground|Ground|Ground|Half|Half|Wall|Half|Half|Ground|Ground|Ground|Ground|Ground|Wall|Breakable|Breakable|Breakable|Wall
+Wall|Wall|Wall|Wall|Wall|Ground|Ground|Ground|Ground|Ground|Half|Half|Wall|Half|Half|Ground|Ground|Ground|Ground|Ground|Wall|Wall|Wall|Wall|Wall
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Ground|Ground|Half|Half|Half|Half|Half|Ground|Ground|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Breakable|Ground|Ground|Ground|Half|Half|Half|Ground|Ground|Ground|Breakable|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
 Wall|Ground|Ground|Ground|Wall|Ground|Ground|Breakable|Breakable|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Breakable|Breakable|Ground|Ground|Wall|Ground|Ground|Ground|Wall
@@ -16,3 +16,9 @@ Wall|Ground|Ground|Ground|Wall|Ground|Ground|Wall|Wall|Breakable|Breakable|Groun
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
 Wall|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Ground|Breakable|Ground|Ground|Ground|Wall
 Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall|Wall
+health|3|11
+speed|3|12
+ammo|3|13
+ammo|23|3
+speed|23|4
+health|23|5

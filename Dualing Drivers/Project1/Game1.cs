@@ -117,6 +117,9 @@ namespace Project1
         private Texture2D levelText2;
         private Texture2D levelText3;
         private Texture2D levelText4;
+        private Texture2D levelText5;
+        private Texture2D levelText6;
+        private Texture2D levelText7;
 
         //Create Gamestate manager objects
         private LevelEditor levelEditor;
@@ -243,6 +246,9 @@ namespace Project1
             levelText2 = Content.Load<Texture2D>("Level2_Courtyard");
             levelText3 = Content.Load<Texture2D>("Level3_Bridged");
             levelText4 = Content.Load<Texture2D>("Level4_Pirate'sCove");
+            levelText5 = Content.Load<Texture2D>("Level5_Labyrinth");
+            levelText6 = Content.Load<Texture2D>("Level6_Cavern");
+            levelText7 = Content.Load<Texture2D>("Level7_Sniper'sDuel");
             levelExitTexture = Content.Load<Texture2D>("Exit");
             levelExitHTexture = Content.Load<Texture2D>("Exit_Hover");
             levelEditTexture = Content.Load<Texture2D>("Edit");
@@ -266,6 +272,10 @@ namespace Project1
             levelTextures.Add(levelText2);
             levelTextures.Add(levelText3);
             levelTextures.Add(levelText4);
+            levelTextures.Add(levelText5);
+            levelTextures.Add(levelText6);
+            levelTextures.Add(levelText7);
+            /*levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
@@ -280,11 +290,7 @@ namespace Project1
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
             levelTextures.Add(levelTextBlank);
-            levelTextures.Add(levelTextBlank);
-            levelTextures.Add(levelTextBlank);
-            levelTextures.Add(levelTextBlank);
-            levelTextures.Add(levelTextBlank);
-            levelTextures.Add(levelTextBlank);
+            levelTextures.Add(levelTextBlank);*/
             levelTextures.Add(levelTextCustom);
 
             // load text fonts
@@ -424,7 +430,7 @@ namespace Project1
                         gameState = GameState.Editor;
                     }
                     //load a custom level
-                    else if (levelSelect.levelButtons[23].Clicked(mouseState) || levelSelect.loadButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
+                    else if (levelSelect.levelButtons[7].Clicked(mouseState) || levelSelect.loadButton.Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                     {
                         //open load file window
                         OpenFileDialog loadingM = new OpenFileDialog();
@@ -437,7 +443,7 @@ namespace Project1
                     //load levels
                     else
                     {
-                        for(int i = 0; i < 5; i++)
+                        for(int i = 0; i < 7; i++)
                         {
                             if (levelSelect.levelButtons[i].Clicked(mouseState) && (mouseLastState.LeftButton != ms.ButtonState.Pressed))
                             {

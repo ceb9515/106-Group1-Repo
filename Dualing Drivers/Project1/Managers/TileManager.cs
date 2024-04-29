@@ -94,6 +94,14 @@ namespace Project1
             {
                 filename = "Content/L5_Labyrinth.level";
             }
+            else if (levelNum == 5)
+            {
+                filename = "Content/L6_Cavern.level";
+            }
+            else if (levelNum == 6)
+            {
+                filename = "Content/L7_SnipersDuel.level";
+            }
 
             //load variables from a file
             StreamReader input = new StreamReader(filename);
